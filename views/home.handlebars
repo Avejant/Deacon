@@ -1,0 +1,8 @@
+{{#if isAuthenticated}}
+ <p>Hi, {{user.username}}</p>
+ <p>You are {{user.role.name}}</p>
+ <a href="/logout">Log out me</a>
+{{else}}
+ <p>You have not access to this page</p>
+ <p><a href="/register"> Register </a> or <a href="/login"> Log in </a></p>
+{{/if}}
