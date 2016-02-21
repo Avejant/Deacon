@@ -1,0 +1,21 @@
+{
+  "name": "Deacon",
+  "description": "Project management application on Expessjs",
+  "main": "app.js",
+  "authors": [
+    "Avejant <avejant0@gmail.com>"
+  ],
+  "license": "none",
+  "homepage": "https://github.com/Avejant/Deacon",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
