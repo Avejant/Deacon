@@ -15,8 +15,6 @@ var port = process.env.PORT || 1337;
 
 var app = express();
 
-
-
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
 //configure
@@ -42,10 +40,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
 require(path.join(__dirname, 'configs/passport'))(passport); 
 //routes
 require(path.join(__dirname, 'routes.js'))(app, passport);
-
+require(path.join(__dirname, 'routes/api.js'))(app, passport);
 //run server
 app.listen(port, function() {
 	console.log("Some magic on " + port);

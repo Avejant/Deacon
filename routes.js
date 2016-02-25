@@ -1,6 +1,7 @@
 module.exports = function(app, passport) {
 var path = require('path');
 var Role = require(path.join(__dirname, 'models/roles'));
+var Roles = require('./controllers/role-controller');
 
 app.get('/', function (req, res) {
     console.log(req.user);
@@ -43,31 +44,18 @@ app.post('/login', function(req, res, next) {
 
 app.get('/register', function(req, res) {
     var messages = req.flash('registerMessage');
-    Role.find({}, function(err, roles) {
+    Roles.getAllRolesQuery().exec(function(err, roles) {
         if (err) throw err;
         console.log(roles);
         res.render('register', { isMessageNotEmpty : messages.length > 0, message: messages, roles: roles });
     });
 });
 
-/*app.get('/roles',function(req, res, next){
-  var admin = new Role({
-    name: "admin"
-  });
-
-    var d = new Role({
-    name: "devlead"
-  });
-      var regular = new Role({
-    name: "regular"
-  });
-
-      admin.save();
-      d.save();
-      regular.save();
-      res.redirect('/');
-});
-*/
+app.get('/roles', Roles.getAllRoles);
+app.get('/roles/:id', Roles.getRoleById);
+app.post('/roles', Roles.createRole);
+app.put('/roles/:id', Roles.updateRole);
+app.delete('/roles/:id', Roles.deleteRole);
 
 app.post('/register', function(req, res, next) {
   if (req.body.username === '') {
@@ -107,13 +95,3 @@ app.post('/register', function(req, res, next) {
   })(req, res, next);
 });
 };
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-}
