@@ -2,16 +2,16 @@ var Projects = require('../models/projects');
 var Users = require('./user-controller');
 var projectController = {};
 
-projectController.getAllProjectsQuery = function() {
+projectController.getAllQuery = function() {
    	return  Projects.find({});
 }
 
-projectController.getProjectByQuery = function(query) {
+projectController.getByQuery = function(query) {
 	return Projects.findOne(query);
 }
 
-projectController.getAllProjects = function(req, res) {
-		projectController.getAllProjectsQuery().exec(function(err, projects){
+projectController.getAll = function(req, res) {
+		projectController.getAllQuery().exec(function(err, projects){
 		if (err){
 				res.error(err);
 		} else {
@@ -20,8 +20,8 @@ projectController.getAllProjects = function(req, res) {
 	})
 }
 
-projectController.getProjectById = function(req, res){
-	projectController.getProjectByQuery({_id:req.params.id}).exec(function(err, project){
+projectController.getById = function(req, res){
+	projectController.getByQuery({_id:req.params.id}).exec(function(err, project){
 		if(!project) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
@@ -38,8 +38,8 @@ projectController.getProjectById = function(req, res){
 	});
 }
 
-projectController.createProject = function(req, res) {
-	Users.getSingleUserByQuery({name:req.param.username}).exec(function(err,user){
+projectController.create = function(req, res) {
+	Users.getByQuery({name:req.param.username}).exec(function(err,user){
 		if (!user) 
 		{
 			res.send({error:"User not found"});
@@ -69,8 +69,8 @@ projectController.createProject = function(req, res) {
 	});
 }
 
-projectController.updateProject = function(req, res) {
-	Users.getSingleUserByQuery({name:req.param.username}).exec(function(err,user){
+projectController.update = function(req, res) {
+	Users.getByQuery({name:req.param.username}).exec(function(err,user){
 		if (!user) 
 		{
 			res.send({error:"User not found"});
@@ -102,7 +102,7 @@ projectController.updateProject = function(req, res) {
    });
 }
 
-projectController.deleteProject = function(req, res) {
+projectController.delete = function(req, res) {
 	Projects.findById(req.params.id, function (err, project) {
         if(!project) {
             res.statusCode = 404;

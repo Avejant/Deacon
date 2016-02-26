@@ -1,11 +1,11 @@
 var Users = require('../models/users');
 var userController = {};
 
-userController.getAllUsersQuery = function() {
+userController.getAllQuery = function() {
    	return Users.find({});
 }
 
-userController.getSingleUserByQuery = function(query) {
+userController.getByQuery = function(query) {
 	return Users.findOne(query);
 }
 

@@ -51,11 +51,11 @@ app.get('/register', function(req, res) {
     });
 });
 
-app.get('/roles', Roles.getAllRoles);
-app.get('/roles/:id', Roles.getRoleById);
-app.post('/roles', Roles.createRole);
-app.put('/roles/:id', Roles.updateRole);
-app.delete('/roles/:id', Roles.deleteRole);
+app.get('/roles', Roles.getAll);
+app.get('/roles/:id', Roles.getById);
+app.post('/roles', Roles.create);
+app.put('/roles/:id', Roles.update);
+app.delete('/roles/:id', Roles.delete);
 
 app.post('/register', function(req, res, next) {
   if (req.body.username === '') {

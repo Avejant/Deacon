@@ -1,28 +1,28 @@
-var Roles = require('../models/roles');
-var roleController = {};
+var Severities = require('../models/severities');
+var severityController = {};
 
-roleController.getAllQuery = function() {
-   	return  Roles.find({});
+severityController.getAllQuery = function() {
+   	return  Severities.find({});
 }
 
-roleController.getByQuery = function(query) {
-	return Roles.findOne(query);
+severityController.getByQuery = function(query) {
+	return Severities.findOne(query);
 }
 
-roleController.getAll = function(req, res) {
-		roleController.getAllQuery().exec(function(err, roles){
+severityController.getAll = function(req, res) {
+		severityController.getAllQuery().exec(function(err, severities){
 		if (err){
 				res.error(err);
 		} else {
-			res.json(roles);
+			res.json(severities);
 		}
 	})
 }
 
-roleController.getById = function(req, res){
-	roleController.getByQuery({_id:req.params.id}).exec(function(err, role){
+severityController.getById = function(req, res){
+	severityController.getByQuery({_id:req.params.id}).exec(function(err, severity){
 
-		if(!role) {
+		if(!severity) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
         }
@@ -33,17 +33,17 @@ roleController.getById = function(req, res){
 		} 
 		else 
 		{
-			res.json(role);
+			res.json(severity);
 		}
 	});
 }
 
-roleController.create = function(req, res) {
-	var role = new Roles({
+severityController.create = function(req, res) {
+	var severity = new Severities({
 		name: req.body.name
 	});	
 
-    role.save(function (err) {
+    severity.save(function (err) {
         if (!err) {
             return res.redirect('/');
         } 
@@ -60,16 +60,16 @@ roleController.create = function(req, res) {
     });
 }
 
-roleController.update = function(req, res) {
-	Roles.findById(req.params.id, function (err, role) {
-        if(!role) {
+severityController.update = function(req, res) {
+	Severities.findById(req.params.id, function (err, severity) {
+        if(!severity) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
         }
 
-        role.name = req.body.name === undefined ? role.name : req.body.name;
+        severity.name = req.body.name === undefined ? severity.name : req.body.name;
 
-        return role.save(function (err) {
+        return severity.save(function (err) {
             if (!err) {
             	return res.redirect('/');
             } else {
@@ -85,13 +85,13 @@ roleController.update = function(req, res) {
     });
 }
 
-roleController.delete = function(req, res) {
-	Roles.findById(req.params.id, function (err, role) {
-        if(!role) {
+severityController.delete = function(req, res) {
+	Severities.findById(req.params.id, function (err, severity) {
+        if(!severity) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
         }
-        return role.remove(function (err) {
+        return severity.remove(function (err) {
             if (!err) {
             	return res.redirect('/');
             } 
@@ -103,5 +103,5 @@ roleController.delete = function(req, res) {
     });
 }
 
-module.exports = roleController;
+module.exports = severityController;
 
