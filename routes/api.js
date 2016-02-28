@@ -4,6 +4,7 @@ var Comments = require('../controllers/comment-controller');
 var IssueTypes = require('../controllers/issueType-controller');
 var Severities = require('../controllers/severity-controller');
 var Statuses = require('../controllers/status-controller');
+var Issues = require('../controllers/issue-controller');
 
   app.get('/api/projects', Projects.getAll);
   app.get('/api/projects/:id', Projects.getById);
@@ -34,4 +35,11 @@ var Statuses = require('../controllers/status-controller');
   app.post('/api/statuses', Statuses.create);
   app.put('/api/statuses/:id', Statuses.update);
   app.delete('/api/statuses/:id', Statuses.delete);
+
+  app.get('/api/issues', Issues.getAll);
+  app.get('/api/issues/:id', Issues.getById);
+  app.post('/api/issues', Issues.create);
+  app.put('/api/issues/:id', Issues.update);
+  app.delete('/api/issues/:id', Issues.delete);
+
 };

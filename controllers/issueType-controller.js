@@ -10,7 +10,7 @@ typesController.getByQuery = function(query) {
 }
 
 typesController.getAll = function(req, res) {
-		typesController.getAllIssueTypesQuery().exec(function(err, issueTypes){
+		typesController.getAllQuery().exec(function(err, issueTypes){
 		if (err){
 				res.error(err);
 		} else {
@@ -20,7 +20,7 @@ typesController.getAll = function(req, res) {
 }
 
 typesController.getById = function(req, res){
-	typesController.getSingleIssueTypeByQuery({_id:req.params.id}).exec(function(err, issueType){
+	typesController.getByQuery({_id:req.params.id}).exec(function(err, issueType){
 
 		if(!issueType) {
             res.statusCode = 404;
