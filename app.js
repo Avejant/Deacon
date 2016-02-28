@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
-var exphbs = require('express-handlebars');
+/*var exphbs = require('express-handlebars');*/
+var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var bodyParser = require('body-parser');
@@ -15,26 +16,34 @@ var port = process.env.PORT || 1337;
 
 var app = express();
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+/*app.engine('handlebars', exphbs({defaultLayout: 'main'}));*/
 
 //configure
 
-app.set('view engine', 'handlebars');
+app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 mongoose.connect(configDB.url);
 
 //use middlewares
-
+app.use('/app', express.static(__dirname + '/views/scripts'));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(expressSession({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
 }));
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());

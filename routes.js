@@ -4,8 +4,7 @@ var Role = require(path.join(__dirname, 'models/roles'));
 var Roles = require('./controllers/role-controller');
 
 app.get('/', function (req, res) {
-    console.log(req.user);
-    res.render('home', { isAuthenticated : req.isAuthenticated(), user : req.user });
+    res.render('index', { isAuthenticated : req.isAuthenticated(), user : req.user });
 });
 
 app.get('/login', function(req, res) {
