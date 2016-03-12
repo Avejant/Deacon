@@ -1,0 +1,116 @@
+<div ng-repeat="message in messages">
+<div class="alert alert-danger">{{message}}</div>
+</div>
+<form class="form-horizontal" ng-submit="submit()">
+<fieldset>
+<div id="legend">
+	<legend class="">Register</legend>
+</div>
+<div class="control-group">
+  <!-- Username -->
+  <div class="col-sm-3">
+   <label class="control-label" for="username">Username:</label>	
+  </div>
+  <div class="col-sm-9">
+  	  <div class="controls">
+    <input type="text" id="username" ng-model="formData.username" class="form-control" required>
+    <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Password -->
+  <div class="col-sm-3">
+   <label class="control-label" for="password">Password:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="password" id="password" ng-minlength="4" ng-model="formData.password" class="form-control" required>
+    <p class="help-block">Password should be at least 4 characters</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Confirm password -->
+  <div class="col-sm-3">
+   <label class="control-label" for="confPassword">Password(Confirm):</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="password" id="confPassword" ng-model="formData.confPassword" class="form-control" required>
+    <p class="help-block">Please, confirm password</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- E-mail -->
+  <div class="col-sm-3">
+   <label class="control-label" for="email">E-mail:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="email" id="email" ng-model="formData.email" class="form-control" required>
+    <p class="help-block">Please, provide your e-mail</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- First name -->
+  <div class="col-sm-3">
+   <label class="control-label" for="firstName">First name:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="text" id="firstName" ng-model="formData.firstName" class="form-control" required>
+    <p class="help-block">Please, provide your first name</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Last name -->
+  <div class="col-sm-3">
+   <label class="control-label" for="lastName">Last name:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="text" id="lastName" ng-model="formData.lastName" class="form-control" required>
+    <p class="help-block">Please, provide your last name</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Location -->
+  <div class="col-sm-3">
+   <label class="control-label" for="location">Location:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="text" id="location" ng-model="formData.location" class="form-control" >
+    <p class="help-block">Please, provide your location</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Role -->
+  <div class="col-sm-3">
+   <label class="control-label" for="role">Choose role:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+	<select ng-options="role.name for role in roles" ng-model="formData.choosenRole" id="role" class="form-control" name="role">
+	</select>
+    <p class="help-block">Please, choose your role</p>
+  </div>
+  </div>
+
+</div>
+    <div class="control-group">
+      <!-- Button -->
+        <div class="col-sm-3">
+      <div class="controls">
+        <button class="btn btn-success">Register</button>
+      </div>
+  </div>
+</div>
+</fieldset>
+</form>

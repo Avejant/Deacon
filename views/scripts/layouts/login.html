@@ -1,12 +1,16 @@
-<form class="form-signin" action="/login" method="post">
+
+<form class="form-signin" ng-submit="submit()">
 <div class="col-sm-4"></div>
 <div class="col-sm-4">
+    <div ng-repeat="message in messages">
+    <div class="alert alert-danger">{{message}}</div>
+    </div>
 	<h2 class="form-signin-heading">Please sign in</h2>
     <label for="inputEmail" class="sr-only">Login</label>
-    <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Login" required autofocus>
+    <input type="text" id="inputEmail" name="username" ng-model="formData.username" class="form-control" placeholder="Login" required autofocus>
     <br>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+    <input type="password" id="inputPassword" name="password" ng-model="formData.password" class="form-control" placeholder="Password" required>
     <div class="checkbox">
         <label>
            <input type="checkbox" value="remember-me"> Remember me
@@ -16,14 +20,3 @@
 </form>
 </div>
 <div class="col-sm-4"></div>
-
-<!-- {{#if isMessageNotEmpty}}
- <div class="alert alert-danger">{{message}}</div>
-{{/if}}
-<form action="/login" method="post" role="form">
-Login:<br>
-<input type="text" name = "username" value=""><br>
-Password:<br>
-<input type="password" name = "password"><br>
-<input type="submit" value="Log in">
-</form> -->

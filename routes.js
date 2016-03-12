@@ -7,10 +7,13 @@ app.get('/', function (req, res) {
     res.render('index', { isAuthenticated : req.isAuthenticated(), user : req.user });
 });
 
+app.get('/currentUser', function(req, res) {
+  res.json({ isAuthenticated : req.isAuthenticated(), user : req.user });
+});
+
 app.get('/login', function(req, res) {
     var messages = req.flash('loginMessage');
-    console.log(messages);
-    res.render('login', { isMessageNotEmpty : messages.length > 0, message: messages });
+    res.json({ isMessageNotEmpty : messages.length > 0, message: messages });
 });
 
 app.get('/logout', function(req, res) {
@@ -32,21 +35,18 @@ app.post('/login', function(req, res, next) {
   passport.authenticate('local-login', function(err, user, info) {
     if (err) { return next(err); }
     // Redirect if it fails
-    if (!user) { return res.redirect('/login'); }
+    if (!user) { return res.send({messages:req.flash('loginMessage')}) }
     req.login(user, function(err) {
       if (err) { return next(err); }
       // Redirect if it succeeds
-      return res.redirect('/');
+      return res.send();
     });
   })(req, res, next);
 });
 
-app.get('/register', function(req, res) {
-    var messages = req.flash('registerMessage');
-    Roles.getAllRolesQuery().exec(function(err, roles) {
-        if (err) throw err;
-        console.log(roles);
-        res.render('register', { isMessageNotEmpty : messages.length > 0, message: messages, roles: roles });
+app.get('/signup', function(req, res) {
+    Roles.getAllQuery().exec(function(err, roles) {
+        res.send({roles:roles});
     });
 });
 
@@ -56,10 +56,10 @@ app.post('/roles', Roles.create);
 app.put('/roles/:id', Roles.update);
 app.delete('/roles/:id', Roles.delete);
 
-app.post('/register', function(req, res, next) {
-  if (req.body.username === '') {
+app.post('/signup', function(req, res, next) {
+/*  if (req.body.username === '') {
     req.flash('registerMessage','Fill username field');
-    res.redirect('/register');
+    res.redirect('/signup');
   }
 
   if (req.body.password === '') {
@@ -80,16 +80,16 @@ app.post('/register', function(req, res, next) {
   if(req.body.email === ''){
     req.flash('registerMessage','Fill email field');
     res.redirect('/register');
-  }
+  }*/
 
   passport.authenticate('local-signup', function(err, user, info) {
     if (err) { return next(err); }
     // Redirect if it fails
-    if (!user) { return res.redirect('/register'); }
+    if (!user) { return res.send({messages:req.flash('registerMessage')}); }
     req.login(user, function(err) {
       if (err) { return next(err); }
       // Redirect if it succeeds
-      return res.redirect('/');
+      return res.send();
     });
   })(req, res, next);
 });

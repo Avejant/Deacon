@@ -68,19 +68,14 @@ module.exports = function(passport) {
                         lastName: req.body.lastName,
                         email:req.body.email,
                         location: req.body.location,
-                        createdAt: new Date()
+                        createdAt: new Date(),
+                        role:req.body.choosenRole._id
                 });
-
-                Role.findOne({ name: req.body.role }, function(err, role) {
-                    if (err) throw err;
-                    newUser.role = role._id;
-                    // save the user
                     newUser.save(function(err) {
                     if (err)
                         throw err;
                     return done(null, newUser);
                      });
-                });
             }
 
         });    

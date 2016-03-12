@@ -1,0 +1,11 @@
+<div ng-if="isAuthenticated">
+	<p>Hi, {{user.username}}</p>
+ 	<p>You are {{user.role.name}}</p>
+ 	<a href="/logout">Log out me</a>
+</div>
+
+<div ng-if="!isAuthenticated">
+ <p>You have not access to this page</p>
+ <p><a href="#/signup"> Register </a> or <a href="#/login"> Log in </a></p>
+</div>
+
