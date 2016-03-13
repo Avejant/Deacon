@@ -1,24 +1,41 @@
 <div class="page-header">
-	<h1>Poll List</h1>
+	<h1>Projects List</h1>
 </div>
 <div class="row">
-	<div class="col-xs-5">
-		<a href="#/new" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New Poll</a>
-	</div>
 	<div class="col-xs-7">
-		<input type="text" class="form-control" ng-model="query" placeholder="Search for a poll">
+		<input type="text" class="form-control" ng-model="query" placeholder="Search for a project">
+	</div>
+	<div class="col-xs-3"></div>
+	<div class="col-xs-2" ng-if="!$parent.isUserHasRole('regular')">
+	         <div ng-controller="addProjectModalController">
+                <div class="page-body">
+                		<a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Add Project</a>
+                </div>
+            </div>
+
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12"><hr></div>
 </div>
-<div class="row" ng-switch on="polls.length">
+<div class="row" ng-switch on="projects.length">
 	<ul ng-switch-when="0">
-		<li><em>No polls in databases. Would you like to <a href="#/new">create one</a>?</li>
+		<div class="well">No projects in databases.</div>
 	</ul>
-	<ul ng-switch-default>
-		<li ng-repeat="poll in polls | filter:query">
-			<a href="#/api/projects/{{poll._id}}">{{poll.name}}</a>
-		</li>
-	</ul>
+	<table ng-switch-default class="table table-striped">
+    <thead >
+      <tr>
+        <th>Project name</th>
+        <th>Short name</th>
+        <th>Project manager</th>
+      </tr>
+    </thead>
+    <tbody >
+		<tr ng-repeat="project in projects | filter:query">
+			<td><a href="#/projects/{{project._id}}">{{project.name}}</a></td>
+			<td>{{project.shortName}}</td>
+			<td>{{project.projectManager.username}}</td>
+		</tr>
+    </tbody>
+  </table>
 </div>

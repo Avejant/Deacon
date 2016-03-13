@@ -38,6 +38,7 @@ var Issues = require('../controllers/issue-controller');
 
   app.get('/api/issues', Issues.getAll);
   app.get('/api/issues/:id', Issues.getById);
+  app.get('/api/issuesOfProject/:id', Issues.getAllIssuesByProjectId);
   app.post('/api/issues', Issues.create);
   app.put('/api/issues/:id', Issues.update);
   app.delete('/api/issues/:id', Issues.delete);

@@ -3,15 +3,17 @@ var Users = require('./user-controller');
 var projectController = {};
 
 projectController.getAllQuery = function() {
-   	return  Projects.find({});
+   	return  Projects.find({}).populate('projectManager');
 }
 
 projectController.getByQuery = function(query) {
-	return Projects.findOne(query);
+	return Projects.findOne(query).populate('projectManager');
 }
 
 projectController.getAll = function(req, res) {
 		projectController.getAllQuery().exec(function(err, projects){
+
+
 		if (err){
 				res.error(err);
 		} else {
@@ -39,34 +41,27 @@ projectController.getById = function(req, res){
 }
 
 projectController.create = function(req, res) {
-	Users.getByQuery({name:req.param.username}).exec(function(err,user){
-		if (!user) 
-		{
-			res.send({error:"User not found"});
-		}
+	var project = new Projects({
+		name: req.body.name,
+		shortName: req.body.shortName,
+		projectManager: req.body.projectManager._id
+	});	
 
-		var project = new Projects({
-			name: req.body.name,
-			shortName: req.body.shortName,
-			projectManager: user._id
-		});	
-
-    	project.save(function (err) {
-        	if (!err) {
-            	return res.redirect('/');
-        	}	 
-        	else 
-        	{
-            	if(err.name == 'ValidationError') {
-                	res.statusCode = 400;
-                	res.send({ error: 'Validation error' });
-            	} else {
-                	res.statusCode = 500;
-                	res.send({ error: 'Server error' });
+    project.save(function (err) {
+        if (!err) {
+        	return res.send();
+        }	 
+        else 
+        {
+        	if(err.name == 'ValidationError') {
+            	res.statusCode = 400;
+            	res.send({ error: 'Validation error' });
+        	} else {
+            	res.statusCode = 500;
+             	res.send({ error: 'Server error' });
            	 }
-        	}
-    	});
-	});
+        }
+    });
 }
 
 projectController.update = function(req, res) {

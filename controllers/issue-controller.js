@@ -12,7 +12,7 @@ issueController.getAllQuery = function() {
 }
 
 issueController.getByQuery = function(query) {
-	return Issues.findOne(query);
+	return Issues.find(query).populate('issueType').populate('severity').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
 }
 
 issueController.getAll = function(req, res) {
@@ -23,6 +23,16 @@ issueController.getAll = function(req, res) {
 			res.json(issues);
 		}
 	})
+}
+
+issueController.getAllIssuesByProjectId = function(req, res) {
+        issueController.getByQuery({'project._id':req.params.id}).exec(function(err, issues){
+        if (err){
+                res.error(err);
+        } else {
+            res.json(issues);
+        }
+    })   
 }
 
 issueController.getById = function(req, res){
