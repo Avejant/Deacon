@@ -1,0 +1,66 @@
+<h3>Profile of user <b>{{user.username}}</b> </h3>
+<div class="panel panel-default">
+  <div class="panel-heading"><b>User info</b></div>
+  <div class="panel-body">
+	<p> <b>First name:</b> {{user.firstName}} </p>
+	<p><b> Last name:</b> {{user.lastName}} </p>
+	<p> <b>E-Mail:</b> <a href="mailto:{{user.email}}" target="_top">{{user.email}}</a> </p>
+	<p> <b>Location:</b> {{user.location}}</p>
+	<p> <b>Date of registration:</b> {{user.createdAt | date:'medium'}}</p>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading"><b>Change password</b></div>
+  <div class="panel-body">
+  <form>
+	  <div class="control-group">
+  <!-- Old Password -->
+  <div class="col-sm-2">
+   <label class="control-label" for="password">Old password:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="password" id="password" ng-minlength="4" ng-model="formData.password" class="form-control" required>
+    <p class="help-block">Enter old password</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- New Password -->
+  <div class="col-sm-2">
+   <label class="control-label" for="password">New password:</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="password" id="password" ng-minlength="4" ng-model="formData.password" class="form-control" required>
+    <p class="help-block">Password should be at least 4 characters</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Confirm password -->
+  <div class="col-sm-2">
+   <label class="control-label" for="confPassword"> New password(Confirm):</label>
+  </div>
+  <div class="col-sm-9">
+  	<div class="controls">
+    <input type="password" id="confPassword" ng-model="formData.confPassword" class="form-control" required>
+    <p class="help-block">Please, confirm password</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+      <!-- Button -->
+        <div class="col-sm-3">
+      <div class="controls">
+        <button class="btn btn-info">Change password</button>
+      </div>
+  </div>
+</div>
+</div>
+
+	
+</form>
+
+  </div>
+</div>

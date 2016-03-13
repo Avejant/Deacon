@@ -3,22 +3,32 @@ var app = angular.module('deaconApp',['ngRoute', 'projectControllers']).
 	config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
             when('/',{templateUrl:'/app/layouts/main.html', controller:'AppCtrl'}).
-			when('/api/projects', { templateUrl: '/app/layouts/projects.html', controller: 'ProjectListCtrl' }).
+			when('/projects', { templateUrl: '/app/layouts/projects.html', controller: 'ProjectListCtrl' }).
 			when('/login', {templateUrl: '/app/layouts/login.html', controller:'LoginCtrl'}).
             when('/signup',{templateUrl:'/app/layouts/signup.html', controller:'SignupCtrl'}).
+            when('/myProfile',{templateUrl:'/app/layouts/profile.html', controller:'CurrentUserProfileCtrl'}).
 			otherwise({ redirectTo: '/' });
 	}]);
+
+app.controller('MainCtrl',['$scope','$http',function($scope, $http) {
+}]);
 
 //main page ctrl
 app.controller('AppCtrl',['$scope','$http',function($scope, $http) {
     $http.get('/currentUser').success(function(data) {
         $scope.isAuthenticated = data.isAuthenticated;
         $scope.user = data.user;
+        $scope.$parent.isAuthenticated = data.isAuthenticated; 
+        $scope.$parent.user = data.user;
     });
 }]);
 
 //login ctrl
 app.controller('LoginCtrl',['$scope', '$http','$location', function($scope, $http, $location) {
+        if ($scope.$parent.isAuthenticated) 
+        {
+            $location.path('/');
+        }
         $scope.submit = function() {
         $http.post('/login', $scope.formData).
         success(function(data) {
@@ -38,7 +48,13 @@ app.controller('LoginCtrl',['$scope', '$http','$location', function($scope, $htt
 
 //signup ctrl
 app.controller('SignupCtrl',['$scope', '$http','$location', function($scope, $http, $location) {
-
+        console.log($scope.$parent.isAuthenticated);
+        if ($scope.$parent.isAuthenticated) 
+        {
+            $location.path('/');
+            return;
+        }
+        
         $scope.validateForm = function() {
             if (!$scope.comparePasswordAndConfirmation && checkPasswordFormat) 
             {
@@ -80,4 +96,16 @@ app.controller('SignupCtrl',['$scope', '$http','$location', function($scope, $ht
             console.error('error in posting');
         })
     }
+}]);
+
+//current user profile ctrl
+app.controller('CurrentUserProfileCtrl',['$scope', '$http', '$location', function($scope, $http, $location){
+    $http.get('/currentUser').success(function(data) {
+       if (!data.user)
+       {
+        $location.path('/');
+       }
+       $scope.user = data.user;
+    });
+
 }]);

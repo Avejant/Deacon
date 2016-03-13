@@ -22,16 +22,6 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/login', function(req, res, next) {
-  if (req.body.username === '') {
-    req.flash('loginMessage','Fill username field');
-    res.redirect('/login');
-  }
-
-  if (req.body.password === '') {
-    req.flash('loginMessage','Fill password field');
-    res.redirect('/login');
-  }
-
   passport.authenticate('local-login', function(err, user, info) {
     if (err) { return next(err); }
     // Redirect if it fails

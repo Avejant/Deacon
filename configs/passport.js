@@ -24,7 +24,6 @@ module.exports = function(passport) {
         .populate('role')
         .exec(function (err, user) {
             if(err) throw err;
-            console.log(user);
             done(err, user);
         });
     });

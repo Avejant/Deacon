@@ -4,15 +4,45 @@
     <meta charset="utf-8">
     <title>Deacon</title>
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="angular/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script src="angular-route/angular-route.js"></script>
     <script src="app/app.js" ></script>
     <script src="app/controllers/projectControllers.js"></script>
 </head>
-<body>
+<body ng-controller="MainCtrl">
+<nav role="navigation" class="navbar navbar-inverse">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <a href="#/" class="navbar-brand">Deacon</a>
+  </div>
+  <!-- Collection of nav links, forms, and other content for toggling -->
+  <div id="navbarCollapse" class="collapse navbar-collapse">
+   	<div ng-if="isAuthenticated">
+   	<ul class="nav navbar-nav">
+      <li><a href="#/projects">Projects</a></li>
+      <li><a href="#/issues">Issues</a></li>
+    </ul>
+
+   	</div>
+     <ul class="nav navbar-nav navbar-right">
+      <li ng-if="!isAuthenticated"><a href="#/login"> Sign in</a></li>
+      <li ng-if="isAuthenticated" class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are {{user.username}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#/myProfile">Profile</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout">Log out</a></li>
+          </ul>
+        </li>
+    </ul>
+
+
+  </div>
+</nav>
 <div class="container">
-	<h1>Deacon</h1>
-	<div ng-view></div>
+<div ng-view></div>
 </div>
 </body>
 </html>
