@@ -8,11 +8,15 @@ var Users = require('./user-controller');
 var issueController = {};
 
 issueController.getAllQuery = function() {
-   	return  Issues.find({});
+   	return  Issues.find({}).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
 }
 
 issueController.getByQuery = function(query) {
-	return Issues.find(query).populate('issueType').populate('severity').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
+	return Issues.find(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
+}
+
+issueController.getSingleByQuery = function(query) {
+    return Issues.findOne(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
 }
 
 issueController.getAll = function(req, res) {
@@ -26,17 +30,19 @@ issueController.getAll = function(req, res) {
 }
 
 issueController.getAllIssuesByProjectId = function(req, res) {
-        issueController.getByQuery({'project._id':req.params.id}).exec(function(err, issues){
+    Projects.getByQuery({_id:req.params.id}).exec(function(err, _project){
+        issueController.getByQuery({project:_project._id}).exec(function(err, issues){
         if (err){
                 res.error(err);
         } else {
             res.json(issues);
         }
-    })   
+    });  
+    });
 }
 
 issueController.getById = function(req, res){
-	issueController.getByQuery({_id:req.params.id}).exec(function(err, issue){
+	issueController.getSingleByQuery({_id:req.params.id}).exec(function(err, issue){
 
 		if(!issue) {
             res.statusCode = 404;
@@ -55,30 +61,7 @@ issueController.getById = function(req, res){
 }
 
 issueController.create = function(req, res) {
-Users.getAllQuery().exec(function(err, users) {
-
-    var assigneeUser = users.find(function(item) {
-        return item.username == req.body.asigneeUserName;
-    });
-    var reporter = users.find(function(item) {
-        return item.username == req.body.reporterName;
-    });
-Projects.getByQuery({name:req.body.projectName}).exec(function(err, project) {
-    if (!project) 
-    {
-        res.send({error:'Project not found'});
-    }
-IssueTypes.getByQuery({name:req.body.issueTypeName}).exec(function(err, issueType){
-    if (!issueType) 
-    {
-        res.send({error:'Issue type not found'});
-    }
-Severities.getByQuery({name:req.body.severityName}).exec(function(err, severity){
-    if (!severity) 
-    {
-        res.send({error:'Severity not found'});
-    }
-Statuses.getByQuery({name:req.body.statusName}).exec(function(err, status){
+Statuses.getByQuery({name:'Open'}).exec(function(err, status){
     if (!status) 
     {
         res.send({error:'Status not found'});
@@ -89,17 +72,17 @@ Statuses.getByQuery({name:req.body.statusName}).exec(function(err, status){
         description: req.body.description,
         createdAt: new Date(),
         updatedAt: new Date(),
-        project: project._id,
-        issueType: issueType._id,
-        severity: severity._id,
+        project: req.body.project._id,
+        issueType: req.body.issueType._id,
+        severity: req.body.severity._id,
         status: status._id,
-        assigneeUser: assigneeUser._id,
-        reporter: reporter._id
+        assigneeUser: req.body.assigneeUser._id,
+        reporter: req.body.reporter._id
     }); 
 
     issue.save(function (err) {
         if (!err) {
-            return res.redirect('/');
+            return res.send();
         } 
         else 
         {
@@ -113,11 +96,7 @@ Statuses.getByQuery({name:req.body.statusName}).exec(function(err, status){
         }
     });
 });   
-});   
-});
-});
-});
-	
+
 }
 
 issueController.update = function(req, res) {

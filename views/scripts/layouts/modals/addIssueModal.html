@@ -1,0 +1,95 @@
+<!-- Add issue modal -->
+<form name="issueForm" role="form" class="form-horizontal" ng-submit="addIssue(issueForm.$valid)" novalidate>
+
+    <!-- Modal content-->
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h3 class="modal-title">Create issue</h3>
+      </div>
+      <div class="modal-body">
+<fieldset>
+<div class="control-group">
+  <!-- Project -->
+  <div class="col-sm-3">
+   <label class="control-label" for="role">Choose project:</label>
+  </div>
+  <div class="col-sm-9">
+    <div class="controls">
+  <select ng-options="project.name for project in projects" ng-model="issueForm.project" id="project" class="form-control" name="project">
+  </select>
+    <p class="help-block">Choose project</p>
+  </div>
+  </div>
+
+</div>
+<div class="control-group">
+  <!-- Issue name -->
+  <div class="col-sm-3">
+   <label class="control-label" for="username">Issue name:</label>    
+  </div>
+  <div class="col-sm-9">
+      <div class="controls">
+    <input type="text" pattern=".{3,250}" ng-model="issueForm.name" class="form-control" required>
+    <p class="help-block">Project name should be at least 3 characters and less 250 characters</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Issue description -->
+  <div class="col-sm-3">
+   <label class="control-label" for="username">Description:</label>  
+  </div>
+  <div class="col-sm-9">
+      <div class="controls">
+    <textarea name="description"  class="form-control" rows="5" ng-model="issueForm.description"></textarea>
+    <p class="help-block"> Description should be as detailed, as possible</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Issue type -->
+  <div class="col-sm-3">
+   <label class="control-label" for="role">Issue type:</label>
+  </div>
+  <div class="col-sm-9">
+    <div class="controls">
+  <select ng-options="issueType.name for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
+  </select>
+    <p class="help-block">Choose type of issue</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Severity -->
+  <div class="col-sm-3">
+   <label class="control-label" for="role">Severity:</label>
+  </div>
+  <div class="col-sm-9">
+    <div class="controls">
+  <select ng-options="severity.name for severity in severities" ng-model="issueForm.severity" class="form-control">
+  </select>
+    <p class="help-block">Choose severity of issue</p>
+  </div>
+  </div>
+</div>
+<div class="control-group">
+  <!-- Assignee user -->
+  <div class="col-sm-3">
+   <label class="control-label" for="role">Assignee user:</label>
+  </div>
+  <div class="col-sm-9">
+    <div class="controls">
+  <select ng-options="user.username for user in users" ng-model="issueForm.assigneeUser" class="form-control">
+  </select>
+    <p class="help-block">Choose assignee user</p>
+  </div>
+  </div>
+</div>
+</fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-disabled="issueForm.$invalid" data-dismiss="modal">Add</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+      </div>
+
+</form>

@@ -2,11 +2,11 @@ var Users = require('../models/users');
 var userController = {};
 
 userController.getAllQuery = function() {
-   	return Users.find({});
+   	return Users.find({}).populate('role');
 }
 
 userController.getByQuery = function(query) {
-	return Users.findOne(query);
+	return Users.findOne(query).populate('role');
 }
 
 userController.getAll = function(req, res) {

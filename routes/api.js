@@ -5,7 +5,7 @@ var IssueTypes = require('../controllers/issueType-controller');
 var Severities = require('../controllers/severity-controller');
 var Statuses = require('../controllers/status-controller');
 var Issues = require('../controllers/issue-controller');
-
+var Users = require('../controllers/user-controller')
   app.get('/api/projects', Projects.getAll);
   app.get('/api/projects/:id', Projects.getById);
   app.post('/api/projects', Projects.create);
@@ -42,5 +42,8 @@ var Issues = require('../controllers/issue-controller');
   app.post('/api/issues', Issues.create);
   app.put('/api/issues/:id', Issues.update);
   app.delete('/api/issues/:id', Issues.delete);
+
+  app.get('/api/users', Users.getAll);
+  app.get('/api/users/:id', Users.getById);
 
 };

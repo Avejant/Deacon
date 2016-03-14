@@ -1,0 +1,27 @@
+<h3>Issue "<b>{{issue.name}}</b>" </h3>
+<div class="panel panel-default">
+  <div class="panel-heading"><b>Issue info</b></div>
+  <div class="panel-body">
+	<p> <b>Description: </b> {{issue.description}} </p>
+	<p> <b>Status: </b>{{issue.status.name}}</p>
+	<p> <b>Severity: </b>{{issue.severity.name}}</p>
+	<p> <b>Issue type: </b>{{issue.issueType.name}}</p>
+	<p> <b>Assignee user: </b>{{issue.assigneeUser.username}} </p>
+	<p> <b>Reporter: </b>{{issue.reporter.username}} </p>
+	<p> <b>Created at: </b> {{issue.createdAt|date:'medium'}}</p>
+	<p> <b>Last updated at: </b> {{issue.updatedAt|date:'medium'}}</p>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading"><b>Add comment</b></div>
+  <div class="panel-body">
+  <form class="form-horizontal" name="addCommentForm">
+  <fieldset>
+  	   	<textarea rows="5" class="form-control" placeholder="Add comment..."></textarea>
+  	   	<br>
+	<button type="submit" class="btn btn-default">Add</button>
+  </fieldset>
+
+  </form>
+  </div>
+</div>

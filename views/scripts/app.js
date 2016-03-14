@@ -1,10 +1,11 @@
 'use strict'
-var app = angular.module('deaconApp',['ngRoute', 'projectControllers','ui.bootstrap']).
+var app = angular.module('deaconApp',['ngRoute', 'projectControllers','issueControllers','ui.bootstrap']).
 	config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
             when('/',{templateUrl:'/app/layouts/main.html', controller:'AppCtrl'}).
 			when('/projects', { templateUrl: '/app/layouts/projects.html', controller: 'ProjectListCtrl' }).
             when('/projects/:id',{templateUrl: '/app/layouts/project.html', controller: 'ProjectCtrl'}).
+            when('/issues/:id',{templateUrl: '/app/layouts/issue.html', controller: 'IssueCtrl'}).
 			when('/login', {templateUrl: '/app/layouts/login.html', controller:'LoginCtrl'}).
             when('/signup',{templateUrl:'/app/layouts/signup.html', controller:'SignupCtrl'}).
             when('/myProfile',{templateUrl:'/app/layouts/profile.html', controller:'CurrentUserProfileCtrl'}).
