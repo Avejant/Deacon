@@ -1,6 +1,17 @@
 'use strict'
 var issueController = angular.module('issueControllers',[]);
+projectControllers.controller('IssueListCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    if (!$scope.$parent.isAuthenticated) 
+    {
+        $location.path('/');
+        return;
+    }
 
+
+    $http.get('/api/issues').success(function(data) {
+        $scope.issues = angular.fromJson(data); 
+    });
+}]);
 issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
     if (!$scope.$parent.isAuthenticated) 
     {
@@ -55,6 +66,10 @@ var AddIssueModalInstanceCtrl = function ($scope, $uibModalInstance, $http, $loc
                 $http.get('/api/projects').success(function(data) {
                     $scope.projects = angular.fromJson(data);
                     $scope.issueForm.project = $scope.projects.find(function(item){return  item._id === $scope.$parent.$parent.project._id});
+                    if (!$scope.issueForm.project) 
+                    {
+                        $scope.issueForm.project = $scope.projects[0];
+                    }
                 });
             })
         });

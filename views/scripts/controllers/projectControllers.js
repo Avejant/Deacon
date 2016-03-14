@@ -7,24 +7,40 @@ projectControllers.controller('ProjectListCtrl', ['$scope', '$http', '$location'
 		return;
 	}
 
-
 	$http.get('/api/projects').success(function(data) {
       	$scope.projects = angular.fromJson(data); 
   	});
 }]);
 
-projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
+projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', function ($scope, $http, $location, $route, $routeParams) {
 	if (!$scope.$parent.isAuthenticated) 
 	{
 		$location.path('/');
 		return;
 	}
-
-
 	$http.get('/api/projects/'+ $routeParams.id).success(function(data) {
+        $scope.update = function()
+        {
+          if ($scope.projectForm.$valid) {
+            $http.put('/api/projects/' + $scope.project._id, $scope.projectForm).success(function(data) {
+              $scope.editable = false;
+              $route.reload();
+            });
+          }
+        }
+
+        $scope.delete = function()
+        {
+          $http.delete('/api/projects/'+ $scope.project._id).success(function(data)
+          {
+            $location.path('/projects');
+          });
+        }
       	$scope.project = angular.fromJson(data); 
       	$http.get('/api/issuesOfProject/' + $scope.project._id).success(function(data) {
   			$scope.issues = angular.fromJson(data);
+        $scope.projectForm.name = $scope.project.name;
+        $scope.projectForm.shortName = $scope.project.shortName;
   		});
   	});
 

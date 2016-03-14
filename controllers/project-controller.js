@@ -82,7 +82,7 @@ projectController.update = function(req, res) {
 
         return project.save(function (err) {
             if (!err) {
-            	return res.redirect('/');
+            	return res.send();
             } else {
                 if(err.name == 'ValidationError') {
                     res.statusCode = 400;
@@ -105,7 +105,7 @@ projectController.delete = function(req, res) {
         }
         return project.remove(function (err) {
             if (!err) {
-            	return res.redirect('/');
+            	return res.send();
             } 
             else {
                 res.statusCode = 500;

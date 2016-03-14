@@ -1,18 +1,6 @@
-<form name="projectForm" ng-submit="update(projectForm.$valid)" class="form-horizontal" novalidate>
-<h3>Project <b ng-show="!editable">"{{project.name}}"</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="projectForm.name" class="form-control" required> </h3>
-<div class="panel panel-default">
-  <div class="panel-heading"><b>Project info</b></div>
-  <div class="panel-body">
-  <p> <b>Short name:</b> <span ng-show="!editable">{{project.shortName}}</span>   <input ng-show="editable" type="text" id="shortName" pattern=".{3}" maxlength="3" ng-model="projectForm.shortName" class="form-control" required> </p>
-  <p><b> Project manager:</b> <span>{{project.projectManager.username}}</span> </p>
-  <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit project</button>
-  <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button>
-  <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success"></span> Save</button>
-  <button ng-show="editable" class="btn btn-default" ng-click="editable=false"></span> Cancel</button>
-  </div>
+<div class="page-header">
+  <h1>Issues List</h1>
 </div>
-</form>
-  <h3>Issues of project:</h3>
 <div class="row">
 	<div class="col-xs-7">
 		<input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
@@ -38,16 +26,19 @@
     <thead >
       <tr>
         <th>Issue name</th>
+        <th>Project</th>
         <th>Assignee user</th>
         <th>Reporter</th>
         <th>Status</th>
         <th>Issue type</th>
         <th>Severity</th>
+
       </tr>
     </thead>
     <tbody >
 		<tr ng-repeat="issue in issues | filter:query">
 			<td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
+      <td><a href="#/projects/{{issue.project._id}}">{{issue.project.name}}</a></td>
       <td>{{issue.assigneeUser.username}}</td>
       <td>{{issue.reporter.username}}</td>
       <td>{{issue.status.name}}</td>
