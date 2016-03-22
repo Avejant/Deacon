@@ -45,5 +45,4 @@ var Users = require('../controllers/user-controller')
 
   app.get('/api/users', Users.getAll);
   app.get('/api/users/:id', Users.getById);
-
 };

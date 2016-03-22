@@ -9,7 +9,7 @@ var app = angular.module('deaconApp',['ngRoute', 'projectControllers','issueCont
             when('/issues/:id',{templateUrl: '/app/layouts/issue.html', controller: 'IssueCtrl'}).
 			when('/login', {templateUrl: '/app/layouts/login.html', controller:'LoginCtrl'}).
             when('/signup',{templateUrl:'/app/layouts/signup.html', controller:'SignupCtrl'}).
-            when('/myProfile',{templateUrl:'/app/layouts/profile.html', controller:'CurrentUserProfileCtrl'}).
+            when('/profile/:id',{templateUrl:'/app/layouts/profile.html', controller:'UserProfileCtrl'}).
 			otherwise({ redirectTo: '/' });
 	}]);
 

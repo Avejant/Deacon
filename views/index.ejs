@@ -34,7 +34,7 @@
       <li ng-if="isAuthenticated" class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are {{user.username}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#/myProfile">Profile</a></li>
+            <li><a href="#/profile/{{user._id}}">Profile</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/logout">Log out</a></li>
           </ul>

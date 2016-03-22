@@ -21,7 +21,6 @@ userController.getAll = function(req, res) {
 
 userController.getById = function(req, res){
 	userController.getByQuery({_id:req.params.id}).exec(function(err, user){
-
 		if(!user) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
@@ -32,12 +31,8 @@ userController.getById = function(req, res){
 			res.error(err);
 		} 
 		else 
-		{   
-			user.populate('role').exec(function(err,user) {
-				if(err) throw err;
-				res.json(user);
-			})
-
+		{  
+			res.json(user);
 		}
 	});
 }

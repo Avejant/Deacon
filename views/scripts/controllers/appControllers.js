@@ -43,7 +43,6 @@ appController.controller('LoginCtrl',['$scope', '$http','$location', function($s
 
 //signup ctrl
 appController.controller('SignupCtrl',['$scope', '$http','$location', function($scope, $http, $location) {
-        console.log($scope.$parent.isAuthenticated);
         if ($scope.$parent.isAuthenticated) 
         {
             $location.path('/');
@@ -74,13 +73,20 @@ appController.controller('SignupCtrl',['$scope', '$http','$location', function($
 }]);
 
 //current user profile ctrl
-appController.controller('CurrentUserProfileCtrl',['$scope', '$http', '$location', function($scope, $http, $location){
-    $http.get('/currentUser').success(function(data) {
-       if (!data.user)
+appController.controller('UserProfileCtrl',['$scope', '$http', '$location','$routeParams', function($scope, $http, $location, $routeParams){
+    if (!$scope.$parent.isAuthenticated) 
+    {
+        $location.path('/');
+        return;
+    }
+
+    $http.get('/api/users/' + $routeParams.id).success(function(data) {
+       $scope.isYourOwnProfile = data._id === $scope.user._id;
+       if (!data)
        {
         $location.path('/');
        }
-       $scope.user = data.user;
+       $scope.user = data;
     });
 
 }]);

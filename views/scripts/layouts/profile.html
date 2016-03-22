@@ -9,7 +9,7 @@
 	<p> <b>Date of registration:</b> {{user.createdAt | date:'medium'}}</p>
   </div>
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default" ng-if="isYourOwnProfile">
   <div class="panel-heading"><b>Change password</b></div>
   <div class="panel-body">
   <form>
