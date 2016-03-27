@@ -39,8 +39,8 @@
 		<tr ng-repeat="issue in issues | filter:query">
 			<td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
       <td><a href="#/projects/{{issue.project._id}}">{{issue.project.name}}</a></td>
-      <td>{{issue.assigneeUser.username}}</td>
-      <td>{{issue.reporter.username}}</td>
+      <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
+      <td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
       <td>{{issue.status.name}}</td>
       <td>{{issue.issueType.name}}</td>
       <td>{{issue.severity.name}}</td>
