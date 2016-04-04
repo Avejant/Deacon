@@ -100,47 +100,23 @@ Statuses.getByQuery({name:'Open'}).exec(function(err, status){
 }
 
 issueController.update = function(req, res) {
-    Users.getAllQuery().exec(function(err, users) {
-
-    var assigneeUser = users.find(function(item) {
-        return item.username == req.body.asigneeUserName;
-    });
-    var reporter = users.find(function(item) {
-        return item.username == req.body.reporterName;
-    });
-    IssueTypes.getByQuery({name:req.body.issueTypeName}).exec(function(err, issueType){
-    if (!issueType) 
-    {
-        res.send({error:'Issue type not found'});
-    }
-    Severities.getByQuery({name:req.body.severityName}).exec(function(err, severity){
-    if (!severity) 
-    {
-        res.send({error:'Severity not found'});
-    }
-    Statuses.getByQuery({name:req.body.statusName}).exec(function(err, status){
-    if (!status) 
-    {
-        res.send({error:'Status not found'});
-    }
     Issues.findById(req.params.id, function (err, issue) {
+
         if(!issue) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
         }
 
-        issue.name = req.body.name,
-        issue.description = req.body.description,
-        issue.updatedAt = new Date(),
-        issue.issueType = issueType._id,
-        issue.severity = severity._id,
-        issue.status = status._id,
-        issue.assigneeUser = assigneeUser._id,
-        issue.reporter = reporter._id
+        issue.name = req.body.name;
+        issue.description = req.body.description;
+        issue.updatedAt = new Date();
+        issue.issueType = req.body.issueType._id;
+        issue.severity = req.body.severity._id;
+        issue.assigneeUser = req.body.assigneeUser._id;
 
         return issue.save(function (err) {
             if (!err) {
-                return res.redirect('/');
+                return res.send();
             } else {
                 if(err.name == 'ValidationError') {
                     res.statusCode = 400;
@@ -152,10 +128,6 @@ issueController.update = function(req, res) {
             }
         });
     });
-});   
-});   
-});
-});
 }
 
 issueController.delete = function(req, res) {

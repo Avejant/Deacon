@@ -12,7 +12,8 @@ projectControllers.controller('IssueListCtrl', ['$scope', '$http', '$location', 
         $scope.issues = angular.fromJson(data); 
     });
 }]);
-issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
+
+issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', function ($scope, $http, $location, $route, $routeParams) {
     if (!$scope.$parent.isAuthenticated) 
     {
         $location.path('/');
@@ -20,9 +21,32 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
     }
 
     $http.get('/api/issues/'+ $routeParams.id).success(function(data) {
-        $scope.issue = angular.fromJson(data); 
-    });
+        $scope.update = function()
+        {
+          if ($scope.issueForm.$valid) {
+            $http.put('/api/issues/' + $scope.issue._id, $scope.issueForm).success(function(data) {
+              $scope.editable = false;
+              $route.reload();
+            });
+          }
+        }
 
+        $scope.issue = angular.fromJson(data); 
+        $scope.issueForm.name = $scope.issue.name;
+        $scope.issueForm.description = $scope.issue.description;
+            $http.get('/api/severities').success(function(data) {
+                $scope.severities = angular.fromJson(data);
+                $scope.issueForm.severity = $scope.severities.find(function(item){return  item._id === $scope.issue.severity._id});
+                $http.get('/api/issueTypes').success(function(data) {
+                    $scope.issueTypes = angular.fromJson(data);
+                    $scope.issueForm.issueType = $scope.issueTypes.find(function(item){return  item._id === $scope.issue.issueType._id});
+                    $http.get('/api/users').success(function(data) {
+                        $scope.users = angular.fromJson(data); 
+                        $scope.issueForm.assigneeUser = $scope.users.find(function(item){return  item._id === $scope.issue.assigneeUser._id});
+                });
+            });
+        });
+    });
 }]);
 
 
