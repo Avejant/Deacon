@@ -41,7 +41,9 @@ var Users = require('../controllers/user-controller')
   app.get('/api/issuesOfProject/:id', Issues.getAllIssuesByProjectId);
   app.post('/api/issues', Issues.create);
   app.put('/api/issues/:id', Issues.update);
+  app.put('/api/issues/:id/updateStatus', Issues.updateStatus);
   app.delete('/api/issues/:id', Issues.delete);
+
 
   app.get('/api/users', Users.getAll);
   app.get('/api/users/:id', Users.getById);

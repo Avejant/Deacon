@@ -19,6 +19,11 @@
 	<p> <b>Created at: </b> {{issue.createdAt|date:'medium'}}</p>
 	<p> <b>Last updated at: </b> {{issue.updatedAt|date:'medium'}}</p>
   <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit issue</button>
+  <button type="button" ng-show="!editable && showStartProgress" class="btn btn-default" ng-click="updateStatus('In Progress')"> Start Progress </button>
+  <button type="button" ng-show="!editable && showStopProgress" class="btn btn-default" ng-click="updateStatus('Open')"> Stop Progress </button>
+  <button type="button" ng-show="!editable && showResolve" class="btn btn-default" ng-click="updateStatus('Resolved')"> Resolve </button>
+  <button type="button" ng-show="!editable && showClose" class="btn btn-default" ng-click="updateStatus('Closed')"> Сlose </button>
+  <button type="button" ng-show="!editable && showReopen" class="btn btn-default" ng-click="updateStatus('Open')"> Reopen </button>
   <button type="submit" ng-show="editable" ng-disabled="issueForm.$invalid" class="btn btn-success"></span> Save</button>
   <button ng-show="editable" class="btn btn-default" ng-click="editable=false"></span> Cancel</button>
   </div>

@@ -31,7 +31,19 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
           }
         }
 
+        $scope.updateStatus = function(statusName) {
+            $http.put('/api/issues/' + $scope.issue._id +'/updateStatus', {statusName: statusName}).success(function(data) {
+                $scope.editable = false;
+                $route.reload();
+            });
+        }
+
         $scope.issue = angular.fromJson(data); 
+        $scope.showStartProgress = $scope.issue.status.name == "Open";
+        $scope.showStopProgress = $scope.issue.status.name == "In Progress";
+        $scope.showResolve = $scope.issue.status.name == "In Progress";
+        $scope.showReopen = ($scope.issue.status.name == "Closed") || ($scope.issue.status.name == "Resolved");
+        $scope.showClose = $scope.issue.status.name == "Resolved";
         $scope.issueForm.name = $scope.issue.name;
         $scope.issueForm.description = $scope.issue.description;
             $http.get('/api/severities').success(function(data) {

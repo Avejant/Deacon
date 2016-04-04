@@ -148,5 +148,34 @@ issueController.delete = function(req, res) {
     });
 }
 
+issueController.updateStatus = function(req, res) {
+    Issues.findById(req.params.id, function (err, issue) {
+    Statuses.getByQuery({name:req.body.statusName}).exec(function(err, status) {
+        if(!issue) {
+            res.statusCode = 404;
+            return res.send({ error: 'Not found' });
+        }
+
+        issue.status = status;
+        issue.updatedAt = new Date();
+
+        return issue.save(function (err) {
+            if (!err) {
+                return res.send();
+            } else {
+                if(err.name == 'ValidationError') {
+                    res.statusCode = 400;
+                    res.send({ error: 'Validation error' });
+                } else {
+                    res.statusCode = 500;
+                    res.send({ error: 'Server error' });
+                }
+            }
+        });
+      })
+    });
+}
+
+
 module.exports = issueController;
 
