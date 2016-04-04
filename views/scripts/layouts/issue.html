@@ -34,11 +34,30 @@
   <div class="panel-body">
   <form class="form-horizontal" name="addCommentForm">
   <fieldset>
-  	   	<textarea rows="5" class="form-control" placeholder="Add comment..."></textarea>
-  	   	<br>
-	<button type="submit" class="btn btn-default">Add</button>
+  	<textarea rows="5" class="form-control" ng-model="addCommentForm.content" placeholder="Add comment..."></textarea>
+  	<br>
+	  <button type="submit" ng-click="addComment()" class="btn btn-default">Add</button>
   </fieldset>
 
   </form>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading"><b>Comment list</b></div>
+  <div class="panel-body">
+  <div class="comment-list" ng-switch on="issue.comments.length">
+    <div ng-switch-when="0" class="well">No comments in database.</div>
+    <div ng-switch-default>
+      <ul class="list-group" ng-repeat="comment in issue.comments">
+        <li class="list-group-item">
+          <p>
+            {{comment.text}}
+          </p>
+          <span><b> Created at <i>{{comment.createdAt | date:'medium'}}</i> by <a href="#/profile/{{comment.author._id}}">{{comment.author.username}}</i></b></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   </div>
 </div>

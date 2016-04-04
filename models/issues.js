@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var Schema = mongoose.Schema;
 
 var Issue = new Schema({
@@ -40,4 +41,5 @@ var Issue = new Schema({
 	}]
 });
 
+Issue.plugin(deepPopulate);
 module.exports = mongoose.model('Issue', Issue);

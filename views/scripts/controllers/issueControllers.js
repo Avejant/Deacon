@@ -38,6 +38,14 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
             });
         }
 
+        $scope.addComment = function() {
+            $scope.addCommentForm.issueId = $scope.issue._id;
+            $scope.addCommentForm.userId = $scope.user._id;
+            $http.post('/api/comments', $scope.addCommentForm).success(function(data) {
+                $route.reload();
+            });
+        }
+
         $scope.issue = angular.fromJson(data); 
         $scope.showStartProgress = $scope.issue.status.name == "Open";
         $scope.showStopProgress = $scope.issue.status.name == "In Progress";

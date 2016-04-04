@@ -1,5 +1,6 @@
 var Comments = require('../models/comments');
 var Users = require('./user-controller');
+var Issues = require('./issue-controller');
 var commentController = {};
 
 commentController.getAllQuery = function() {
@@ -22,7 +23,6 @@ commentController.getAll = function(req, res) {
 
 commentController.getById = function(req, res){
 	commentController.getByQuery({_id:req.params.id}).exec(function(err, comment){
-
 		if(!comment) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
@@ -41,7 +41,7 @@ commentController.getById = function(req, res){
 
 
 commentController.create = function(req, res) {
-    Users.getByQuery({name:req.param.username}).exec(function(err,user){
+        Users.getByQuery({_id:req.body.userId}).exec(function(err,user){
         if (!user) 
         {
             res.send({error:"User not found"});
@@ -55,7 +55,8 @@ commentController.create = function(req, res) {
 
         comment.save(function (err) {
             if (!err) {
-                return res.redirect('/');
+                Issues.addComment(req.body.issueId, comment._id);
+                res.send();
             }    
             else 
             {
@@ -68,7 +69,7 @@ commentController.create = function(req, res) {
              }
             }
         });
-    });
+        });
 }
 
 commentController.update = function(req, res) {

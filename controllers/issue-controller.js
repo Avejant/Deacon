@@ -1,3 +1,4 @@
+
 var Issues = require('../models/issues');
 var Projects = require('./project-controller');
 var IssueTypes = require('./issueType-controller');
@@ -8,15 +9,15 @@ var Users = require('./user-controller');
 var issueController = {};
 
 issueController.getAllQuery = function() {
-   	return  Issues.find({}).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
+   	return  Issues.find({}).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author');
 }
 
 issueController.getByQuery = function(query) {
-	return Issues.find(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
+	return Issues.find(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author');
 }
 
 issueController.getSingleByQuery = function(query) {
-    return Issues.findOne(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType');
+    return Issues.findOne(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author');
 }
 
 issueController.getAll = function(req, res) {
@@ -146,6 +147,11 @@ issueController.delete = function(req, res) {
             }
         });
     });
+}
+
+issueController.addComment = function(issueId, commentId) {
+    Issues.findByIdAndUpdate(issueId,{$push: {"comments": {"_id":commentId}}}, {safe: true},
+        function(err, data) {});
 }
 
 issueController.updateStatus = function(req, res) {
