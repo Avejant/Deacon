@@ -1,4 +1,5 @@
 var Users = require('../models/users');
+var passwordHasher = require('password-hash');
 var userController = {};
 
 userController.getAllQuery = function() {
@@ -84,6 +85,26 @@ userController.update = function(req, res) {
                     res.statusCode = 500;
                     res.send({ error: 'Server error' });
                 }
+            }
+        });
+    });
+}
+userController.changePassword = function(req, res) {
+    Users.findById(req.params.id, function(err, user) {
+        if (err) 
+        {
+            throw err;
+        }
+
+/*        if (user.password !== req.body.oldPass)
+        {
+            res.send({errorMessage: 'Old password is wrong.'})
+        }*/
+
+        user.password = passwordHasher.generate(req.body.newPass);
+        user.save(function(err) {
+            if (!err) {
+                res.send();
             }
         });
     });

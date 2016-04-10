@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
+var passwordHasher = require('password-hash');
 var Schema = mongoose.Schema;
+
 
 var User = new Schema({
     username: String,
@@ -17,7 +19,7 @@ var User = new Schema({
 });
 
 User.methods.validPassword = function(password) {
-    return password === this.password;
+    return passwordHasher.verify(password, this.password);
 };
 
 module.exports = mongoose.model('User', User);

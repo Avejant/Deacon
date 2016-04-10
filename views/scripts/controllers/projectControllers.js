@@ -21,6 +21,7 @@ projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$
 	$http.get('/api/projects/'+ $routeParams.id).success(function(data) {
         $scope.update = function()
         {
+          console.log($scope.projectForm);
           if ($scope.projectForm.$valid) {
             $http.put('/api/projects/' + $scope.project._id, $scope.projectForm).success(function(data) {
               $scope.editable = false;

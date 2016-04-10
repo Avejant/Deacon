@@ -49,6 +49,7 @@ var Upload = require('../controllers/upload-controller');
 
   app.get('/api/users', Users.getAll);
   app.get('/api/users/:id', Users.getById);
+  app.put('/api/users/:id/changePassword', Users.changePassword)
 
   //upload routes
 /*  app.get('/api/upload/:filename', Upload.read);*/
