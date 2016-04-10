@@ -1,3 +1,6 @@
+  <div ng-repeat="message in messages">
+    <div class="alert alert-danger">{{message}}</div>
+  </div>
 <form name="issueForm" ng-submit="update(issueForm.$valid)" class="form-horizontal" novalidate>
 <h3>Issue <b ng-show="!editable">{{issue.name}}</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="issueForm.name" class="form-control" required>  </h3>
 <div class="panel panel-default">

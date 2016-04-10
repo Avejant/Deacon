@@ -24,8 +24,24 @@ projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$
           console.log($scope.projectForm);
           if ($scope.projectForm.$valid) {
             $http.put('/api/projects/' + $scope.project._id, $scope.projectForm).success(function(data) {
-              $scope.editable = false;
-              $route.reload();
+              $scope.messages = [];
+              if(data.nameError || data.shortNameError)
+                {
+                  if (data.nameError) 
+                  {
+                      $scope.messages.push('Project with the same name already exists.');
+                  }
+
+                  if (data.shortNameError)
+                  {
+                      $scope.messages.push('Project with the same short name already exists.');
+                  }
+                }
+                else
+                {
+                  $scope.editable = false;
+                  $route.reload();
+                }
             });
           }
         }
@@ -78,10 +94,28 @@ projectControllers.controller("addProjectModalController", ['$scope', '$uibModal
 var AddProjectModalInstanceCtrl = function ($scope, $uibModalInstance, $http, $location, projectForm) {
     $scope.addProject = function () {
     	$scope.projectForm.projectManager = $scope.user;
+      $scope.messages = [];
     	if ($scope.projectForm.$valid) {
 			$http.post('/api/projects', $scope.projectForm).success(function(data) {
-                $location.url('/projects/');
-                $uibModalInstance.close('closed');
+
+                if(data.nameError || data.shortNameError)
+                {
+                  if (data.nameError) 
+                  {
+                      $scope.messages.push('Project with the same name already exists.');
+                  }
+
+                  if (data.shortNameError)
+                  {
+                      $scope.messages.push('Project with the same short name already exists.');
+                  }
+                }
+                else
+                {
+                    $location.url('/projects/');
+                    $uibModalInstance.close('closed');
+                }
+
         	}).error(function(data) {
            		$location.path('/');
         	})

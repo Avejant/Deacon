@@ -62,7 +62,11 @@ issueController.getById = function(req, res){
 }
 
 issueController.create = function(req, res) {
-Statuses.getByQuery({name:'Open'}).exec(function(err, status){
+Issues.findOne({name:req.body.name}, function(err, sameissue) {
+    if (sameissue) {
+        return res.send({nameError:true});
+    }
+    Statuses.getByQuery({name:'Open'}).exec(function(err, status){
     if (!status) 
     {
         res.send({error:'Status not found'});
@@ -98,6 +102,7 @@ Statuses.getByQuery({name:'Open'}).exec(function(err, status){
     });
 });   
 
+    });
 }
 
 issueController.update = function(req, res) {
@@ -107,28 +112,34 @@ issueController.update = function(req, res) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
         }
-
-        issue.name = req.body.name;
-        issue.description = req.body.description;
-        issue.updatedAt = new Date();
-        issue.issueType = req.body.issueType._id;
-        issue.severity = req.body.severity._id;
-        issue.assigneeUser = req.body.assigneeUser._id;
-
-        return issue.save(function (err) {
-            if (!err) {
-                return res.send();
-            } else {
-                if(err.name == 'ValidationError') {
-                    res.statusCode = 400;
-                    res.send({ error: 'Validation error' });
+        Issues.findOne({$and : [{name:req.body.name},{_id:{$ne:issue._id}}] }, function(err, sameIssue) {
+            if (sameIssue) 
+            {
+                res.send({nameError:true});
+            }
+            issue.name = req.body.name;
+            issue.description = req.body.description;
+            issue.updatedAt = new Date();
+            issue.issueType = req.body.issueType._id;
+            issue.severity = req.body.severity._id;
+            issue.assigneeUser = req.body.assigneeUser._id;
+    
+            return issue.save(function (err) {
+                if (!err) {
+                    return res.send();
                 } else {
-                    res.statusCode = 500;
-                    res.send({ error: 'Server error' });
-                }
+                    if(err.name == 'ValidationError') {
+                        res.statusCode = 400;
+                        res.send({ error: 'Validation error' });
+                    } else {
+                        res.statusCode = 500;
+                        res.send({ error: 'Server error' });
+                    }
             }
         });
     });
+        });
+        
 }
 
 issueController.delete = function(req, res) {

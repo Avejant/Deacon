@@ -23,10 +23,18 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
     $http.get('/api/issues/'+ $routeParams.id).success(function(data) {
         $scope.update = function()
         {
-          if ($scope.issueForm.$valid) {
+            $scope.messages = [];
+            if ($scope.issueForm.$valid) {
             $http.put('/api/issues/' + $scope.issue._id, $scope.issueForm).success(function(data) {
-              $scope.editable = false;
-              $route.reload();
+                if(data.nameError )
+                {
+                    $scope.messages.push('Issue with the same name already exists.');
+                }
+                else
+                {
+                    $scope.editable = false;
+                    $route.reload(); 
+                }
             });
           }
         }
@@ -113,7 +121,7 @@ issueController.controller('addIssueModalController', ['$scope', '$uibModal',
         };
 }]);
 
-var AddIssueModalInstanceCtrl = function ($scope, $uibModalInstance, $http, $location, issueForm) {
+var AddIssueModalInstanceCtrl = function ($scope, $uibModalInstance, $http, $location, $route, issueForm) {
     $http.get('/api/issueTypes').success(function(data) {
         $scope.issueForm.description = "";
         $scope.issueTypes = angular.fromJson(data);
@@ -141,9 +149,17 @@ var AddIssueModalInstanceCtrl = function ($scope, $uibModalInstance, $http, $loc
     $scope.addIssue = function () {
     	$scope.issueForm.reporter = $scope.user;
     	if ($scope.issueForm.$valid) {
+            $scope.messages =[];
 			$http.post('/api/issues', $scope.issueForm).success(function(data) {
-                $location.url('/');
-                $uibModalInstance.close('closed');
+                if(data.nameError )
+                {
+                    $scope.messages.push('Issue with the same name already exists.');
+                }
+                else
+                {
+                    $route.reload();
+                    $uibModalInstance.close('closed');
+                }
         	}).error(function(data) {
            		$location.path('/');
         	})
