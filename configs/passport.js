@@ -68,7 +68,8 @@ module.exports = function(passport) {
                         email:req.body.email,
                         location: req.body.location,
                         createdAt: new Date(),
-                        role:req.body.choosenRole._id
+                        role:req.body.choosenRole._id,
+                        avatar:'base-avatar.png'
                 });
                     newUser.save(function(err) {
                     if (err)

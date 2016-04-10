@@ -38,7 +38,8 @@ var Issue = new Schema({
 	comments: [{
 		type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
-	}]
+	}],
+	attachments: [String]
 });
 
 Issue.plugin(deepPopulate);

@@ -5,7 +5,9 @@ var IssueTypes = require('../controllers/issueType-controller');
 var Severities = require('../controllers/severity-controller');
 var Statuses = require('../controllers/status-controller');
 var Issues = require('../controllers/issue-controller');
-var Users = require('../controllers/user-controller')
+var Users = require('../controllers/user-controller');
+var Upload = require('../controllers/upload-controller');
+
   app.get('/api/projects', Projects.getAll);
   app.get('/api/projects/:id', Projects.getById);
   app.post('/api/projects', Projects.create);
@@ -43,8 +45,14 @@ var Users = require('../controllers/user-controller')
   app.put('/api/issues/:id', Issues.update);
   app.put('/api/issues/:id/updateStatus', Issues.updateStatus);
   app.delete('/api/issues/:id', Issues.delete);
-
+  app.post('/api/attachments/:id', Issues.attach);
 
   app.get('/api/users', Users.getAll);
   app.get('/api/users/:id', Users.getById);
+
+  //upload routes
+/*  app.get('/api/upload/:filename', Upload.read);*/
+  app.post('/api/upload', Upload.create);
+  app.post('/api/upload/avatar', Upload.avatarUpload);
+  app.get('/api/download/:filename', Upload.download);
 };

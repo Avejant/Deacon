@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-/*var exphbs = require('express-handlebars');*/
 var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
@@ -16,8 +15,6 @@ var port = process.env.PORT || 1337;
 
 var app = express();
 
-/*app.engine('handlebars', exphbs({defaultLayout: 'main'}));*/
-
 //configure
 
 app.set('view engine', 'ejs');
@@ -26,6 +23,7 @@ mongoose.connect(configDB.url);
 
 //use middlewares
 app.use('/app', express.static(__dirname + '/views/scripts'));
+app.use('/storage', express.static(__dirname + '/uploads'));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,12 +36,13 @@ app.use(expressSession({
     saveUninitialized: false
 }));
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
+app.use(function(req, res, next) { //allow cross origin requests
+    res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
+
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,5 +1,5 @@
 'use strict'
-var issueController = angular.module('issueControllers',[]);
+var issueController = angular.module('issueControllers',['ngFileUpload']);
 projectControllers.controller('IssueListCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     if (!$scope.$parent.isAuthenticated) 
     {
@@ -13,7 +13,7 @@ projectControllers.controller('IssueListCtrl', ['$scope', '$http', '$location', 
     });
 }]);
 
-issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', function ($scope, $http, $location, $route, $routeParams) {
+issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routeParams','Upload', function ($scope, $http, $location, $route, $routeParams, Upload) {
     if (!$scope.$parent.isAuthenticated) 
     {
         $location.path('/');
@@ -45,7 +45,25 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
                 $route.reload();
             });
         }
-
+        
+        $scope.upload = function () {
+            Upload.upload({
+                url: 'api/upload',
+                method:'post', //webAPI exposed to upload the file
+                data:{file: $scope.file, issueName:$scope.issue.name} //pass file as data, should be user ng-model
+            }).then(function (resp) { //upload function returns a promise
+                if(resp.data.error_code === 0){ //validate success
+                    console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+                    $http.post('/api/attachments/' + $routeParams.id,{filename:resp.data.filename}).success(function(data) {
+                    $route.reload();
+                });
+                } else {
+                    console.log('an error occured');
+                }
+            }, function (resp) { //catch error
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {});
+        };
         $scope.issue = angular.fromJson(data); 
         $scope.showStartProgress = $scope.issue.status.name == "Open";
         $scope.showStopProgress = $scope.issue.status.name == "In Progress";

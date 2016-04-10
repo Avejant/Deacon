@@ -30,34 +30,69 @@
 </div>
 </form>
 <div class="panel panel-default">
-  <div class="panel-heading"><b>Add comment</b></div>
-  <div class="panel-body">
-  <form class="form-horizontal" name="addCommentForm">
-  <fieldset>
-  	<textarea rows="5" class="form-control" ng-model="addCommentForm.content" placeholder="Add comment..."></textarea>
-  	<br>
-	  <button type="submit" ng-click="addComment()" class="btn btn-default">Add</button>
-  </fieldset>
-
+  <div class="panel-heading"><b>Attachments</b></div>
+    <div class="panel-body">
+      <div class="attachment-list" ng-switch on="issue.attachments.length">
+        <div ng-switch-when="0" class="well">No attachments.</div>
+        <div ng-switch-default>
+      <ul class="list-group" ng-repeat="attachment in issue.attachments">
+        <li class="list-group-item">
+          <p>
+            <a href="/api/download/{{attachment}}">{{attachment}}</a>
+          </p>
+        </li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  <div class="panel-footer">
+  <p> Attache some file:</p>
+  <form  name="upload_form">
+            <input 
+               type="file" 
+               ngf-select 
+               ng-model="file" 
+               name="file" 
+               ngf-max-size="20MB" 
+               />
+            <i ng-show="upload_form.file.$error.required">*required</i><br>
+            <i ng-show="upload_form.file.$error.maxSize">File too large 
+            {{up.file.size / 1000000|number:1}}MB: max 20M</i>
+            <div class="control-group">
+                <button ng-disabled="!file" class="btn btn-success" type="submit" ng-click="upload()">Attach file</button> 
+            </div>
   </form>
+
+
   </div>
 </div>
+
+
 <div class="panel panel-default">
   <div class="panel-heading"><b>Comment list</b></div>
-  <div class="panel-body">
-  <div class="comment-list" ng-switch on="issue.comments.length">
-    <div ng-switch-when="0" class="well">No comments in database.</div>
-    <div ng-switch-default>
+    <div class="panel-body">
+      <div class="comment-list" ng-switch on="issue.comments.length">
+        <div ng-switch-when="0" class="well">No comments in database.</div>
+        <div ng-switch-default>
       <ul class="list-group" ng-repeat="comment in issue.comments">
         <li class="list-group-item">
           <p>
             {{comment.text}}
           </p>
-          <span><b> Created at <i>{{comment.createdAt | date:'medium'}}</i> by <a href="#/profile/{{comment.author._id}}">{{comment.author.username}}</i></b></span>
+          <span><b> Created at <i>{{comment.createdAt | date:'medium'}}</i> by <i><a href="#/profile/{{comment.author._id}}">{{comment.author.username}}</a></i></b></span>
         </li>
       </ul>
     </div>
   </div>
-
-  </div>
+</div>
+<div class="panel-footer">
+  <p>Add comment:</p>
+  <form class="form-horizontal" name="addCommentForm">
+  <fieldset>
+    <textarea rows="5" class="form-control" ng-model="addCommentForm.content" placeholder="Add comment..."></textarea>
+    <br>
+    <button type="submit" ng-click="addComment()" class="btn btn-default">Add</button>
+  </fieldset>
+  </form>
+</div>
 </div>

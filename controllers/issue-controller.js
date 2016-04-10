@@ -154,6 +154,19 @@ issueController.addComment = function(issueId, commentId) {
         function(err, data) {});
 }
 
+issueController.attach = function(req, res) {
+    var issueId = req.params.id;
+    var filename = req.body.filename;
+    Issues.findByIdAndUpdate(issueId,{$push: {"attachments": filename}}, {safe: true},
+        function(err, data) {
+            if (err) {
+                throw err;
+            }
+
+            res.send();
+        });
+    }
+
 issueController.updateStatus = function(req, res) {
     Issues.findById(req.params.id, function (err, issue) {
     Statuses.getByQuery({name:req.body.statusName}).exec(function(err, status) {
@@ -181,6 +194,7 @@ issueController.updateStatus = function(req, res) {
       })
     });
 }
+
 
 
 module.exports = issueController;

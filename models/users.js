@@ -12,7 +12,8 @@ var User = new Schema({
 	},
     email:String,
     location: String,
-    createdAt: Date
+    createdAt: Date,
+    avatar: String
 });
 
 User.methods.validPassword = function(password) {

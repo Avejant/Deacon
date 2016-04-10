@@ -1,12 +1,26 @@
-<h3>Profile of user <b>{{user.username}}</b> </h3>
+<h3>Profile of user <b>{{profileUser.username}}</b></h3>
+<p><img width="100px" height="100px" src="storage/avatars/{{profileUser.avatar}}"> <div ng-show="isYourOwnProfile"><form name="upload_form">
+            <p><b>Upload new avatar:</b></p>
+            <div class="control-group">
+              <p><input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"/></p>
+            </div>
+            <span ng-show="file">Avatar preview:<br> <p><img width="100px" height="100px" ngf-src="file"/></p></span>
+            <i ng-show="upload_form.file.$error.maxSize">File too large 
+            {{up.file.size / 1000000|number:1}}MB: max 20M</i>
+            <div class="control-group">
+                <button ng-disabled="!file" class="btn btn-success" type="submit" ng-click="upload()">Save</button> 
+            </div>
+
+        </form></div></p>
 <div class="panel panel-default">
   <div class="panel-heading"><b>User info</b></div>
   <div class="panel-body">
-	<p> <b>First name:</b> {{user.firstName}} </p>
-	<p><b> Last name:</b> {{user.lastName}} </p>
-	<p> <b>E-Mail:</b> <a href="mailto:{{user.email}}" target="_top">{{user.email}}</a> </p>
-	<p> <b>Location:</b> {{user.location}}</p>
-	<p> <b>Date of registration:</b> {{user.createdAt | date:'medium'}}</p>
+	<p> <b>First name:</b> {{profileUser.firstName}} </p>
+	<p><b> Last name:</b> {{profileUser.lastName}} </p>
+	<p> <b>E-Mail:</b> <a href="mailto:{{profileUser.email}}" target="_top">{{profileUser.email}}</a> </p>
+	<p> <b>Location:</b> {{profileUser.location}}</p>
+	<p> <b>Date of registration:</b> {{profileUser.createdAt | date:'medium'}}</p>
+  <p><b>Role:</b> {{profileUser.role.name}}</p>
   </div>
 </div>
 <div class="panel panel-default" ng-if="isYourOwnProfile">
