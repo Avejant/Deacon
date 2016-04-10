@@ -1,6 +1,6 @@
 'use strict'
 var issueController = angular.module('issueControllers',['ngFileUpload']);
-projectControllers.controller('IssueListCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+issueController.controller('IssueListCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     if (!$scope.$parent.isAuthenticated) 
     {
         $location.path('/');

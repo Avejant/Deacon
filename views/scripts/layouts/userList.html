@@ -1,0 +1,12 @@
+<div class="page-header">
+	<h1>List of users</h1>
+</div>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<ul class="list-group" ng-repeat="user in users">
+        <li class="list-group-item">
+        	<img width="50px" height="50px" src="storage/avatars/{{user.avatar}}"> <a href="#/profile/{{user._id}}">{{user.username}}</a>
+        </li>
+      </ul>
+	</div>
+</div>

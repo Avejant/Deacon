@@ -1,5 +1,5 @@
 'use strict'
-var app = angular.module('deaconApp',['ngRoute', 'projectControllers','issueControllers','appControllers','ui.bootstrap']).
+var app = angular.module('deaconApp',['ngRoute', 'projectControllers','issueControllers','appControllers','userControllers','ui.bootstrap']).
 	config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
             when('/',{templateUrl:'/app/layouts/home.html', controller:'HomeCtrl'}).
@@ -10,6 +10,7 @@ var app = angular.module('deaconApp',['ngRoute', 'projectControllers','issueCont
 			when('/login', {templateUrl: '/app/layouts/login.html', controller:'LoginCtrl'}).
             when('/signup',{templateUrl:'/app/layouts/signup.html', controller:'SignupCtrl'}).
             when('/profile/:id',{templateUrl:'/app/layouts/profile.html', controller:'UserProfileCtrl'}).
+            when('/users', {templateUrl:'/app/layouts/userList.html', controller:'UserListCtrl'}).
 			otherwise({ redirectTo: '/' });
 	}]);
 
