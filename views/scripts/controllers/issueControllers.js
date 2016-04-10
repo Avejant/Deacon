@@ -54,6 +54,10 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
             });
         }
         
+        $scope.cancel = function() {
+          $scope.editable = false;
+          $route.reload();
+        }
         $scope.upload = function () {
             Upload.upload({
                 url: 'api/upload',

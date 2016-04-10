@@ -28,7 +28,7 @@
   <button type="button" ng-show="!editable && showClose" class="btn btn-default" ng-click="updateStatus('Closed')"> Сlose </button>
   <button type="button" ng-show="!editable && showReopen" class="btn btn-default" ng-click="updateStatus('Open')"> Reopen </button>
   <button type="submit" ng-show="editable" ng-disabled="issueForm.$invalid" class="btn btn-success"></span> Save</button>
-  <button ng-show="editable" class="btn btn-default" ng-click="editable=false"></span> Cancel</button>
+  <button ng-show="editable" class="btn btn-default" ng-click="cancel()"></span> Cancel</button>
   </div>
 </div>
 </form>

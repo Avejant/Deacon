@@ -46,6 +46,11 @@ projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$
           }
         }
 
+        $scope.cancel = function() {
+          $scope.editable = false;
+          $route.reload();
+        }
+
         $scope.delete = function()
         {
           $http.delete('/api/projects/'+ $scope.project._id).success(function(data)
