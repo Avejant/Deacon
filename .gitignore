@@ -1,0 +1,9 @@
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.txt
+*.doc
+*.docx
+node_modules
+bower_components
