@@ -1,5 +1,6 @@
 module.exports = function(app, passport) {
     var path = require('path');
+    var Roles = require(path.join(__dirname,'../controllers/role-controller'));
     var Role = require(path.join(__dirname, '../models/roles'));
 
 
