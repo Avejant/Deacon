@@ -10,7 +10,7 @@ var passport = require('passport');
 var passportLocal = require('passport-local');
 var LocalStrategy = passportLocal.Strategy;
 var User = require(path.join(__dirname, 'models/users'));
-var configDB = require(path.join(__dirname, 'configs/database'));
+var configDB = require(path.join(__dirname, 'configs/config'));
 var port = process.env.PORT || 1337;
 
 var app = express();
@@ -19,14 +19,16 @@ var app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-mongoose.connect(configDB.url);
+mongoose.connect(configDB.databaseUrl);
 
 //use middlewares
 app.use('/app', express.static(__dirname + '/views/scripts'));
 app.use('/storage', express.static(__dirname + '/uploads'));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
@@ -38,7 +40,7 @@ app.use(expressSession({
 
 app.use(function(req, res, next) { //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+    res.header("Access-Control-Allow-Origin", configDB.appUrl);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -51,7 +53,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 
@@ -59,11 +61,11 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-require(path.join(__dirname, 'configs/passport'))(passport); 
+require(path.join(__dirname, 'configs/passport'))(passport);
 //routes
-require(path.join(__dirname, 'routes.js'))(app, passport);
+require(path.join(__dirname, 'routes/authentication.js'))(app, passport);
 require(path.join(__dirname, 'routes/api.js'))(app, passport);
 //run server
 app.listen(port, function() {
-	console.log("Some magic on " + port);
+    console.log("Some magic on " + port);
 });

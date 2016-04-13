@@ -1,51 +1,52 @@
 <div class="page-header">
-  <h1>Issues List</h1>
+    <h1>Issues List</h1>
 </div>
 <div class="row">
-	<div class="col-xs-7">
-		<input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
-	</div>
-	<div class="col-xs-3"></div>
-	<div class="col-xs-2">
-	         <div ng-controller="addIssueModalController">
-                <div class="page-body">
-                		<a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Create Issue</a>
-                </div>
+    <div class="col-xs-7">
+        <input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
+    </div>
+    <div class="col-xs-3"></div>
+    <div class="col-xs-2">
+        <div ng-controller="addIssueModalController">
+            <div class="page-body">
+                <a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Create Issue</a>
             </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 <div class="row">
-	<div class="col-xs-12"><hr></div>
+    <div class="col-xs-12">
+        <hr>
+    </div>
 </div>
 <div class="row" ng-switch on="issues.length">
-	<ul ng-switch-when="0">
-		<div class="well">No issues in database.</div>
-	</ul>
-	<table ng-switch-default class="table table-striped">
-    <thead >
-      <tr>
-        <th>Issue name</th>
-        <th>Project</th>
-        <th>Assignee user</th>
-        <th>Reporter</th>
-        <th>Status</th>
-        <th>Issue type</th>
-        <th>Severity</th>
+    <ul ng-switch-when="0">
+        <div class="well">No issues in database.</div>
+    </ul>
+    <table ng-switch-default class="table table-striped">
+        <thead>
+            <tr>
+                <th>Issue name</th>
+                <th>Project</th>
+                <th>Assignee user</th>
+                <th>Reporter</th>
+                <th>Status</th>
+                <th>Issue type</th>
+                <th>Severity</th>
 
-      </tr>
-    </thead>
-    <tbody >
-		<tr ng-repeat="issue in issues | filter:query">
-			<td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
-      <td><a href="#/projects/{{issue.project._id}}">{{issue.project.name}}</a></td>
-      <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
-      <td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
-      <td>{{issue.status.name}}</td>
-      <td>{{issue.issueType.name}}</td>
-      <td>{{issue.severity.name}}</td>
-		</tr>
-    </tbody>
-  </table>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="issue in issues | filter:query">
+                <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
+                <td><a href="#/projects/{{issue.project._id}}">{{issue.project.name}}</a></td>
+                <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
+                <td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
+                <td>{{issue.status.name}}</td>
+                <td>{{issue.issueType.name}}</td>
+                <td>{{issue.severity.name}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-

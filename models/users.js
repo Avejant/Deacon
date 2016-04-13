@@ -9,10 +9,10 @@ var User = new Schema({
     firstName: String,
     lastName: String,
     role: {
-		type: Schema.ObjectId,
+        type: Schema.ObjectId,
         ref: 'Role'
-	},
-    email:String,
+    },
+    email: String,
     location: String,
     createdAt: Date,
     avatar: String

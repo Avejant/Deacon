@@ -7,35 +7,37 @@
 	</div>
 	<div class="col-xs-3"></div>
 	<div class="col-xs-2" ng-if="!$parent.isUserHasRole('regular')">
-	         <div ng-controller="addProjectModalController">
-                <div class="page-body">
-                		<a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Add Project</a>
-                </div>
-            </div>
+		<div ng-controller="addProjectModalController">
+			<div class="page-body">
+				<a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Add Project</a>
+			</div>
+		</div>
 
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12"><hr></div>
+	<div class="col-xs-12">
+		<hr>
+	</div>
 </div>
 <div class="row" ng-switch on="projects.length">
 	<ul ng-switch-when="0">
 		<div class="well">No projects in databases.</div>
 	</ul>
 	<table ng-switch-default class="table table-striped">
-    <thead >
-      <tr>
-        <th>Project name</th>
-        <th>Short name</th>
-        <th>Project manager</th>
-      </tr>
-    </thead>
-    <tbody >
-		<tr ng-repeat="project in projects | filter:query">
-			<td><a href="#/projects/{{project._id}}">{{project.name}}</a></td>
-			<td>{{project.shortName}}</td>
-			<td><a href="#/profile/{{project.projectManager._id}}">{{project.projectManager.username}}</a></td>
-		</tr>
-    </tbody>
-  </table>
+		<thead>
+			<tr>
+				<th>Project name</th>
+				<th>Short name</th>
+				<th>Project manager</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="project in projects | filter:query">
+				<td><a href="#/projects/{{project._id}}">{{project.name}}</a></td>
+				<td>{{project.shortName}}</td>
+				<td><a href="#/profile/{{project.projectManager._id}}">{{project.projectManager.username}}</a></td>
+			</tr>
+		</tbody>
+	</table>
 </div>

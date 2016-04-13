@@ -2,83 +2,92 @@ var IssueTypes = require('../models/issueTypes');
 var typesController = {};
 
 typesController.getAllQuery = function() {
-   	return  IssueTypes.find({});
+    return IssueTypes.find({});
 }
 
 typesController.getByQuery = function(query) {
-	return IssueTypes.findOne(query);
+    return IssueTypes.findOne(query);
 }
 
 typesController.getAll = function(req, res) {
-		typesController.getAllQuery().exec(function(err, issueTypes){
-		if (err){
-				res.error(err);
-		} else {
-			res.json(issueTypes);
-		}
-	})
+    typesController.getAllQuery().exec(function(err, issueTypes) {
+        if (err) {
+            res.error(err);
+        } else {
+            res.json(issueTypes);
+        }
+    })
 }
 
-typesController.getById = function(req, res){
-	typesController.getByQuery({_id:req.params.id}).exec(function(err, issueType){
+typesController.getById = function(req, res) {
+    typesController.getByQuery({
+        _id: req.params.id
+    }).exec(function(err, issueType) {
 
-		if(!issueType) {
+        if (!issueType) {
             res.statusCode = 404;
-            return res.send({ error: 'Not found' });
+            return res.send({
+                error: 'Not found'
+            });
         }
 
-		if (err)
-		{
-			res.error(err);
-		} 
-		else 
-		{
-			res.json(issueType);
-		}
-	});
+        if (err) {
+            res.error(err);
+        } else {
+            res.json(issueType);
+        }
+    });
 }
 
 typesController.create = function(req, res) {
-	var issueType = new IssueTypes({
-		name: req.body.name
-	});	
+    var issueType = new IssueTypes({
+        name: req.body.name
+    });
 
-    issueType.save(function (err) {
+    issueType.save(function(err) {
         if (!err) {
             return res.redirect('/');
-        } 
-        else 
-        {
-            if(err.name == 'ValidationError') {
+        } else {
+            if (err.name == 'ValidationError') {
                 res.statusCode = 400;
-                res.send({ error: 'Validation error' });
+                res.send({
+                    error: 'Validation error'
+                });
             } else {
                 res.statusCode = 500;
-                res.send({ error: 'Server error' });
+                res.send({
+                    error: 'Server error'
+                });
             }
         }
     });
 }
 
 typesController.update = function(req, res) {
-	IssueTypes.findById(req.params.id, function (err, issueType) {
-        if(!issueType) {
+    IssueTypes.findById(req.params.id, function(err, issueType) {
+        if (!issueType) {
             res.statusCode = 404;
-            return res.send({ error: 'Not found' });
+            return res.send({
+                error: 'Not found'
+            });
         }
 
         issueType.name = req.body.name === undefined ? issueType.name : req.body.name;
 
-        return issueType.save(function (err) {
+        return issueType.save(function(err) {
             if (!err) {
-            	return res.redirect('/');
+                return res.redirect('/');
             } else {
-                if(err.name == 'ValidationError') {
+                if (err.name == 'ValidationError') {
                     res.statusCode = 400;
-                    res.send({ error: 'Validation error' });
+                    res.send({
+                        error: 'Validation error'
+                    });
                 } else {
                     res.statusCode = 500;
-                    res.send({ error: 'Server error' });
+                    res.send({
+                        error: 'Server error'
+                    });
                 }
             }
         });
@@ -86,22 +95,24 @@ typesController.update = function(req, res) {
 }
 
 typesController.delete = function(req, res) {
-	IssueTypes.findById(req.params.id, function (err, issueType) {
-        if(!issueType) {
+    IssueTypes.findById(req.params.id, function(err, issueType) {
+        if (!issueType) {
             res.statusCode = 404;
-            return res.send({ error: 'Not found' });
+            return res.send({
+                error: 'Not found'
+            });
         }
-        return issueType.remove(function (err) {
+        return issueType.remove(function(err) {
             if (!err) {
-            	return res.redirect('/');
-            } 
-            else {
+                return res.redirect('/');
+            } else {
                 res.statusCode = 500;
-                return res.send({ error: 'Server error' });
+                return res.send({
+                    error: 'Server error'
+                });
             }
         });
     });
 }
 
 module.exports = typesController;
-

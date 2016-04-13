@@ -2,83 +2,92 @@ var Severities = require('../models/severities');
 var severityController = {};
 
 severityController.getAllQuery = function() {
-   	return  Severities.find({});
+    return Severities.find({});
 }
 
 severityController.getByQuery = function(query) {
-	return Severities.findOne(query);
+    return Severities.findOne(query);
 }
 
 severityController.getAll = function(req, res) {
-		severityController.getAllQuery().exec(function(err, severities){
-		if (err){
-				res.error(err);
-		} else {
-			res.json(severities);
-		}
-	})
+    severityController.getAllQuery().exec(function(err, severities) {
+        if (err) {
+            res.error(err);
+        } else {
+            res.json(severities);
+        }
+    })
 }
 
-severityController.getById = function(req, res){
-	severityController.getByQuery({_id:req.params.id}).exec(function(err, severity){
+severityController.getById = function(req, res) {
+    severityController.getByQuery({
+        _id: req.params.id
+    }).exec(function(err, severity) {
 
-		if(!severity) {
+        if (!severity) {
             res.statusCode = 404;
-            return res.send({ error: 'Not found' });
+            return res.send({
+                error: 'Not found'
+            });
         }
 
-		if (err)
-		{
-			res.error(err);
-		} 
-		else 
-		{
-			res.json(severity);
-		}
-	});
+        if (err) {
+            res.error(err);
+        } else {
+            res.json(severity);
+        }
+    });
 }
 
 severityController.create = function(req, res) {
-	var severity = new Severities({
-		name: req.body.name
-	});	
+    var severity = new Severities({
+        name: req.body.name
+    });
 
-    severity.save(function (err) {
+    severity.save(function(err) {
         if (!err) {
             return res.redirect('/');
-        } 
-        else 
-        {
-            if(err.name == 'ValidationError') {
+        } else {
+            if (err.name == 'ValidationError') {
                 res.statusCode = 400;
-                res.send({ error: 'Validation error' });
+                res.send({
+                    error: 'Validation error'
+                });
             } else {
                 res.statusCode = 500;
-                res.send({ error: 'Server error' });
+                res.send({
+                    error: 'Server error'
+                });
             }
         }
     });
 }
 
 severityController.update = function(req, res) {
-	Severities.findById(req.params.id, function (err, severity) {
-        if(!severity) {
+    Severities.findById(req.params.id, function(err, severity) {
+        if (!severity) {
             res.statusCode = 404;
-            return res.send({ error: 'Not found' });
+            return res.send({
+                error: 'Not found'
+            });
         }
 
         severity.name = req.body.name === undefined ? severity.name : req.body.name;
 
-        return severity.save(function (err) {
+        return severity.save(function(err) {
             if (!err) {
-            	return res.redirect('/');
+                return res.redirect('/');
             } else {
-                if(err.name == 'ValidationError') {
+                if (err.name == 'ValidationError') {
                     res.statusCode = 400;
-                    res.send({ error: 'Validation error' });
+                    res.send({
+                        error: 'Validation error'
+                    });
                 } else {
                     res.statusCode = 500;
-                    res.send({ error: 'Server error' });
+                    res.send({
+                        error: 'Server error'
+                    });
                 }
             }
         });
@@ -86,22 +95,24 @@ severityController.update = function(req, res) {
 }
 
 severityController.delete = function(req, res) {
-	Severities.findById(req.params.id, function (err, severity) {
-        if(!severity) {
+    Severities.findById(req.params.id, function(err, severity) {
+        if (!severity) {
             res.statusCode = 404;
-            return res.send({ error: 'Not found' });
+            return res.send({
+                error: 'Not found'
+            });
         }
-        return severity.remove(function (err) {
+        return severity.remove(function(err) {
             if (!err) {
-            	return res.redirect('/');
-            } 
-            else {
+                return res.redirect('/');
+            } else {
                 res.statusCode = 500;
-                return res.send({ error: 'Server error' });
+                return res.send({
+                    error: 'Server error'
+                });
             }
         });
     });
 }
 
 module.exports = severityController;
-

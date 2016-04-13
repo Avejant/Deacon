@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="deaconApp">
+
 <head>
     <meta charset="utf-8">
     <title>Deacon</title>
@@ -18,46 +19,50 @@
     <script src="app/controllers/userControllers.js"></script>
     <script src="ng-file-upload/ng-file-upload.min.js"></script>
 </head>
+
 <body ng-controller="AppCtrl">
-<div class="page-wrap">
-  <nav role="navigation" class="navbar navbar-inverse">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <a href="#/" class="navbar-brand">Deacon</a>
-  </div>
-  <!-- Collection of nav links, forms, and other content for toggling -->
-  <div id="navbarCollapse" class="collapse navbar-collapse">
-    <div ng-if="isAuthenticated">
-    <ul class="nav navbar-nav">
-      <li><a href="#/projects">Projects</a></li>
-      <li><a href="#/issues">Issues</a></li>
-      <li ng-show="isUserHasRole('admin')"><a href="#/users">Users</a></li>
-    </ul>
+    <div class="page-wrap">
+        <nav role="navigation" class="navbar navbar-inverse">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a href="#/" class="navbar-brand">Deacon</a>
+            </div>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <div ng-if="isAuthenticated">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/projects">Projects</a></li>
+                        <li><a href="#/issues">Issues</a></li>
+                        <li ng-show="isUserHasRole('admin')"><a href="#/users">Users</a></li>
+                    </ul>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!isAuthenticated"><a href="#/login"> Sign in</a></li>
+                    <li ng-if="isAuthenticated" class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are {{user.username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/profile/{{user._id}}">Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">Log out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+        <div class="container">
+            <div ng-view></div>
+        </div>
     </div>
-     <ul class="nav navbar-nav navbar-right">
-      <li ng-if="!isAuthenticated"><a href="#/login"> Sign in</a></li>
-      <li ng-if="isAuthenticated" class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are {{user.username}} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#/profile/{{user._id}}">Profile</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/logout">Log out</a></li>
-          </ul>
-        </li>
-    </ul>
 
-
-  </div>
-</nav>
-<div class="container">
-<div ng-view></div>
-</div>
-</div>
-
-<footer class="site-footer">
-      <div class="container">
-        <center><p class="text-muted">© 2016 Maria Muravyova. All rights reserved.</p></center>
-      </div>
+    <footer class="site-footer">
+        <div class="container">
+            <center>
+                <p class="text-muted">© 2016 Maria Muravyova. All rights reserved.</p>
+            </center>
+        </div>
     </footer>
 </body>
+
 </html>

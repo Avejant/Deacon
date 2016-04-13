@@ -1,64 +1,70 @@
-  <div ng-repeat="message in messages">
+<div ng-repeat="message in messages">
     <div class="alert alert-danger">{{message}}</div>
-  </div>
+</div>
 <form name="projectForm" ng-submit="update(projectForm.$valid)" class="form-horizontal" novalidate>
-<h3>Project <b ng-show="!editable">"{{project.name}}"</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="projectForm.name" class="form-control" required> </h3>
-<div class="panel panel-default">
-  <div class="panel-heading"><b>Project info</b></div>
-  <div class="panel-body">
+    <h3>Project <b ng-show="!editable">"{{project.name}}"</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="projectForm.name" class="form-control" required> </h3>
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Project info</b></div>
+        <div class="panel-body">
 
-  <p> <b>Short name:</b> <span ng-show="!editable">{{project.shortName}}</span>   <input ng-show="editable" type="text" id="shortName" pattern=".{3}" maxlength="3" ng-model="projectForm.shortName" class="form-control" required> </p>
-  <p><b> Project manager:</b><a href="#/profile/{{project.projectManager._id}}"> <span>{{project.projectManager.username}}</span> </a> </p>
-  <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit project</button>
-  <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button>
-  <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success"></span> Save</button>
-  <button type="button" ng-show="editable" class="btn btn-default" ng-click="cancel()"></span> Cancel</button>
-  </div>
-</div>
+            <p> <b>Short name:</b> <span ng-show="!editable">{{project.shortName}}</span>
+                <input ng-show="editable" type="text" id="shortName" pattern=".{3}" maxlength="3" ng-model="projectForm.shortName" class="form-control" required> </p>
+            <p><b> Project manager:</b>
+                <a href="#/profile/{{project.projectManager._id}}"> <span>{{project.projectManager.username}}</span> </a>
+            </p>
+            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit project</button>
+            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button>
+            <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success">
+                </span> Save</button>
+            <button type="button" ng-show="editable" class="btn btn-default" ng-click="cancel()">
+                </span> Cancel</button>
+        </div>
+    </div>
 </form>
-  <h3>Issues of project:</h3>
+<h3>Issues of project:</h3>
 <div class="row">
-	<div class="col-xs-7">
-		<input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
-	</div>
-	<div class="col-xs-3"></div>
-	<div class="col-xs-2">
-	         <div ng-controller="addIssueModalController">
-                <div class="page-body">
-                		<a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Create Issue</a>
-                </div>
+    <div class="col-xs-7">
+        <input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
+    </div>
+    <div class="col-xs-3"></div>
+    <div class="col-xs-2">
+        <div ng-controller="addIssueModalController">
+            <div class="page-body">
+                <a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Create Issue</a>
             </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 <div class="row">
-	<div class="col-xs-12"><hr></div>
+    <div class="col-xs-12">
+        <hr>
+    </div>
 </div>
 <div class="row" ng-switch on="issues.length">
-	<ul ng-switch-when="0">
-		<div class="well">No issues in database.</div>
-	</ul>
-	<table ng-switch-default class="table table-striped">
-    <thead >
-      <tr>
-        <th>Issue name</th>
-        <th>Assignee user</th>
-        <th>Reporter</th>
-        <th>Status</th>
-        <th>Issue type</th>
-        <th>Severity</th>
-      </tr>
-    </thead>
-    <tbody >
-		<tr ng-repeat="issue in issues | filter:query">
-			<td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
-      <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
-      <td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
-      <td>{{issue.status.name}}</td>
-      <td>{{issue.issueType.name}}</td>
-      <td>{{issue.severity.name}}</td>
-		</tr>
-    </tbody>
-  </table>
+    <ul ng-switch-when="0">
+        <div class="well">No issues in database.</div>
+    </ul>
+    <table ng-switch-default class="table table-striped">
+        <thead>
+            <tr>
+                <th>Issue name</th>
+                <th>Assignee user</th>
+                <th>Reporter</th>
+                <th>Status</th>
+                <th>Issue type</th>
+                <th>Severity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="issue in issues | filter:query">
+                <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
+                <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
+                <td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
+                <td>{{issue.status.name}}</td>
+                <td>{{issue.issueType.name}}</td>
+                <td>{{issue.severity.name}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-
