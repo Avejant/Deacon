@@ -1,0 +1,11 @@
+[{
+    "name": "Story"
+}, {
+    "name": "Improvement"
+}, {
+    "name": "Bug"
+}, {
+    "name": "Task"
+}, {
+    "name": "Spike"
+}]

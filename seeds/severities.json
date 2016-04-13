@@ -1,0 +1,13 @@
+[{
+    "name": "Critical"
+}, {
+    "name": "Blocker"
+}, {
+    "name": "Major"
+}, {
+    "name": "Normal"
+}, {
+    "name": "Minor"
+}, {
+    "name": "Trivial"
+}]
