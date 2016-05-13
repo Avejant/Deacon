@@ -18,12 +18,12 @@ var app = express();
 //configure
 
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/spa');
 mongoose.connect(configDB.databaseUrl);
 
 //use middlewares
-app.use('/app', express.static(__dirname + '/views/scripts'));
 app.use('/storage', express.static(__dirname + '/uploads'));
+app.use('/spa',express.static(path.join(__dirname, 'spa')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

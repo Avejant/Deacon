@@ -115,7 +115,7 @@ issueController.controller('addIssueModalController', ['$scope', '$uibModal',
             $scope.message = "Show Form Button Clicked";
 
             var modalInstance = $uibModal.open({
-                templateUrl: '/app/layouts/modals/addIssueModal.html',
+                templateUrl: '/spa/partials/modals/addIssueModal.html',
                 controller: AddIssueModalInstanceCtrl,
                 scope: $scope,
                 resolve: {
@@ -142,13 +142,20 @@ var AddIssueModalInstanceCtrl = function($scope, $uibModalInstance, $http, $loca
             $scope.severities = angular.fromJson(data);
             $http.get('/api/users').success(function(data) {
                 $scope.users = angular.fromJson(data);
-                console.log(data);
                 $scope.issueForm.assigneeUser = data[0];
                 $http.get('/api/projects').success(function(data) {
+                    var defaultProject;
                     $scope.projects = angular.fromJson(data);
-                    $scope.issueForm.project = $scope.projects.find(function(item) {
-                        return item._id === $scope.$parent.$parent.project._id
-                    });
+                    if ($scope.$parent.$parent.project === undefined) {
+                        defaultProject = $scope.projects[0];
+                    } else {
+                        defaultProject = $scope.projects.find(function(item) {
+                            return item._id === $scope.$parent.$parent.project._id;
+                        });
+                    }
+
+                    $scope.issueForm.project = defaultProject;
+
                     if (!$scope.issueForm.project) {
                         $scope.issueForm.project = $scope.projects[0];
                     }

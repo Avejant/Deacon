@@ -69,7 +69,7 @@ projectControllers.controller("addProjectModalController", ['$scope', '$uibModal
             console.log($scope.message);
 
             var modalInstance = $uibModal.open({
-                templateUrl: '/app/layouts/modals/addProjectModal.html',
+                templateUrl: '/spa/partials/modals/addProjectModal.html',
                 controller: AddProjectModalInstanceCtrl,
                 scope: $scope,
                 resolve: {
