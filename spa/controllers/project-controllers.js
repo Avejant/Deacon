@@ -1,6 +1,6 @@
 'use strict'
-var projectControllers = angular.module('projectControllers', []);
-projectControllers.controller('ProjectListCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+var app = angular.module('deaconApp');
+app.controller('ProjectListCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
@@ -11,11 +11,13 @@ projectControllers.controller('ProjectListCtrl', ['$scope', '$http', '$location'
     });
 }]);
 
-projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
     }
+
+    $scope.activeSprint = "SPA-1";
     $http.get('/api/projects/' + $routeParams.id).success(function(data) {
         $scope.update = function() {
             console.log($scope.projectForm);
@@ -60,7 +62,7 @@ projectControllers.controller('ProjectCtrl', ['$scope', '$http', '$location', '$
 
 
 
-projectControllers.controller("addProjectModalController", ['$scope', '$uibModal',
+app.controller("addProjectModalController", ['$scope', '$uibModal',
 
     function($scope, $uibModal) {
 

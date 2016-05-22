@@ -1,7 +1,7 @@
 'use strict'
-var authenticationController = angular.module('authenticationControllers', ['ngFileUpload']);
+var app = angular.module('deaconApp');
 //login ctrl
-authenticationController.controller('LoginCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+app.controller('LoginCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     if ($scope.$parent.isAuthenticated) {
         $location.path('/');
     }
@@ -20,7 +20,7 @@ authenticationController.controller('LoginCtrl', ['$scope', '$http', '$location'
 }]);
 
 //signup ctrl
-authenticationController.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+app.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     if ($scope.$parent.isAuthenticated) {
         $location.path('/');
         return;

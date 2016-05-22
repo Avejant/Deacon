@@ -6,6 +6,7 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
         res.render('index', {
+            statusCode: 200,
             isAuthenticated: req.isAuthenticated(),
             user: req.user
         });

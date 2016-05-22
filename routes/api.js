@@ -46,6 +46,7 @@ module.exports = function(app, passport) {
     app.delete('/api/statuses/:id', Statuses.delete);
 
     app.get('/api/issues', Issues.getAll);
+    app.get('/api/user/:id/assignedIssues', Issues.getIssuesByAssignedUser);
     app.get('/api/issues/:id', Issues.getById);
     app.get('/api/issuesOfProject/:id', Issues.getAllIssuesByProjectId);
     app.post('/api/issues', Issues.create);

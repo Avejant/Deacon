@@ -30,15 +30,35 @@ issueController.getAll = function(req, res) {
 }
 
 issueController.getAllIssuesByProjectId = function(req, res) {
-    Projects.getByQuery({
-        _id: req.params.id
-    }).exec(function(err, _project) {
+        Projects.getByQuery({
+            _id: req.params.id
+        }).exec(function(err, _project) {
+            issueController.getByQuery({
+                project: _project._id
+            }).exec(function(err, issues) {
+                if (err) {
+                    res.error(err);
+                } else {
+                    res.json(issues);
+                }
+            });
+        });
+    }
+
+issueController.getIssuesByAssignedUser = function(req, res) {
+    issueController.getAllQuery().exec(function(err, issues) {
+        if (err) {
+            res.error(err);
+        }
         issueController.getByQuery({
-            project: _project._id
+            assigneeUser: req.params.id
         }).exec(function(err, issues) {
             if (err) {
                 res.error(err);
             } else {
+                issues = issues.filter(function(item) {
+                  return item.status.name !== 'Closed';
+                });
                 res.json(issues);
             }
         });

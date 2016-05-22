@@ -1,7 +1,7 @@
 'use strict'
-var userController = angular.module('userControllers', ['ngFileUpload']);
+var app = angular.module('deaconApp');
 
-userController.controller('UserListCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+app.controller('UserListCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
@@ -19,7 +19,7 @@ userController.controller('UserListCtrl', ['$scope', '$http', '$location', funct
 
 
 //current user profile ctrl
-userController.controller('UserProfileCtrl', ['$scope', '$http', '$location', '$routeParams', '$route', 'Upload', function($scope, $http, $location, $routeParams, $route, Upload) {
+app.controller('UserProfileCtrl', ['$scope', '$http', '$location', '$routeParams', '$route', 'Upload', function($scope, $http, $location, $routeParams, $route, Upload) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;

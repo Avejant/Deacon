@@ -12,6 +12,10 @@
             <p><b> Project manager:</b>
                 <a href="#/profile/{{project.projectManager._id}}"> <span>{{project.projectManager.username}}</span> </a>
             </p>
+            <p><b> Active sprint:</b>
+                <a href="#/project/{{project._id}}/activeSprint">{{activeSprint}}</a>
+            </p>
+            <p> <a href="#/project/{{project._id}}/backlog">View Backlog and Active Sprint</a></p>
             <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit project</button>
             <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button>
             <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success">
@@ -26,14 +30,13 @@
     <div class="col-xs-7">
         <input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
     </div>
-    <div class="col-xs-3"></div>
-    <div class="col-xs-2">
-        <div ng-controller="addIssueModalController">
-            <div class="page-body">
-                <a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Create Issue</a>
-            </div>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-3">
+        <div class="btn-group" role="group">
+            <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Issue</button>
+            <button ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Sprint</button>
+            <!-- <button ng-controller="addSprintModalController" type="button" ng-click="showSprintForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Sprint</button> -->
         </div>
-
     </div>
 </div>
 <div class="row">

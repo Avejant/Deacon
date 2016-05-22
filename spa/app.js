@@ -1,5 +1,5 @@
 'use strict'
-var app = angular.module('deaconApp', ['ngRoute', 'appControllers', 'projectControllers', 'authenticationControllers', 'issueControllers', 'userControllers', 'ui.bootstrap']).
+var app = angular.module('deaconApp', ['ngRoute', 'ngFileUpload','ui.bootstrap']).
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.
     when('/', {
@@ -37,6 +37,14 @@ config(['$routeProvider', function($routeProvider) {
     when('/users', {
         templateUrl: '/spa/partials/userList.html',
         controller: 'UserListCtrl'
+    }).
+    when('/project/:id/backlog',{
+       templateUrl: '/spa/partials/backlog.html',
+       controller: 'backlogCtrl'
+    }).
+    when('/project/:id/activeSprint',{
+      templateUrl:'/spa/partials/activeSprint.html',
+      controller: 'activeSprintCtrl'
     }).
     otherwise({
         redirectTo: '/'

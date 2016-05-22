@@ -1,6 +1,6 @@
 'use strict'
-var issueController = angular.module('issueControllers', ['ngFileUpload']);
-issueController.controller('IssueListCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+var app = angular.module('deaconApp');
+app.controller('IssueListCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
@@ -12,7 +12,7 @@ issueController.controller('IssueListCtrl', ['$scope', '$http', '$location', fun
     });
 }]);
 
-issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', 'Upload', function($scope, $http, $location, $route, $routeParams, Upload) {
+app.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routeParams', 'Upload', function($scope, $http, $location, $route, $routeParams, Upload) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
@@ -107,7 +107,7 @@ issueController.controller('IssueCtrl', ['$scope', '$http', '$location', '$route
 }]);
 
 
-issueController.controller('addIssueModalController', ['$scope', '$uibModal',
+app.controller('addIssueModalController', ['$scope', '$uibModal',
 
     function($scope, $uibModal) {
 

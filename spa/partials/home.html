@@ -1,8 +1,35 @@
-<div ng-if="isAuthenticated">
-	<p>Hi, {{user.username}}!</p>
-</div>
-
 <div ng-if="!isAuthenticated">
 	<p>You have not access to this page</p>
 	<p><a href="#/signup"> Register </a> or <a href="#/login"> Log in </a></p>
+</div>
+
+<div ng-if="isAuthenticated">
+	<h1>Hi, {{user.username}}!</h1>
+	<h3>Assigned Issues </h3>
+	<div class="row" ng-switch on="issues.length">
+	    <ul ng-switch-when="0">
+	        <div class="well">No issues in database.</div>
+	    </ul>
+	    <table ng-switch-default class="table table-striped">
+	        <thead>
+	            <tr>
+	                <th>Issue name</th>
+	                <th>Reporter</th>
+	                <th>Status</th>
+	                <th>Issue type</th>
+	                <th>Severity</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-repeat="issue in issues | filter:query">
+	                <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
+	                <td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
+	                <td>{{issue.status.name}}</td>
+	                <td>{{issue.issueType.name}}</td>
+	                <td>{{issue.severity.name}}</td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
+
 </div>

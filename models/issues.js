@@ -39,7 +39,8 @@ var Issue = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
     }],
-    attachments: [String]
+    attachments: [String],
+    storyPoints: Number
 });
 
 Issue.plugin(deepPopulate);

@@ -1,0 +1,43 @@
+<h3>{{sprint.name}}</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>To Do</th>
+            <th>In Progress</th>
+            <th>Resolved</th>
+            <th>Closed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <ul class="list-group">
+                    <li ng-repeat="issue in sprint.todo" class="list-group-item">
+                        <span class="badge">14</span> {{issue}}
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-group">
+                    <li ng-repeat="issue in sprint.inprog" class="list-group-item">
+                        <span class="badge">14</span> {{issue}}
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-group">
+                    <li ng-repeat="issue in sprint.resolved" class="list-group-item">
+                        <span class="badge">14</span> {{issue}}
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-group">
+                    <li ng-repeat="issue in sprint.closed" class="list-group-item">
+                        <span class="badge">14</span> {{issue}}
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
