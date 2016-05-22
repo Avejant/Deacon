@@ -85,6 +85,7 @@ app.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routePa
         $scope.showClose = $scope.issue.status.name == "Resolved";
         $scope.issueForm.name = $scope.issue.name;
         $scope.issueForm.description = $scope.issue.description;
+        $scope.issueForm.storyPoints = $scope.issue.storyPoints;
         $http.get('/api/severities').success(function(data) {
             $scope.severities = angular.fromJson(data);
             $scope.issueForm.severity = $scope.severities.find(function(item) {
@@ -137,6 +138,7 @@ var AddIssueModalInstanceCtrl = function($scope, $uibModalInstance, $http, $loca
         $scope.issueForm.description = "";
         $scope.issueTypes = angular.fromJson(data);
         $scope.issueForm.issueType = data[0];
+        $scope.issueForm.storyPoints = 0;
         $http.get('/api/severities').success(function(data) {
             $scope.issueForm.severity = data[0];
             $scope.severities = angular.fromJson(data);

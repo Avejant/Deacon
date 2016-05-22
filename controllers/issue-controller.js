@@ -113,7 +113,8 @@ issueController.create = function(req, res) {
                 severity: req.body.severity._id,
                 status: status._id,
                 assigneeUser: req.body.assigneeUser._id,
-                reporter: req.body.reporter._id
+                reporter: req.body.reporter._id,
+                storyPoints: req.body.storyPoints
             });
 
             issue.save(function(err) {
@@ -167,7 +168,7 @@ issueController.update = function(req, res) {
             issue.issueType = req.body.issueType._id;
             issue.severity = req.body.severity._id;
             issue.assigneeUser = req.body.assigneeUser._id;
-
+            issue.storyPoints = req.body.storyPoints;
             return issue.save(function(err) {
                 if (!err) {
                     return res.send();
