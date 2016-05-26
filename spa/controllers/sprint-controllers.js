@@ -110,14 +110,12 @@ app.controller('addSprintModalController', ['$scope', '$uibModal',
     function($scope, $uibModal) {
 
         $scope.showForm = function() {
-            $scope.message = "Show Form Button Clicked";
-
             var modalInstance = $uibModal.open({
                 templateUrl: '/spa/partials/modals/addSprintModal.html',
                 controller: AddSprintModalInstanceCtrl,
                 scope: $scope,
                 resolve: {
-                    issueForm: function() {
+                    sprintForm: function() {
                         return $scope.sprintForm;
                     }
                 }
@@ -130,13 +128,45 @@ app.controller('addSprintModalController', ['$scope', '$uibModal',
     }
 ]);
 
-var AddSprintModalInstanceCtrl = function($scope, $uibModalInstance, $http, $location, $route, issueForm) {
-    $scope.durations = [{
-        name: '2 weeks',
-        value: 1
-    }, {
-        name: '1 month',
-        value: 2
-    }];
-    $scope.duration = $scope.durations[0];
-};
+var AddSprintModalInstanceCtrl = function($scope, $uibModalInstance, $http, $location, $route, sprintForm) {
+    $scope.$watch('sprintForm', function(sprintForm) {
+        if (sprintForm) {
+            $scope.durations = [{
+                name: '2 weeks',
+                value: 14
+            }, {
+                name: '1 month',
+                value: 28
+            }];
+            $scope.updateEndingDate = function() {
+                var temp = new Date();
+                var beg = $scope.sprintForm.beginning;
+                temp.setDate(beg.getDate() + $scope.duration.value);
+                $scope.sprintForm.ending = temp;
+            }
+
+            $scope.duration = $scope.durations[0];
+            $scope.sprintForm.beginning = new Date();
+            $scope.sprintForm.ending = new Date();
+            $scope.sprintForm.ending.setDate($scope.sprintForm.beginning.getDate() + 14);
+            $scope.addSprint = function() {
+                console.log($scope.sprintForm);
+                if ($scope.sprintForm.$valid) {
+                    $scope.messages = [];
+                    $scope.project = $scope.$parent.$parent.project;
+                    $http.post('/api/projects/' + $scope.project._id + '/startSprint', $scope.sprintForm).success(function(data) {
+                        $route.reload();
+                        $uibModalInstance.close('closed');
+                    }).error(function(data) {
+                        $location.path('/');
+                    })
+                }
+            }
+
+            $scope.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
+        }
+    });
+
+}

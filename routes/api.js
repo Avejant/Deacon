@@ -8,10 +8,12 @@ module.exports = function(app, passport) {
     var Users = require('../controllers/user-controller');
     var Upload = require('../controllers/upload-controller');
     var Roles = require('../controllers/role-controller');
+    var Sprints = require('../controllers/sprint-controller');
 
     app.get('/api/projects', Projects.getAll);
     app.get('/api/projects/:id', Projects.getById);
     app.post('/api/projects', Projects.create);
+    app.post('/api/projects/:id/startSprint', Sprints.create);
     app.put('/api/projects/:id', Projects.update);
     app.delete('/api/projects/:id', Projects.delete);
 

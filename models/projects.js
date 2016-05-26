@@ -7,7 +7,11 @@ var Project = new Schema({
     projectManager: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    sprints: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sprint'
+    }]
 });
 
 module.exports = mongoose.model('Project', Project);

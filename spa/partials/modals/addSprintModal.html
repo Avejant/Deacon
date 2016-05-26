@@ -1,5 +1,5 @@
 <!-- Add project modal -->
-<form name="projectForm" role="form" class="form-horizontal" ng-submit="addSprint(sprintForm.$valid)" novalidate>
+<form name="sprintForm" class="form-horizontal" ng-submit="addSprint(sprintForm.$valid)" novalidate>
     <!-- Modal content-->
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
-                        <select ng-options="duration.name for duration in durations" ng-model="duration" class="form-control">
+                        <select ng-change="updateEndingDate(sprintForm.ending)" ng-options="duration.name for duration in durations" ng-model="duration" class="form-control">
                         </select>
                         <br>
                     </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
-                        <input type="date" class="form-control" required>
+                        <input type="date" ng-change="updateEndingDate(sprintForm.ending)" ng-model="sprintForm.beginning" class="form-control" required>
                         <br>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
-                        <input type="date" class="form-control" ng-disabled="true" required>
+                        <input type="date" ng-model="sprintForm.ending" class="form-control" ng-disabled="true" required>
                     </div>
                 </div>
             </div>

@@ -8,15 +8,15 @@ var Users = require('./user-controller');
 var issueController = {};
 
 issueController.getAllQuery = function() {
-    return Issues.find({}).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author');
+    return Issues.find({}).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author').populate('sprint');
 }
 
 issueController.getByQuery = function(query) {
-    return Issues.find(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author');
+    return Issues.find(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author').populate('sprint');
 }
 
 issueController.getSingleByQuery = function(query) {
-    return Issues.findOne(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author');
+    return Issues.findOne(query).populate('issueType').populate('severity').populate('status').populate('project').populate('assigneeUser').populate('reporter').populate('issueType').populate('comments').deepPopulate('comments.author').populate('sprint');
 }
 
 issueController.getAll = function(req, res) {

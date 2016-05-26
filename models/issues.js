@@ -40,7 +40,12 @@ var Issue = new Schema({
         ref: 'Comment'
     }],
     attachments: [String],
-    storyPoints: Number
+    storyPoints: {type: Number, default: 0},
+    sprint: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Sprint',
+      default: null
+    }
 });
 
 Issue.plugin(deepPopulate);

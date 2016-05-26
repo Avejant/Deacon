@@ -1,13 +1,19 @@
 var Projects = require('../models/projects');
 var Users = require('./user-controller');
+var Sprints = require('../models/sprints');
+
 var projectController = {};
 
 projectController.getAllQuery = function() {
-    return Projects.find({}).populate('projectManager');
+    return Projects.find({}).populate('projectManager').populate('sprints');
 }
 
 projectController.getByQuery = function(query) {
-    return Projects.findOne(query).populate('projectManager');
+    return Projects.findOne(query).populate('projectManager').populate('sprints');
+}
+
+projectController.getByIdQuery = function functionName(id) {
+    return Projects.findById(id).populate('projectManager').populate('sprints');
 }
 
 projectController.getAll = function(req, res) {
@@ -143,6 +149,22 @@ projectController.update = function(req, res) {
         });
     });
 }
+
+projectController.addSprint = function(projectId, sprintId) {
+    Projects.findByIdAndUpdate(projectId, {
+            $push: {
+                "sprints": {
+                    "_id": sprintId
+                }
+            }
+        }, {
+            safe: true
+        },
+        function(err, project) {
+        }
+        );
+    }
+
 
 projectController.delete = function(req, res) {
     Projects.findById(req.params.id, function(err, project) {

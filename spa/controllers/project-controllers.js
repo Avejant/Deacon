@@ -68,7 +68,6 @@ app.controller("addProjectModalController", ['$scope', '$uibModal',
 
         $scope.showForm = function() {
             $scope.message = "Show Form Button Clicked";
-            console.log($scope.message);
 
             var modalInstance = $uibModal.open({
                 templateUrl: '/spa/partials/modals/addProjectModal.html',
