@@ -30,20 +30,20 @@ issueController.getAll = function(req, res) {
 }
 
 issueController.getAllIssuesByProjectId = function(req, res) {
-        Projects.getByQuery({
-            _id: req.params.id
-        }).exec(function(err, _project) {
-            issueController.getByQuery({
-                project: _project._id
-            }).exec(function(err, issues) {
-                if (err) {
-                    res.error(err);
-                } else {
-                    res.json(issues);
-                }
-            });
+    Projects.getByQuery({
+        _id: req.params.id
+    }).exec(function(err, _project) {
+        issueController.getByQuery({
+            project: _project._id
+        }).exec(function(err, issues) {
+            if (err) {
+                res.error(err);
+            } else {
+                res.json(issues);
+            }
         });
-    }
+    });
+}
 
 issueController.getIssuesByAssignedUser = function(req, res) {
     issueController.getAllQuery().exec(function(err, issues) {
@@ -57,7 +57,7 @@ issueController.getIssuesByAssignedUser = function(req, res) {
                 res.error(err);
             } else {
                 issues = issues.filter(function(item) {
-                  return item.status.name !== 'Closed';
+                    return item.status.name !== 'Closed';
                 });
                 res.json(issues);
             }
@@ -135,6 +135,43 @@ issueController.create = function(req, res) {
                 }
             });
         });
+
+    });
+}
+
+issueController.toogleSprint = function(req, res) {
+    Issues.findById(req.params.id, function(err, issue) {
+        if (err) {
+            res.send({
+                error: err
+            })
+        }
+
+        if (issue.sprint !== null) {
+            issue.sprint = null;
+            issue.save(function(err) {
+                if (err) {
+                    res.send({
+                        error: err
+                    })
+                }
+                res.send();
+            });
+        } else {
+            Projects.getByQuery({
+                _id: issue.project
+            }).exec(function(err, project) {
+                issue.sprint = project.sprints[project.sprints.length - 1];
+                issue.save(function(err) {
+                    if (err) {
+                        res.send({
+                            error: err
+                        })
+                    }
+                    res.send();
+                });
+            });
+        }
 
     });
 }

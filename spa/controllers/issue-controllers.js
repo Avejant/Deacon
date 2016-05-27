@@ -77,7 +77,16 @@ app.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routePa
                 console.log('Error status: ' + resp.status);
             }, function(evt) {});
         };
+
+        $scope.changeSprint = function() {
+          $http.post('/api/issues/' + $routeParams.id+'/toogleSprint').success(function(data) {
+                                $route.reload();
+          });
+        }
+
         $scope.issue = angular.fromJson(data);
+        $scope.sprintButtonName = $scope.issue.sprint === null ? "Add to active sprint" : "Back to backlog";
+        $scope.sprint = $scope.issue.sprint === null ? "Backlog" : $scope.issue.sprint.name;
         $scope.showStartProgress = $scope.issue.status.name == "Open";
         $scope.showStopProgress = $scope.issue.status.name == "In Progress";
         $scope.showResolve = $scope.issue.status.name == "In Progress";

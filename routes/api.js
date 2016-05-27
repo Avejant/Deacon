@@ -56,6 +56,7 @@ module.exports = function(app, passport) {
     app.put('/api/issues/:id/updateStatus', Issues.updateStatus);
     app.delete('/api/issues/:id', Issues.delete);
     app.post('/api/attachments/:id', Issues.attach);
+    app.post('/api/issues/:id/toogleSprint', Issues.toogleSprint);
 
     app.get('/api/users', Users.getAll);
     app.get('/api/users/:id', Users.getById);
