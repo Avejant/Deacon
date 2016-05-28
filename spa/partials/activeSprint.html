@@ -10,31 +10,85 @@
     </thead>
     <tbody>
         <tr>
-            <td>
+            <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.todo" class="list-group-item">
-                        <span class="badge">14</span> {{issue}}
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
+                        <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <br>
+                        <br>
+                        <span title="Type"><i>{{issue.issueType.name}}</i></span>
+                        <br>
+                        <span title="Severity"><i>{{issue.severity.name}}</i></span>
+                        <br>
+                        <span title="Assignee User"><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></span>
+                        <br>
+                        <br>
+                        <div class="btn-group btn-group-xs" role="group">
+                            <button type="button" ng-click="updateStatus('In Progress', issue._id)" class="btn btn-default">Start progress</button>
+                        </div>
                     </li>
                 </ul>
             </td>
-            <td>
+            <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.inprog" class="list-group-item">
-                        <span class="badge">14</span> {{issue}}
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
+                        <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <br>
+                        <br>
+                        <span title="Type"><i>{{issue.issueType.name}}</i></span>
+                        <br>
+                        <span title="Severity"><i>{{issue.severity.name}}</i></span>
+                        <br>
+                        <span title="Assignee User"><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></span>
+                        <br>
+                        <br>
+                        <div class="btn-group btn-group-xs" role="group">
+                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">Stop progress</button>
+                            <button type="button" ng-click="updateStatus('Resolved', issue._id)" class="btn btn-default">Resolve</button>
+                        </div>
                     </li>
                 </ul>
             </td>
-            <td>
+            <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.resolved" class="list-group-item">
-                        <span class="badge">14</span> {{issue}}
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
+                        <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <br>
+                        <br>
+                        <span title="Type"><i>{{issue.issueType.name}}</i></span>
+                        <br>
+                        <span title="Severity"><i>{{issue.severity.name}}</i></span>
+                        <br>
+                        <span title="Assignee User"><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></span>
+                        <br>
+                        <br>
+                        <div class="btn-group btn-group-xs" role="group">
+                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">Reopen</button>
+                            <button type="button" ng-click="updateStatus('Closed', issue._id)" class="btn btn-default">Close</button>
+                        </div>
                     </li>
                 </ul>
             </td>
-            <td>
+            <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.closed" class="list-group-item">
-                        <span class="badge">14</span> {{issue}}
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
+                        <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <br>
+                        <br>
+                        <span title="Type"><i>{{issue.issueType.name}}</i></span>
+                        <br>
+                        <span title="Severity"><i>{{issue.severity.name}}</i></span>
+                        <br>
+                        <span title="Assignee User"><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></span>
+                        <br>
+                        <br>
+                        <div class="btn-group btn-group-xs" role="group">
+                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">Reopen</button>
+                        </div>
                     </li>
                 </ul>
             </td>

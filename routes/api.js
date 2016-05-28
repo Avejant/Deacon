@@ -14,6 +14,7 @@ module.exports = function(app, passport) {
     app.get('/api/projects/:id', Projects.getById);
     app.post('/api/projects', Projects.create);
     app.post('/api/projects/:id/startSprint', Sprints.create);
+    app.get('/api/sprint/:id/issues', Issues.getIssueBySprint)
     app.put('/api/projects/:id', Projects.update);
     app.delete('/api/projects/:id', Projects.delete);
 
@@ -51,6 +52,7 @@ module.exports = function(app, passport) {
     app.get('/api/user/:id/assignedIssues', Issues.getIssuesByAssignedUser);
     app.get('/api/issues/:id', Issues.getById);
     app.get('/api/projects/:id/issues', Issues.getAllIssuesByProjectId);
+
     app.post('/api/issues', Issues.create);
     app.put('/api/issues/:id', Issues.update);
     app.put('/api/issues/:id/updateStatus', Issues.updateStatus);

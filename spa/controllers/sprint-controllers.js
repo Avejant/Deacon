@@ -12,6 +12,7 @@ app.controller('backlogCtrl', ['$scope', '$location', '$http', '$route', '$route
             $location.path('/');
             return;
         }
+
         $scope.activeSprint = $scope.project.sprints[$scope.project.sprints.length - 1];
         $scope.activeSprint.totalPoints = 0;
         $scope.backlog = {};
@@ -45,20 +46,47 @@ app.controller('backlogCtrl', ['$scope', '$location', '$http', '$route', '$route
     });
 }]);
 
-app.controller('activeSprintCtrl', ['$scope', '$location', function($scope, $location) {
+app.controller('activeSprintCtrl', ['$scope', '$location', '$http', '$route', '$routeParams', function($scope, $location, $http, $route, $routeParams) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
     }
 
-    $scope.sprint = {
-        name: 'SPA-17'
-    };
+    $scope.updateStatus = function(statusName, issueId) {
+        $http.put('/api/issues/' + issueId + '/updateStatus', {
+            statusName: statusName
+        }).success(function(data) {
+            $scope.editable = false;
+            $route.reload();
+        });
+    }
 
-    $scope.sprint.todo = ['1', '2', '3'];
-    $scope.sprint.inprog = ['4', '66'];
-    $scope.sprint.resolved = ['4', '66', '2', '3'];
-    $scope.sprint.closed = [];
+    $http.get('/api/projects/' + $routeParams.id).success(function(data) {
+        $scope.project = angular.fromJson(data);
+        $scope.sprint = $scope.project.sprints[$scope.project.sprints.length - 1];
+        $http.get('/api/sprint/' + $scope.sprint._id + '/issues').success(function(data) {
+            $scope.sprint.todo = data.filter(function(issue) {
+                return issue.status.name === "Open";
+            });
+
+            $scope.sprint.inprog = data.filter(function(issue) {
+                return issue.status.name === "In Progress";
+            });
+
+            $scope.sprint.resolved = data.filter(function(issue) {
+                return issue.status.name === "Resolved";
+            });
+
+            $scope.sprint.closed = data.filter(function(issue) {
+                return issue.status.name === "Closed";
+            });
+        });
+    });
+    //
+    // $scope.sprint.todo = ['1', '2', '3'];
+    // $scope.sprint.inprog = ['4', '66'];
+    // $scope.sprint.resolved = ['4', '66', '2', '3'];
+    // $scope.sprint.closed = [];
 
 }]);
 

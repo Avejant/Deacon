@@ -4,7 +4,6 @@ var IssueTypes = require('./issueType-controller');
 var Severities = require('./severity-controller');
 var Statuses = require('./status-controller');
 var Users = require('./user-controller');
-
 var issueController = {};
 
 issueController.getAllQuery = function() {
@@ -42,6 +41,17 @@ issueController.getAllIssuesByProjectId = function(req, res) {
                 res.json(issues);
             }
         });
+    });
+}
+
+issueController.getIssueBySprint = function(req, res) {
+    issueController.getByQuery({
+        sprint: req.params.id
+    }).exec(function(err, issue) {
+      if (err) {
+        res.error(err);
+      }
+      res.json(issue);
     });
 }
 
