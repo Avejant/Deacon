@@ -13,9 +13,10 @@
                 <a href="#/profile/{{project.projectManager._id}}"> <span>{{project.projectManager.username}}</span> </a>
             </p>
             <p><b> Active sprint:</b>
-                <a href="#/project/{{project._id}}/activeSprint">{{activeSprint}}</a>
+                <a  ng-hide="!activeSprint._id" href="#/project/{{project._id}}/activeSprint">{{activeSprint.name}}</a>
+                <span ng-hide="activeSprint._id"> {{activeSprint.name}} </span>
             </p>
-            <p> <a href="#/project/{{project._id}}/backlog">View Backlog and Active Sprint</a></p>
+            <p ng-hide="!activeSprint._id"> <a href="#/project/{{project._id}}/backlog">View Backlog and Active Sprint</a></p>
             <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit project</button>
             <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button>
             <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success">
@@ -35,7 +36,6 @@
         <div class="btn-group" role="group">
             <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Issue</button>
             <button ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Sprint</button>
-            <!-- <button ng-controller="addSprintModalController" type="button" ng-click="showSprintForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Sprint</button> -->
         </div>
     </div>
 </div>

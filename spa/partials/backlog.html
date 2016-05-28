@@ -1,4 +1,4 @@
-<h3>Backlog of {{project.name}}</h3>
+<h3>Backlog of <b><a href="#/projects/{{project._id}}">{{project.name}}</a></b></h3>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4> <a href="#/project/{{project._id}}/activeSprint">{{activeSprint.name}}</a></h4>
@@ -18,16 +18,18 @@
                         <th>Status</th>
                         <th>Assignee user</th>
                         <th>SP</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="issue in activeSprint.issues">
                         <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
-                        <td>{{issue.issueType}}</td>
-                        <td>{{issue.severity}}</td>
-                        <td>{{issue.status}}</td>
-                        <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser}}</a></td>
+                        <td>{{issue.issueType.name}}</td>
+                        <td>{{issue.severity.name}}</td>
+                        <td>{{issue.status.name}}</td>
+                        <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
                         <td><span class="badge">{{issue.storyPoints}}</span></td>
+                        <td class="col-md-2"><center><button  type="button" ng-click="toogleSprint(issue._id)" class="btn btn-default">Move to backlog</button></center></td>
                     </tr>
                 </tbody>
             </table>
@@ -58,16 +60,18 @@
                         <th>Status</th>
                         <th>Assignee user</th>
                         <th>SP</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="issue in backlog.issues">
                         <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
-                        <td>{{issue.issueType}}</td>
-                        <td>{{issue.severity}}</td>
-                        <td>{{issue.status}}</td>
-                        <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser}}</a></td>
+                        <td>{{issue.issueType.name}}</td>
+                        <td>{{issue.severity.name}}</td>
+                        <td>{{issue.status.name}}</td>
+                        <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
                         <td><span class="badge">{{issue.storyPoints}}</span></td>
+                        <td class="col-md-2"><center><button type="button" ng-click="toogleSprint(issue._id)" class="btn btn-default">Move to active sprint</button></center></td>
                     </tr>
                 </tbody>
             </table>

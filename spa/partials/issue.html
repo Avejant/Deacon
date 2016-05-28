@@ -24,6 +24,7 @@
             </p>
             <p> <b>Reporter: </b><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></p>
             <p> <b>Created at: </b> {{issue.createdAt|date:'medium'}}</p>
+            <p> <b> Project: </b><a href="#/projects/{{issue.project._id}}"> {{issue.project.name}}</a> </p>
             <p> <b> Sprint: </b> {{sprint}} </p>
             <p><b>Story Points:</b> <span class="badge" ng-show="!editable"> {{issue.storyPoints}}</span>
                 <input  ng-show="editable"  ng-model="issueForm.storyPoints" class="form-control" type="number" min="0" max="40">

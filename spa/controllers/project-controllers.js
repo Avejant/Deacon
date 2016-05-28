@@ -51,7 +51,14 @@ app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$route
             });
         }
         $scope.project = angular.fromJson(data);
-        $http.get('/api/issuesOfProject/' + $scope.project._id).success(function(data) {
+        if ($scope.project.sprints.length == 0) {
+            $scope.activeSprint ={name: "No sprints"} ;
+        } else {
+            $scope.activeSprint = $scope.project.sprints[$scope.project.sprints.length - 1];
+        }
+
+
+        $http.get('/api/projects/' + $scope.project._id +'/issues').success(function(data) {
             $scope.issues = angular.fromJson(data);
             $scope.projectForm.name = $scope.project.name;
             $scope.projectForm.shortName = $scope.project.shortName;

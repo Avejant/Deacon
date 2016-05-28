@@ -79,9 +79,9 @@ app.controller('IssueCtrl', ['$scope', '$http', '$location', '$route', '$routePa
         };
 
         $scope.changeSprint = function() {
-          $http.post('/api/issues/' + $routeParams.id+'/toogleSprint').success(function(data) {
-                                $route.reload();
-          });
+            $http.post('/api/issues/' + $routeParams.id + '/toogleSprint').success(function(data) {
+                $route.reload();
+            });
         }
 
         $scope.issue = angular.fromJson(data);

@@ -1,91 +1,48 @@
 'use strict'
 var app = angular.module('deaconApp');
 
-app.controller('backlogCtrl', ['$scope', '$location', function($scope, $location) {
+app.controller('backlogCtrl', ['$scope', '$location', '$http', '$route', '$routeParams', function($scope, $location, $http, $route, $routeParams) {
     if (!$scope.$parent.isAuthenticated) {
         $location.path('/');
         return;
     }
+    $http.get('/api/projects/' + $routeParams.id).success(function(data) {
+        $scope.project = data;
+        if ($scope.project.sprints.length == 0) {
+            $location.path('/');
+            return;
+        }
+        $scope.activeSprint = $scope.project.sprints[$scope.project.sprints.length - 1];
+        $scope.activeSprint.totalPoints = 0;
+        $scope.backlog = {};
+        $scope.toogleSprint = function(issueId) {
+            $http.post('/api/issues/' + issueId + '/toogleSprint').success(function(data) {
+                $route.reload();
+            });
+        }
+        $http.get('/api/projects/' + $scope.project._id + '/issues').success(function(data) {
+            var issues = angular.fromJson(data);
+            $scope.activeSprint.issues = issues.filter(function(item) {
+                if (item.sprint === null) {
+                    return false;
+                }
+                return item.sprint._id === $scope.activeSprint._id;
+            });
 
-    $scope.project = {
-        name: 'Open SPA',
-        _id: '570eaaf95d1208181c953620'
-    };
-    $scope.backlog = {
-        totalPoints: 122
-    };
+            $scope.activeSprint.totalPoints = $scope.activeSprint.issues.reduce(function(sum, issue) {
+                return sum + issue.storyPoints;
+            }, 0);
 
-    $scope.activeSprint = {
-        name: 'SPA-17',
-        totalPoints: 111
-    };
+            $scope.backlog.issues = issues.filter(function(item) {
+                return item.sprint === null;
+            });
 
-    $scope.activeSprint.issues = [{
-        _id: 12,
-        name: 'Issue 1',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }, {
-        _id: 12,
-        name: 'Issue 55',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }, {
-        _id: 12,
-        name: 'Issue 44',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }, {
-        _id: 12,
-        name: 'Issue 99',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }];
-    $scope.backlog.issues = [{
-        _id: 12,
-        name: 'Issue 3',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }, {
-        _id: 12,
-        name: 'Issue 4',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }, {
-        _id: 12,
-        name: 'Issue 5',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }, {
-        _id: 12,
-        name: 'Issue 6',
-        issueType: 'Bug',
-        storyPoints: 5,
-        status: 'In Progress',
-        severity: 'Normal',
-        assigneeUser: 'maria.muravyova'
-    }];
+            $scope.backlog.totalPoints = $scope.backlog.issues.reduce(function(sum, issue) {
+                return sum + issue.storyPoints;
+            }, 0);
+
+        });
+    });
 }]);
 
 app.controller('activeSprintCtrl', ['$scope', '$location', function($scope, $location) {

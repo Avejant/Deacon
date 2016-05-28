@@ -50,7 +50,7 @@ module.exports = function(app, passport) {
     app.get('/api/issues', Issues.getAll);
     app.get('/api/user/:id/assignedIssues', Issues.getIssuesByAssignedUser);
     app.get('/api/issues/:id', Issues.getById);
-    app.get('/api/issuesOfProject/:id', Issues.getAllIssuesByProjectId);
+    app.get('/api/projects/:id/issues', Issues.getAllIssuesByProjectId);
     app.post('/api/issues', Issues.create);
     app.put('/api/issues/:id', Issues.update);
     app.put('/api/issues/:id/updateStatus', Issues.updateStatus);
