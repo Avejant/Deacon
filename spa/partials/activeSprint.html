@@ -2,10 +2,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>To Do</th>
-            <th>In Progress</th>
-            <th>Resolved</th>
-            <th>Closed</th>
+            <th>{{"todo" | translate}}</th>
+            <th>{{"inProgress" | translate}}</th>
+            <th>{{"resolved" | translate}}</th>
+            <th>{{"closed" | translate}}</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
                         <br>
                         <br>
                         <div class="btn-group btn-group-xs" role="group">
-                            <button type="button" ng-click="updateStatus('In Progress', issue._id)" class="btn btn-default">Start progress</button>
+                            <button type="button" ng-click="updateStatus('In Progress', issue._id)" class="btn btn-default">{{"startProgress" | translate}}</button>
                         </div>
                     </li>
                 </ul>
@@ -45,8 +45,8 @@
                         <br>
                         <br>
                         <div class="btn-group btn-group-xs" role="group">
-                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">Stop progress</button>
-                            <button type="button" ng-click="updateStatus('Resolved', issue._id)" class="btn btn-default">Resolve</button>
+                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">{{"stopProgress" | translate}}</button>
+                            <button type="button" ng-click="updateStatus('Resolved', issue._id)" class="btn btn-default">{{"resolve" | translate}}</button>
                         </div>
                     </li>
                 </ul>
@@ -66,8 +66,8 @@
                         <br>
                         <br>
                         <div class="btn-group btn-group-xs" role="group">
-                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">Reopen</button>
-                            <button type="button" ng-click="updateStatus('Closed', issue._id)" class="btn btn-default">Close</button>
+                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">{{"reopen" | translate}}</button>
+                            <button type="button" ng-click="updateStatus('Closed', issue._id)" class="btn btn-default">{{"close" | translate}}</button>
                         </div>
                     </li>
                 </ul>
@@ -87,7 +87,7 @@
                         <br>
                         <br>
                         <div class="btn-group btn-group-xs" role="group">
-                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">Reopen</button>
+                            <button type="button" ng-click="updateStatus('Open', issue._id)" class="btn btn-default">{{"reopen" | translate}}</button>
                         </div>
                     </li>
                 </ul>

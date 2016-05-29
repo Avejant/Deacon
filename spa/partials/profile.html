@@ -1,98 +1,87 @@
-<h3>Profile of user <b>{{profileUser.username}}</b></h3>
+<h3>{{"Profile of user"|translate}} <b>{{profileUser.username}}</b></h3>
 <p><img width="100px" height="100px" src="storage/avatars/{{profileUser.avatar}}">
     <div ng-show="isYourOwnProfile">
         <form name="upload_form">
-            <p><b>Upload new avatar:</b></p>
+            <p><b>{{"Upload new avatar"|translate}}:</b></p>
             <div class="control-group">
                 <p>
                     <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB" />
                 </p>
             </div>
-            <span ng-show="file">Avatar preview:<br> <p><img width="100px" height="100px" ngf-src="file"/></p></span>
+            <span ng-show="file">{{"Avatar preview"|translate}}:<br> <p><img width="100px" height="100px" ngf-src="file"/></p></span>
             <i ng-show="upload_form.file.$error.maxSize">File too large
             {{up.file.size / 1000000|number:1}}MB: max 20M</i>
             <div class="control-group">
-                <button ng-disabled="!file" class="btn btn-success" type="submit" ng-click="upload()">Save</button>
+                <button ng-disabled="!file" class="btn btn-success" type="submit" ng-click="upload()">{{"button.Save"|translate}}</button>
             </div>
 
         </form>
     </div>
 </p>
 <div class="panel panel-default">
-    <div class="panel-heading"><b>User info</b></div>
+    <div class="panel-heading"><b>{{"User info"|translate}}</b></div>
     <div class="panel-body">
-        <p> <b>First name:</b> {{profileUser.firstName}} </p>
-        <p><b> Last name:</b> {{profileUser.lastName}} </p>
+        <p> <b>{{"First name"|translate}}:</b> {{profileUser.firstName}} </p>
+        <p><b> {{"Last name"|translate}}:</b> {{profileUser.lastName}} </p>
         <p> <b>E-Mail:</b> <a href="mailto:{{profileUser.email}}" target="_top">{{profileUser.email}}</a> </p>
-        <p> <b>Location:</b> {{profileUser.location}}</p>
-        <p> <b>Date of registration:</b> {{profileUser.createdAt | date:'medium'}}</p>
-        <p><b>Role:</b> {{profileUser.role.name}}</p>
+        <p> <b>{{"Location"|translate}}:</b> {{profileUser.location}}</p>
+        <p> <b>{{"Date of registration"|translate}}:</b> {{profileUser.createdAt | date:'medium'}}</p>
+        <p><b>{{"Role"|translate}}:</b> {{profileUser.role.name}}</p>
     </div>
 </div>
 
 <div class="panel panel-default" ng-if="isYourOwnProfile">
-    <div class="panel-heading"><b>Change password</b></div>
+    <div class="panel-heading"><b>{{"Change password"|translate}}</b></div>
     <div class="panel-body">
         <div ng-repeat="message in messages">
-            <div class="alert alert-danger">{{message}}</div>
+            <div class="alert alert-danger">{{message | translate}}</div>
         </div>
-        <div ng-show="passwordChangeMessage" class="alert alert-success">{{passwordChangeMessage}}</div>
+        <div ng-show="passwordChangeMessage" class="alert alert-success">{{passwordChangeMessage |translate}}</div>
         <form name="form.passwordForm" ng-submit="changePassword(form.passwordForm.$valid)" class="form-horizontal" novalidate>
             <fieldset>
                 <div class="control-group">
                     <!-- Old password -->
                     <div class="col-sm-2">
-                        <label class="control-label" for="oldPassword">Old password:</label>
+                        <label class="control-label" for="oldPassword">{{"Old password"|translate}}:</label>
                     </div>
                     <div class="col-sm-10">
                         <div class="controls">
                             <input type="password" id="oldPassword" pattern=".{4,20}" ng-model="form.passwordForm.oldPass" class="form-control" required>
-                            <p class="help-block">Enter your old password</p>
+                            <p class="help-block">{{"Enter your old password"|translate}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <!-- New password -->
                     <div class="col-sm-2">
-                        <label class="control-label" for="newPassword">New password:</label>
+                        <label class="control-label" for="newPassword">{{"New password"|translate}}:</label>
                     </div>
                     <div class="col-sm-10">
                         <div class="controls">
                             <input type="password" id="newPassword" pattern=".{4,20}" ng-model="form.passwordForm.newPass" class="form-control" required>
-                            <p class="help-block">New password should have length no less than 4 and no more than 20 characters.</p>
+                            <p class="help-block">{{"New password should have length no less than 4 and no more than 20 characters."|translate}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <!-- Confirm password -->
                     <div class="col-sm-2">
-                        <label class="control-label" for="confirmPassword">Confirm password:</label>
+                        <label class="control-label" for="confirmPassword">{{"Confirm password"|translate}}:</label>
                     </div>
                     <div class="col-sm-10">
                         <div class="controls">
                             <input type="password" id="confirmPassword" pattern=".{4,20}" ng-model="form.passwordForm.confPass" class="form-control" required>
-                            <p class="help-block">New password should have length no less than 4 and no more than 20 characters.</p>
+                            <p class="help-block">{{"New password should have length no less than 4 and no more than 20 characters."|translate}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="col-sm-2">
                         <button type="submit" ng-disabled="form.passwordForm.$invalid" class="btn btn-success">
-                            </span> Save</button>
+                        </span> {{"button.Save" | translate}}</button>
                     </div>
                 </div>
             </fieldset>
-            <!--       <p>Old password:</p>
-
-      <p>New password:</p>
-      <input type="text" pattern=".{4,20}" ng-model="passwordForm.newPass" class="form-control" required>
-      <p>Confirm new password:</p>
-      <input type="text" pattern=".{4,20}" ng-model="passwordForm.confPass" class="form-control" required>
-      <br>
-      <button type="submit" ng-disabled="passwordForm.$invalid" class="btn btn-success"></span> Save</button> -->
         </form>
     </div>
-</div>
-
-
 </div>

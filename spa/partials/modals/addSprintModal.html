@@ -3,28 +3,28 @@
     <!-- Modal content-->
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">Add Sprint</h3>
+        <h3 class="modal-title">{{"Add Sprint"|translate}}</h3>
     </div>
     <div class="modal-body">
         <fieldset>
             <div class="control-group">
                 <!-- Sprint name -->
-                <div class="col-sm-3">
-                    <label class="control-label" for="username">Sprint name:</label>
+                <div class="col-sm-4">
+                    <label class="control-label" for="username">{{"Sprint name"|translate}}:</label>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <div class="controls">
                         <input type="text" pattern=".{3,10}" ng-model="sprintForm.name" class="form-control" required>
-                        <p class="help-block">Sprint name should be at least 3 characters and less 10 characters</p>
+                        <p class="help-block">{{"Sprint name should be at least 3 characters and less 10 characters"|translate}}</p>
                     </div>
                 </div>
             </div>
             <div class="control-group">
                 <!-- Sprint name -->
-                <div class="col-sm-3">
-                    <label class="control-label" for="username">Duration:</label>
+                <div class="col-sm-4">
+                    <label class="control-label" for="username">{{"Duration"|translate}}:</label>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <div class="controls">
                         <select ng-change="updateEndingDate(sprintForm.ending)" ng-options="duration.name for duration in durations" ng-model="duration" class="form-control">
                         </select>
@@ -34,10 +34,10 @@
             </div>
             <div class="control-group">
                 <!-- Beginning of sprint -->
-                <div class="col-sm-3">
-                    <label class="control-label" for="username">Beginning of sprint:</label>
+                <div class="col-sm-4">
+                    <label class="control-label" for="username">{{"Beginning of sprint"|translate}}:</label>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <div class="controls">
                         <input type="date" ng-change="updateEndingDate(sprintForm.ending)" ng-model="sprintForm.beginning" class="form-control" required>
                         <br>
@@ -46,10 +46,10 @@
             </div>
             <div class="control-group">
                 <!-- End of sprint -->
-                <div class="col-sm-3">
-                    <label class="control-label" for="username">End of sprint:</label>
+                <div class="col-sm-4">
+                    <label class="control-label" for="username">{{"End of sprint"|translate}}:</label>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <div class="controls">
                         <input type="date" ng-model="sprintForm.ending" class="form-control" ng-disabled="true" required>
                     </div>
@@ -58,8 +58,8 @@
         </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-disabled="sprintForm.$invalid" data-dismiss="modal">Add</button>
-        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+        <button type="submit" class="btn btn-success" ng-disabled="sprintForm.$invalid" data-dismiss="modal">{{"Add"|translate}}</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">{{"Close"|translate}}</button>
     </div>
 
 </form>

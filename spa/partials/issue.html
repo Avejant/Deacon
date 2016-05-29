@@ -2,53 +2,53 @@
     <div class="alert alert-danger">{{message}}</div>
 </div>
 <form name="issueForm" ng-submit="update(issueForm.$valid)" class="form-horizontal" novalidate>
-    <h3>Issue <b ng-show="!editable">{{issue.name}}</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="issueForm.name" class="form-control" required>  </h3>
+    <h3>{{"Issue" | translate}} <b ng-show="!editable">{{issue.name}}</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="issueForm.name" class="form-control" required>  </h3>
     <div class="panel panel-default">
-        <div class="panel-heading"><b>Issue info</b></div>
+        <div class="panel-heading"><b>{{"IssueInfo" | translate}}</b></div>
         <div class="panel-body">
-            <p> <b>Description: </b> <span ng-show="!editable">{{issue.description}} </span>
+            <p> <b>{{"Description" | translate}}: </b> <span ng-show="!editable">{{issue.description}} </span>
                 <textarea ng-show="editable" name="description" class="form-control" rows="5" ng-model="issueForm.description"></textarea>
             </p>
-            <p> <b>Status: </b>{{issue.status.name}}</p>
-            <p> <b>Severity: </b><span ng-show="!editable">{{issue.severity.name}}</span>
+            <p> <b>{{"status" | translate}}: </b>{{issue.status.name}}</p>
+            <p> <b>{{"severity" | translate}}: </b><span ng-show="!editable">{{issue.severity.name}}</span>
                 <select ng-show="editable" ng-options="severity.name for severity in severities" ng-model="issueForm.severity" class="form-control">
                 </select>
             </p>
-            <p> <b>Issue type: </b><span ng-show="!editable">{{issue.issueType.name}}</span>
+            <p> <b>{{"issueType" | translate}}: </b><span ng-show="!editable">{{issue.issueType.name}}</span>
                 <select ng-show="editable" ng-options="issueType.name for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
                 </select>
             </p>
-            <p> <b>Assignee user: </b><a ng-show="!editable" href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a>
+            <p> <b>{{"assigneeUser" | translate}}: </b><a ng-show="!editable" href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a>
                 <select ng-show="editable" ng-options="user.username for user in users" ng-model="issueForm.assigneeUser" class="form-control">
                 </select>
             </p>
-            <p> <b>Reporter: </b><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></p>
-            <p> <b>Created at: </b> {{issue.createdAt|date:'medium'}}</p>
-            <p> <b> Project: </b><a href="#/projects/{{issue.project._id}}"> {{issue.project.name}}</a> </p>
-            <p> <b> Sprint: </b><a ng-hide="issue.sprint === null" href="#/project/{{issue.project._id}}/activeSprint"> {{sprint}} </a> <span ng-hide="issue.sprint !== null" >{{sprint}}</spa> </p>
-            <p><b>Story Points:</b> <span class="badge" ng-show="!editable"> {{issue.storyPoints}}</span>
-                <input  ng-show="editable"  ng-model="issueForm.storyPoints" class="form-control" type="number" min="0" max="40">
+            <p> <b>{{"reporter" | translate}}: </b><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></p>
+            <p> <b>{{"CreatedAt" | translate}}: </b> {{issue.createdAt|date:'medium'}}</p>
+            <p> <b> {{"Project"| translate}}: </b><a href="#/projects/{{issue.project._id}}"> {{issue.project.name}}</a> </p>
+            <p> <b> {{"Sprint"|translate}}: </b><a ng-hide="issue.sprint === null" href="#/project/{{issue.project._id}}/activeSprint"> {{sprint}} </a> <span ng-hide="issue.sprint !== null">{{sprint | translate}}</spa> </p>
+            <p><b>{{"StoryPoints"| translate}}:</b> <span class="badge" ng-show="!editable"> {{issue.storyPoints}}</span>
+                <input ng-show="editable" ng-model="issueForm.storyPoints" class="form-control" type="number" min="0" max="40">
             </p>
-            <p> <b>Last updated at: </b> {{issue.updatedAt|date:'medium'}}</p>
-            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="changeSprint()">{{sprintButtonName}} </button>
-            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit issue</button>
-            <button type="button" ng-show="!editable && showStartProgress" class="btn btn-default" ng-click="updateStatus('In Progress')"> Start Progress </button>
-            <button type="button" ng-show="!editable && showStopProgress" class="btn btn-default" ng-click="updateStatus('Open')"> Stop Progress </button>
-            <button type="button" ng-show="!editable && showResolve" class="btn btn-default" ng-click="updateStatus('Resolved')"> Resolve </button>
-            <button type="button" ng-show="!editable && showClose" class="btn btn-default" ng-click="updateStatus('Closed')"> Сlose </button>
-            <button type="button" ng-show="!editable && showReopen" class="btn btn-default" ng-click="updateStatus('Open')"> Reopen </button>
+            <p> <b>{{"LastUpdated"|translate}} </b> {{issue.updatedAt|date:'medium'}}</p>
+            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="changeSprint()">{{sprintButtonName | translate}} </button>
+            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> {{"button.Edit"|translate}}</button>
+            <button type="button" ng-show="!editable && showStartProgress" class="btn btn-default" ng-click="updateStatus('In Progress')">{{"startProgress" |translate}} </button>
+            <button type="button" ng-show="!editable && showStopProgress" class="btn btn-default" ng-click="updateStatus('Open')">{{"stopProgress" |translate}} </button>
+            <button type="button" ng-show="!editable && showResolve" class="btn btn-default" ng-click="updateStatus('Resolved')"> {{"resolve" | translate}} </button>
+            <button type="button" ng-show="!editable && showClose" class="btn btn-default" ng-click="updateStatus('Closed')"> {{"close" | translate}} </button>
+            <button type="button" ng-show="!editable && showReopen" class="btn btn-default" ng-click="updateStatus('Open')"> {{"reopen" | translate}} </button>
             <button type="submit" ng-show="editable" ng-disabled="issueForm.$invalid" class="btn btn-success">
-                </span> Save</button>
+            </span> {{"button.Save" | translate}}</button>
             <button ng-show="editable" class="btn btn-default" ng-click="cancel()">
-                </span> Cancel</button>
+            </span> {{"button.Cancel" | translate}}</button>
         </div>
     </div>
 </form>
 <div class="panel panel-default">
-    <div class="panel-heading"><b>Attachments</b></div>
+    <div class="panel-heading"><b>{{"Attachments" | translate}}</b></div>
     <div class="panel-body">
         <div class="attachment-list" ng-switch on="issue.attachments.length">
-            <div ng-switch-when="0" class="well">No attachments.</div>
+            <div ng-switch-when="0" class="well">{{"noAttachments" | translate}}</div>
             <div ng-switch-default>
                 <ul class="list-group" ng-repeat="attachment in issue.attachments">
                     <li class="list-group-item">
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <p> Attache some file:</p>
+        <p> {{"attachSomeFile" | translate}}:</p>
         <form name="upload_form">
             <input type="file" ngf-select ng-model="file" name="file" ngf-max-size="20MB" />
             <i ng-show="upload_form.file.$error.required">*required</i>
@@ -69,7 +69,7 @@
             <i ng-show="upload_form.file.$error.maxSize">File too large
             {{up.file.size / 1000000|number:1}}MB: max 20M</i>
             <div class="control-group">
-                <button ng-disabled="!file" class="btn btn-success" type="submit" ng-click="upload()">Attach file</button>
+                <button ng-disabled="!file" class="btn btn-success" type="submit" ng-click="upload()">{{"attachFile" |translate}}</button>
             </div>
         </form>
 
@@ -79,29 +79,29 @@
 
 
 <div class="panel panel-default">
-    <div class="panel-heading"><b>Comment list</b></div>
+    <div class="panel-heading"><b>{{"CommentList" | translate}}</b></div>
     <div class="panel-body">
         <div class="comment-list" ng-switch on="issue.comments.length">
-            <div ng-switch-when="0" class="well">No comments in database.</div>
+            <div ng-switch-when="0" class="well">{{"NoComments" | translate}}.</div>
             <div ng-switch-default>
                 <ul class="list-group" ng-repeat="comment in issue.comments">
                     <li class="list-group-item">
                         <p>
                             {{comment.text}}
                         </p>
-                        <span><b> Created at <i>{{comment.createdAt | date:'medium'}}</i> by <i><a href="#/profile/{{comment.author._id}}">{{comment.author.username}}</a></i></b></span>
+                        <span><b>{{"CreatedAt" |translate}} <i>{{comment.createdAt | date:'medium'}}</i> {{"by" | translate}} <i><a href="#/profile/{{comment.author._id}}">{{comment.author.username}}</a></i></b></span>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="panel-footer">
-        <p>Add comment:</p>
+        <p>{{"AddComment" | translate}}:</p>
         <form class="form-horizontal" name="addCommentForm">
             <fieldset>
-                <textarea rows="5" class="form-control" ng-model="addCommentForm.content" placeholder="Add comment..."></textarea>
+                <textarea rows="5" class="form-control" ng-model="addCommentForm.content" placeholder="{{'AddComment' | translate}}..."></textarea>
                 <br>
-                <button type="submit" ng-click="addComment()" class="btn btn-default">Add</button>
+                <button type="submit" ng-click="addComment()" class="btn btn-default">{{"button.Add" | translate}}</button>
             </fieldset>
         </form>
     </div>

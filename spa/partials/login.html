@@ -2,24 +2,24 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <div ng-repeat="message in messages">
-            <div class="alert alert-danger">{{message}}</div>
+            <div class="alert alert-danger">{{message | translate}}</div>
         </div>
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Login</label>
-        <input type="text" id="inputEmail" name="username" ng-model="formData.username" class="form-control" placeholder="Login" required autofocus>
+        <h2 class="form-signin-heading">{{"Please sign in" | translate}}</h2>
+        <label for="inputEmail" class="sr-only">{{"Login"|translate}}</label>
+        <input type="text" id="inputEmail" name="username" ng-model="formData.username" class="form-control" placeholder="{{'Login'|translate}}" required autofocus>
         <br>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="password" ng-model="formData.password" class="form-control" placeholder="Password" required>
+        <label for="inputPassword" class="sr-only">{{"Password"|translate}}</label>
+        <input type="password" id="inputPassword" name="password" ng-model="formData.password" class="form-control" placeholder="{{'Password'|translate}}" required>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> {{"Remember me"|translate}}
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{"Sign in"|translate}}</button>
 </form>
 <br>
 <div class="well">
-    <p>You are not in the system? Then <a href="#/signup">Sign up</a>!</p>
+    <p>{{"You are not in the system? Then"| translate}} <a href="#/signup">{{"Sign up" |translate}}</a>!</p>
 </div>
 
 </div>

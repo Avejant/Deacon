@@ -1,23 +1,23 @@
-<h3>Backlog of <b><a href="#/projects/{{project._id}}">{{project.name}}</a></b></h3>
+<h3>{{"backlogOf" | translate}} <b><a href="#/projects/{{project._id}}">{{project.name}}</a></b></h3>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4> <a href="#/project/{{project._id}}/activeSprint">{{activeSprint.name}}</a></h4>
-        <p class="help-block">{{activeSprint.issues.length}} issues</p>
+        <p class="help-block">{{activeSprint.issues.length}} {{"backlog.issues" | translate}}</p>
     </div>
     <div class="panel-body">
         <div class="row" ng-switch on="activeSprint.issues.length">
             <ul ng-switch-when="0">
-                <div class="well">No issues for this sprint.</div>
+                <div class="well">{{"noIssuesForThisSprint" | translate}}</div>
             </ul>
             <table ng-switch-default class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Issue name</th>
-                        <th>Issue type</th>
-                        <th>Severity</th>
-                        <th>Status</th>
-                        <th>Assignee user</th>
-                        <th>SP</th>
+                        <th>{{"issueName" | translate}}</th>
+                        <th>{{"issueType" | translate}}</th>
+                        <th>{{"severity" | translate}}</th>
+                        <th>{{"status" | translate}}</th>
+                        <th>{{"assigneeUser" | translate}}</th>
+                        <th>{{"sp" | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -29,37 +29,41 @@
                         <td>{{issue.status.name}}</td>
                         <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
                         <td><span class="badge">{{issue.storyPoints}}</span></td>
-                        <td class="col-md-2"><center><button  type="button" ng-click="toogleSprint(issue._id)" class="btn btn-default">Move to backlog</button></center></td>
+                        <td class="col-md-2">
+                            <center>
+                                <button type="button" ng-click="toogleSprint(issue._id)" class="btn btn-default">{{"moveToBacklog" | translate}}</button>
+                            </center>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <div class="panel-footer">
-        <p><b>Total points: </b><span class="badge"> {{activeSprint.totalPoints}}</span></p>
+        <p><b>{{"backlog.totalPoints"|translate}}: </b><span class="badge"> {{activeSprint.totalPoints}}</span></p>
     </div>
 </div>
 
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h4> Backlog </h4>
-        <p class="help-block">{{backlog.issues.length}} issues</p>
+        <h4> {{"backlog" | translate}} </h4>
+        <p class="help-block">{{backlog.issues.length}} {{"backlog.issues" | translate}}</p>
     </div>
     <div class="panel-body">
         <div class="row" ng-switch on="backlog.issues.length">
             <ul ng-switch-when="0">
-                <div class="well">No issues for this sprint.</div>
+                <div class="well">{{"noIssuesForBacklog" | translate}}</div>
             </ul>
             <table ng-switch-default class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Issue name</th>
-                        <th>Issue type</th>
-                        <th>Severity</th>
-                        <th>Status</th>
-                        <th>Assignee user</th>
-                        <th>SP</th>
+                        <th>{{"issueName" | translate}}</th>
+                        <th>{{"issueType" | translate}}</th>
+                        <th>{{"severity" | translate}}</th>
+                        <th>{{"status" | translate}}</th>
+                        <th>{{"assigneeUser" | translate}}</th>
+                        <th>{{"sp" | translate}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -71,13 +75,17 @@
                         <td>{{issue.status.name}}</td>
                         <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
                         <td><span class="badge">{{issue.storyPoints}}</span></td>
-                        <td class="col-md-2"><center><button type="button" ng-click="toogleSprint(issue._id)" class="btn btn-default">Move to active sprint</button></center></td>
+                        <td class="col-md-2">
+                            <center>
+                                <button type="button" ng-click="toogleSprint(issue._id)" class="btn btn-default">{{"moveToActiveSprint" | translate}}</button>
+                            </center>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <div class="panel-footer">
-        <p><b>Total points: </b><span class="badge"> {{backlog.totalPoints}}</span></p>
+        <p><b>{{"backlog.totalPoints"|translate}}: </b><span class="badge"> {{backlog.totalPoints}}</span></p>
     </div>
 </div>

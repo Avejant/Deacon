@@ -4,23 +4,23 @@
     <!-- Modal content-->
     <div class="modal-header">
         <button type="button" class="close" ng-click="cancel()">&times;</button>
-        <h3 class="modal-title">Create issue</h3>
+        <h3 class="modal-title">{{"Create issue"|translate}}</h3>
     </div>
     <div class="modal-body">
         <div ng-repeat="message in messages">
-            <div class="alert alert-danger">{{message}}</div>
+            <div class="alert alert-danger">{{message|translate}}</div>
         </div>
         <fieldset>
             <div class="control-group">
                 <!-- Project -->
                 <div class="col-sm-3">
-                    <label class="control-label" for="role">Choose project:</label>
+                    <label class="control-label" for="role">{{"Project"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
                         <select ng-options="project.name for project in projects" ng-model="issueForm.project" id="project" class="form-control" name="project">
                         </select>
-                        <p class="help-block">Choose project</p>
+                        <p class="help-block">{{"Choose project"|translate}}</p>
                     </div>
                 </div>
 
@@ -28,57 +28,57 @@
             <div class="control-group">
                 <!-- Issue name -->
                 <div class="col-sm-3">
-                    <label class="control-label" for="username">Issue name:</label>
+                    <label class="control-label" for="username">{{"Issue name"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
                         <input type="text" pattern=".{3,250}" ng-model="issueForm.name" class="form-control" required>
-                        <p class="help-block">Issue name should be at least 3 characters and less 250 characters</p>
+                        <p class="help-block">{{"Issue name should be at least 3 characters and less 250 characters"|translate}}</p>
                     </div>
                 </div>
             </div>
             <div class="control-group">
                 <!-- Issue description -->
                 <div class="col-sm-3">
-                    <label class="control-label" for="username">Description:</label>
+                    <label class="control-label" for="username">{{"Description"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
                         <textarea name="description" class="form-control" rows="5" ng-model="issueForm.description"></textarea>
-                        <p class="help-block"> Description should be as detailed, as possible</p>
+                        <p class="help-block">{{"Description should be as detailed, as possible"|translate}}</p>
                     </div>
                 </div>
             </div>
             <div class="control-group">
                 <!-- Issue type -->
                 <div class="col-sm-3">
-                    <label class="control-label" for="role">Issue type:</label>
+                    <label class="control-label" for="role">{{"issueType"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
                         <select ng-options="issueType.name for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
                         </select>
-                        <p class="help-block">Choose type of issue</p>
+                        <p class="help-block">{{"Choose type of issue"|translate}}</p>
                     </div>
                 </div>
             </div>
             <div class="control-group">
                 <!-- Severity -->
                 <div class="col-sm-3">
-                    <label class="control-label" for="role">Severity:</label>
+                    <label class="control-label" for="role">{{"severity"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
                         <select ng-options="severity.name for severity in severities" ng-model="issueForm.severity" class="form-control">
                         </select>
-                        <p class="help-block">Choose severity of issue</p>
+                        <p class="help-block">{{"Choose severity of issue"|translate}}</p>
                     </div>
                 </div>
             </div>
             <div class="control-group">
                 <!-- Story points -->
                 <div class="col-sm-3">
-                    <label class="control-label">Story points:</label>
+                    <label class="control-label">{{"Story points"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
@@ -91,21 +91,21 @@
             <div class="control-group">
                 <!-- Assignee user -->
                 <div class="col-sm-3">
-                    <label class="control-label" for="role">Assignee user:</label>
+                    <label class="control-label" for="role">{{"assigneeUser"|translate}}:</label>
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
                         <select ng-options="user.username for user in users" ng-model="issueForm.assigneeUser" class="form-control">
                         </select>
-                        <p class="help-block">Choose assignee user</p>
+                        <p class="help-block">{{"Choose assignee user"|translate}}</p>
                     </div>
                 </div>
             </div>
         </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-disabled="issueForm.$invalid" data-dismiss="modal">Add</button>
-        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+        <button type="submit" class="btn btn-success" ng-disabled="issueForm.$invalid" data-dismiss="modal">{{"Add"|translate}}</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">{{"Close"|translate}}</button>
     </div>
 
 </form>

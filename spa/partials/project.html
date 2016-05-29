@@ -2,40 +2,40 @@
     <div class="alert alert-danger">{{message}}</div>
 </div>
 <form name="projectForm" ng-submit="update(projectForm.$valid)" class="form-horizontal" novalidate>
-    <h3>Project <b ng-show="!editable">"{{project.name}}"</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="projectForm.name" class="form-control" required> </h3>
+    <h3>{{"Project"|translate}} <b ng-show="!editable">"{{project.name}}"</b> <input ng-show="editable" type="text" pattern=".{3,250}" ng-model="projectForm.name" class="form-control" required> </h3>
     <div class="panel panel-default">
-        <div class="panel-heading"><b>Project info</b></div>
+        <div class="panel-heading"><b>{{"Project info"|translate}}</b></div>
         <div class="panel-body">
 
-            <p> <b>Short name:</b> <span ng-show="!editable">{{project.shortName}}</span>
+            <p> <b>{{"Short name"|translate}}:</b> <span ng-show="!editable">{{project.shortName}}</span>
                 <input ng-show="editable" type="text" id="shortName" pattern=".{3}" maxlength="3" ng-model="projectForm.shortName" class="form-control" required> </p>
-            <p><b> Project manager:</b>
+            <p><b> {{"Project manager"|translate}}:</b>
                 <a href="#/profile/{{project.projectManager._id}}"> <span>{{project.projectManager.username}}</span> </a>
             </p>
-            <p><b> Active sprint:</b>
+            <p><b> {{"Active sprint"|translate}}:</b>
                 <a  ng-hide="!activeSprint._id" href="#/project/{{project._id}}/activeSprint">{{activeSprint.name}}</a>
-                <span ng-hide="activeSprint._id"> {{activeSprint.name}} </span>
+                <span ng-hide="activeSprint._id"> {{activeSprint.name | translate}} </span>
             </p>
-            <p ng-hide="!activeSprint._id"> <a href="#/project/{{project._id}}/backlog">View Backlog and Active Sprint</a></p>
-            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> Edit project</button>
-            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button>
+            <p ng-hide="!activeSprint._id"> <a href="#/project/{{project._id}}/backlog">{{"View Backlog"|translate}}</a></p>
+            <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> {{"button.Edit"|translate}}</button>
+            <!-- <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button> -->
             <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success">
-                </span> Save</button>
+            </span> {{"button.Save"|translate}}</button>
             <button type="button" ng-show="editable" class="btn btn-default" ng-click="cancel()">
-                </span> Cancel</button>
+            </span> {{"button.Cancel" | translate}}</button>
         </div>
     </div>
 </form>
-<h3>Issues of project:</h3>
+<h3>{{"Issues of project"|translate}}:</h3>
 <div class="row">
     <div class="col-xs-7">
-        <input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
+        <input type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
     </div>
     <div class="col-xs-2"></div>
-    <div class="col-xs-3">
+    <div class="col-xs-4">
         <div class="btn-group" role="group">
-            <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Issue</button>
-            <button ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create Sprint</button>
+            <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Issue"|translate}}</button>
+            <button ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Sprint" | translate}}</button>
         </div>
     </div>
 </div>
@@ -46,17 +46,17 @@
 </div>
 <div class="row" ng-switch on="issues.length">
     <ul ng-switch-when="0">
-        <div class="well">No issues in database.</div>
+        <div class="well">{{"No issues in database."|translate}}</div>
     </ul>
     <table ng-switch-default class="table table-striped">
         <thead>
             <tr>
-                <th>Issue name</th>
-                <th>Assignee user</th>
-                <th>Reporter</th>
-                <th>Status</th>
-                <th>Issue type</th>
-                <th>Severity</th>
+                <th>{{"issueName"|translate}}</th>
+                <th>{{"assigneeUser"|translate}}</th>
+                <th>{{"reporter" | translate}}</th>
+                <th>{{"status"|translate}}</th>
+                <th>{{"issueType"|translate}}</th>
+                <th>{{"severity"|translate}}</th>
             </tr>
         </thead>
         <tbody>

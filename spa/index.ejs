@@ -12,6 +12,12 @@
     <script src="angular-route/angular-route.js"></script>
     <script src="angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="angular-translate/angular-translate.min.js"></script>
+    <script src="angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
+    <script src="angular-translate-storage-local/angular-translate-storage-local.js"></script>
+    <script src="angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script src="angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="angular-cookies/angular-cookies.js"></script>
     <script src="/spa/app.js"></script>
     <script src="/spa/controllers/app-controllers.js"></script>
     <script src="/spa/controllers/authentication-controllers.js"></script>
@@ -19,6 +25,8 @@
     <script src="/spa/controllers/issue-controllers.js"></script>
     <script src="/spa/controllers/user-controllers.js"></script>
     <script src="/spa/controllers/sprint-controllers.js"></script>
+    <script src="/spa/services/LocaleService.js"></script>
+    <script src="/spa/directives/LanguageSelectDirective.js"></script>
     <script src="ng-file-upload/ng-file-upload.min.js"></script>
 </head>
 
@@ -33,19 +41,22 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <div ng-if="isAuthenticated">
                     <ul class="nav navbar-nav">
-                        <li><a href="#/projects">Projects</a></li>
-                        <li><a href="#/issues">Issues</a></li>
-                        <li ng-show="isUserHasRole('admin')"><a href="#/users">Users</a></li>
+                        <li><a href="#/projects">{{"navbar.projects"|  translate}}</a></li>
+                        <li><a href="#/issues">{{"navbar.issues" | translate}}</a></li>
+                        <li ng-show="isUserHasRole('admin')"><a href="#/users">{{"navbar.users" | translate}}</a></li>
                     </ul>
                 </div>
+                <ul class="nav navbar-nav">
+                    <div ng-translate-language-select></div>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="!isAuthenticated"><a href="#/login"> Sign in</a></li>
+                    <li ng-if="!isAuthenticated"><a href="#/login"> {{"navbar.signin" | translate}}</a></li>
                     <li ng-if="isAuthenticated" class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">You are {{user.username}} <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{"navbar.youare" | translate}} {{user.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/profile/{{user._id}}">Profile</a></li>
+                            <li><a href="#/profile/{{user._id}}">{{"navbar.profile" | translate}}</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/logout">Log out</a></li>
+                            <li><a href="/logout">{{"navbar.logout" | translate}}</a></li>
                         </ul>
                     </li>
                 </ul>

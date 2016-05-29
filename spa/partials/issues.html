@@ -1,15 +1,15 @@
 <div class="page-header">
-    <h1>Issues List</h1>
+    <h1>{{"Issues List"|translate}}</h1>
 </div>
 <div class="row">
     <div class="col-xs-7">
-        <input type="text" class="form-control" ng-model="query" placeholder="Search for a issue">
+        <input type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
     </div>
     <div class="col-xs-3"></div>
     <div class="col-xs-2">
         <div ng-controller="addIssueModalController">
             <div class="page-body">
-                <a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> Create Issue</a>
+                <a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> {{"Create Issue"|translate}}</a>
             </div>
         </div>
 
@@ -22,18 +22,18 @@
 </div>
 <div class="row" ng-switch on="issues.length">
     <ul ng-switch-when="0">
-        <div class="well">No issues in database.</div>
+        <div class="well">{{"noIssueInDatabase" : translate}}.</div>
     </ul>
     <table ng-switch-default class="table table-striped">
         <thead>
             <tr>
-                <th>Issue name</th>
-                <th>Project</th>
-                <th>Assignee user</th>
-                <th>Reporter</th>
-                <th>Status</th>
-                <th>Issue type</th>
-                <th>Severity</th>
+                <th>{{"issueName"|translate}}</th>
+                    <th>{{"Project"|translate}}</th>
+                    <th>{{"assigneeUser" | translate}}</th>
+                    <th>{{"reporter" | translate}}</th>
+                    <th>{{"status" | translate}}</th>
+                    <th>{{"issueType"|translate}}</th>
+                    <th>{{"severity"| translate}}</th>
 
             </tr>
         </thead>
