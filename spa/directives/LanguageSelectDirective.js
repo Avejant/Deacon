@@ -16,8 +16,7 @@ angular.module('deaconApp').directive('ngTranslateLanguageSelect', function(Loca
             '</li>' +
             '',
         controller: function($scope) {
-            //$scope.currentLocaleDisplayName = LocaleService.getLocaleDisplayName();
-            $scope.currentLocaleDisplayName = 'English';
+            $scope.currentLocaleDisplayName = LocaleService.getLocaleDisplayName();
             $scope.localesDisplayNames = LocaleService.getLocalesDisplayNames();
             $scope.visible = $scope.localesDisplayNames &&
                 $scope.localesDisplayNames.length > 1;

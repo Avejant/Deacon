@@ -21,7 +21,12 @@ app.controller('LoginCtrl', ['$scope', '$http', '$location', function($scope, $h
 
 //signup ctrl
 app.controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
-    if ($scope.$parent.isAuthenticated) {
+    if (!$scope.$parent.isAuthenticated) {
+        $location.path('/');
+        return;
+    }
+    
+    if (!$scope.$parent.isUserHasRole("admin")) {
         $location.path('/');
         return;
     }

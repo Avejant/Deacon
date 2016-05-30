@@ -35,7 +35,7 @@
     <div class="col-xs-4">
         <div class="btn-group" role="group">
             <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Issue"|translate}}</button>
-            <button ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Sprint" | translate}}</button>
+            <button ng-if="!$parent.isUserHasRole('regular')" ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Sprint" | translate}}</button>
         </div>
     </div>
 </div>

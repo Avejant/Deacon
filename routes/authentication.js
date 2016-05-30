@@ -74,13 +74,7 @@ module.exports = function(app, passport) {
                     messages: req.flash('registerMessage')
                 });
             }
-            req.login(user, function(err) {
-                if (err) {
-                    return next(err);
-                }
-                // Redirect if it succeeds
-                return res.send();
-            });
+            return res.send();
         })(req, res, next);
     });
 };
