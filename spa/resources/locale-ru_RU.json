@@ -88,8 +88,8 @@
     "Enter your old password": "Введите ваш старый пароль",
     "New password": "Новый пароль",
     "New password should have length no less than 4 and no more than 20 characters.": "Длина нового пароля должна быть не меньше 4 и не больше 20 символов.",
-    "Confirm password": "Подтвердить пароль",
-    "Confirmation does not match password": "Новый пароль не совпадает с подтверждением",
+    "Confirm password": "Подтверждение",
+    "Confirmation does not match password": "Пароль не совпадает с подтверждением",
     "Password was successfully changed": "Пароль был изменен",
     "Project info": "Информация о проекте",
     "Short name": "Сокращение",
@@ -136,7 +136,26 @@
     "Description should be as detailed, as possible":"Описание должно быть как можно более подробным",
     "Choose type of issue":"Выберите тип задачи",
     "Choose severity of issue": "Выберите серьезность задачи",
-    "Choose assignee user":"Выберите ответственного"
+    "Choose assignee user":"Выберите ответственного",
+    "admin" : "Администратор",
+    "devlead" :"PM",
+    "regular":"Программист",
+    "Open":"Открыта",
+    "In Progress":"В прогрессе",
+    "Resolved" : "Завершена",
+    "Closed" : "Закрыта",
+    "Story":"Функция",
+    "Improvement":"Улучшение",
+    "Task":"Техническое задание",
+    "Bug":"Баг",
+    "Spike":"Исследование",
+    "Critical":"Критическая",
+    "Blocker":"Блокирующая",
+    "Major":"Высокая",
+    "Normal":"Нормальная",
+    "Minor":"Низкая",
+    "Trivial":"Незначительная",
+    "That username is already taken." : "Пользователь с таким логином уже существует."
 
 
 

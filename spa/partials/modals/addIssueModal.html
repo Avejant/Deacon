@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
-                        <select ng-options="issueType.name for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
+                        <select ng-options="issueType.name | translate for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
                         </select>
                         <p class="help-block">{{"Choose type of issue"|translate}}</p>
                     </div>

@@ -9,13 +9,13 @@
             <p> <b>{{"Description" | translate}}: </b> <span ng-show="!editable">{{issue.description}} </span>
                 <textarea ng-show="editable" name="description" class="form-control" rows="5" ng-model="issueForm.description"></textarea>
             </p>
-            <p> <b>{{"status" | translate}}: </b>{{issue.status.name}}</p>
-            <p> <b>{{"severity" | translate}}: </b><span ng-show="!editable">{{issue.severity.name}}</span>
-                <select ng-show="editable" ng-options="severity.name for severity in severities" ng-model="issueForm.severity" class="form-control">
+            <p> <b>{{"status" | translate}}: </b>{{issue.status.name | translate}}</p>
+            <p> <b>{{"severity" | translate}}: </b><span ng-show="!editable">{{issue.severity.name| translate}}</span>
+                <select ng-show="editable" ng-options="severity.name | translate for severity in severities" ng-model="issueForm.severity" class="form-control">
                 </select>
             </p>
-            <p> <b>{{"issueType" | translate}}: </b><span ng-show="!editable">{{issue.issueType.name}}</span>
-                <select ng-show="editable" ng-options="issueType.name for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
+            <p> <b>{{"issueType" | translate}}: </b><span ng-show="!editable">{{issue.issueType.name| translate}}</span>
+                <select ng-show="editable" ng-options="issueType.name | translate for issueType in issueTypes" ng-model="issueForm.issueType" class="form-control">
                 </select>
             </p>
             <p> <b>{{"assigneeUser" | translate}}: </b><a ng-show="!editable" href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a>

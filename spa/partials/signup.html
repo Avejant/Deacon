@@ -97,7 +97,7 @@
 			</div>
 			<div class="col-sm-9">
 				<div class="controls">
-					<select ng-options="role.name for role in roles" ng-model="formData.choosenRole" id="role" class="form-control" name="role">
+					<select ng-options="role.name | translate for role in roles" ng-model="formData.choosenRole" id="role" class="form-control" name="role">
 					</select>
 					<p class="help-block">{{"Please, choose your role"|translate}}</p>
 				</div>

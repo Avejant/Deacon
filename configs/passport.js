@@ -58,7 +58,9 @@ module.exports = function(passport) {
                     if (user) {
                         return done(null, false, req.flash('registerMessage', 'That username is already taken.'));
                     } else {
-
+                      if (password !== req.body.confPassword) {
+                        return done(null, false, req.flash('registerMessage', 'Confirmation does not match password'));
+                      }
                         // if there is no user with that username
                         // create the user
                         var newUser = new User({

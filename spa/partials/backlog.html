@@ -24,9 +24,9 @@
                 <tbody>
                     <tr ng-repeat="issue in activeSprint.issues">
                         <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
-                        <td>{{issue.issueType.name}}</td>
-                        <td>{{issue.severity.name}}</td>
-                        <td>{{issue.status.name}}</td>
+                        <td>{{issue.issueType.name| translate}}</td>
+                        <td>{{issue.severity.name| translate}}</td>
+                        <td>{{issue.status.name | translate}}</td>
                         <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
                         <td><span class="badge">{{issue.storyPoints}}</span></td>
                         <td class="col-md-2">
@@ -70,9 +70,9 @@
                 <tbody>
                     <tr ng-repeat="issue in backlog.issues">
                         <td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
-                        <td>{{issue.issueType.name}}</td>
-                        <td>{{issue.severity.name}}</td>
-                        <td>{{issue.status.name}}</td>
+                        <td>{{issue.issueType.name| translate}}</td>
+                        <td>{{issue.severity.name| translate}}</td>
+                        <td>{{issue.status.name | translate}}</td>
                         <td><a href="#/profile/{{issue.assigneeUser._id}}">{{issue.assigneeUser.username}}</a></td>
                         <td><span class="badge">{{issue.storyPoints}}</span></td>
                         <td class="col-md-2">
