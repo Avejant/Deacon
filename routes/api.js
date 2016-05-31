@@ -62,6 +62,7 @@ module.exports = function(app, passport) {
 
     app.get('/api/users', Users.getAll);
     app.get('/api/users/:id', Users.getById);
+        app.put('/api/users/:id', Users.update);
     app.put('/api/users/:id/changePassword', Users.changePassword)
 
     //upload routes

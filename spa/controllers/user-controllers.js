@@ -25,6 +25,18 @@ app.controller('UserProfileCtrl', ['$scope', '$http', '$location', '$routeParams
         return;
     }
     $scope.form = {};
+    $scope.editable = false;
+    $scope.cancel = function() {
+        $scope.editable = false;
+    }
+
+    $scope.update = function() {
+        $http.put('/api/users/' + $scope.profileUser._id, $scope.userForm).success(function(data) {
+            $scope.editable = false;
+            $route.reload();
+        });
+    }
+
     $scope.changePassword = function() {
         $scope.messages = [];
         $scope.passwordChangeMessage = null;
@@ -61,12 +73,17 @@ app.controller('UserProfileCtrl', ['$scope', '$http', '$location', '$routeParams
             console.log('Error status: ' + resp.status);
         }, function(evt) {});
     };
+
     $http.get('/api/users/' + $routeParams.id).success(function(data) {
 
         if (!data) {
             $location.path('/');
         }
         $scope.profileUser = data;
+        $scope.userForm.firstName = data.firstName;
+        $scope.userForm.lastName = data.lastName;
+        $scope.userForm.email = data.email;
+        $scope.userForm.location = data.location;
         $scope.isYourOwnProfile = $scope.profileUser._id === $scope.user._id;
     });
 

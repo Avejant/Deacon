@@ -18,18 +18,36 @@
         </form>
     </div>
 </p>
-<div class="panel panel-default">
-    <div class="panel-heading"><b>{{"User info"|translate}}</b></div>
-    <div class="panel-body">
-        <p> <b>{{"First name"|translate}}:</b> {{profileUser.firstName}} </p>
-        <p><b> {{"Last name"|translate}}:</b> {{profileUser.lastName}} </p>
-        <p> <b>E-Mail:</b> <a href="mailto:{{profileUser.email}}" target="_top">{{profileUser.email}}</a> </p>
-        <p> <b>{{"Location"|translate}}:</b> {{profileUser.location}}</p>
-        <p> <b>{{"Date of registration"|translate}}:</b> {{profileUser.createdAt | date:'medium'}}</p>
-        <p><b>{{"Role"|translate}}:</b> {{profileUser.role.name | translate}}</p>
+<form name="userForm" ng-submit="update(userForm.$valid)" class="form-horizontal" novalidate>
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>{{"User info"|translate}}</b></div>
+        <div class="panel-body">
+            <p> <b>{{"First name"|translate}}:</b> <span ng-show="!editable">{{profileUser.firstName}}</span>
+                <input ng-show="editable" type="text" id="firstName" ng-model="userForm.firstName" class="form-control" required>
+            </p>
+            <p><b> {{"Last name"|translate}}:</b> <span ng-show="!editable">{{profileUser.lastName}}</span>
+                <input ng-show="editable" type="text" id="firstName" ng-model="userForm.lastName" class="form-control" required>
+            </p>
+            <p> <b>E-Mail:</b> <a ng-show="!editable" href="mailto:{{profileUser.email}}" target="_top">{{profileUser.email}}</a>
+                <input ng-show="editable" type="email" id="email" ng-model="userForm.email" class="form-control" required>
+            </p>
+            <p> <b>{{"Location"|translate}}:</b><span ng-show="!editable"> {{profileUser.location}} </span>
+                <input ng-show="editable" type="text" id="firstName" ng-model="userForm.location" class="form-control" required>
+            </p>
+            <p> <b>{{"Date of registration"|translate}}:</b> {{profileUser.createdAt | date:'medium'}}</p>
+            <p><b>{{"Role"|translate}}:</b><span> {{profileUser.role.name | translate}} </span>
+            </p>
+            <div ng-show="isYourOwnProfile">
+                <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> {{"button.Edit"|translate}}</button>
+                <!-- <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button> -->
+                <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success">
+                    </span> {{"button.Save"|translate}}</button>
+                <button type="button" ng-show="editable" class="btn btn-default" ng-click="cancel()">
+                    </span> {{"button.Cancel" | translate}}</button>
+            </div>
+        </div>
     </div>
-</div>
-
+</form>
 <div class="panel panel-default" ng-if="isYourOwnProfile">
     <div class="panel-heading"><b>{{"Change password"|translate}}</b></div>
     <div class="panel-body">
@@ -78,7 +96,7 @@
                 <div class="control-group">
                     <div class="col-sm-2">
                         <button type="submit" ng-disabled="form.passwordForm.$invalid" class="btn btn-success">
-                        </span> {{"button.Save" | translate}}</button>
+                            </span> {{"button.Save" | translate}}</button>
                     </div>
                 </div>
             </fieldset>

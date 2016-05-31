@@ -72,16 +72,14 @@ userController.update = function(req, res) {
             });
         }
 
-        username.password = password;
-        username.firstName = req.body.firstName;
-        username.lastName = req.body.lastName;
-        username.email = req.body.email;
-        username.location = req.body.location;
-        username.role = req.body.choosenRole._id;
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.email = req.body.email;
+        user.location = req.body.location;
 
         return user.save(function(err) {
             if (!err) {
-                return res.redirect('/');
+                return res.send();
             } else {
                 if (err.name == 'ValidationError') {
                     res.statusCode = 400;
@@ -98,6 +96,7 @@ userController.update = function(req, res) {
         });
     });
 }
+
 userController.changePassword = function(req, res) {
     Users.findById(req.params.id, function(err, user) {
         if (err) {
