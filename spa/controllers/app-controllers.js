@@ -12,6 +12,30 @@ app.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
 //main page ctrl
 app.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+  $scope.query = "";
+  $scope.fields = [{
+      value: 0,
+      name: ''
+  }, {
+      value: 1,
+      name: 'Issue name'
+  }, {
+      value: 2,
+      name: 'Project'
+  }, {
+      value: 3,
+      name: 'Reporter'
+  }, {
+      value: 4,
+      name: 'Status'
+  }, {
+      value: 5,
+      name: 'Issue Type'
+  }, {
+      value: 6,
+      name: 'Severity'
+  }];
+  $scope.field = 0;
     $http.get('/currentUser').success(function(data) {
         $scope.isAuthenticated = data.isAuthenticated;
         $scope.user = data.user;

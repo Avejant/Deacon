@@ -157,8 +157,14 @@
     "Trivial": "Незначительная",
     "That username is already taken.": "Пользователь с таким логином уже существует.",
     "Ask your administrators for credentials": "Запросите у ваших администраторов учетные данные",
-    "Add new user" :"Добавьте нового пользователя"
-
+    "Add new user" :"Добавьте нового пользователя",
+    "Assignee user" :"Ответственный",
+    "Reporter":"Создатель",
+    "Status" :"Статус",
+    "Issue Type":"Тип",
+    "Severity":"Серьезность",
+    "Filter":"Фильтр",
+    "Name":"Имя"
 
 
 

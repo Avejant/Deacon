@@ -13,32 +13,49 @@
                 <a href="#/profile/{{project.projectManager._id}}"> <span>{{project.projectManager.username}}</span> </a>
             </p>
             <p><b> {{"Active sprint"|translate}}:</b>
-                <a  ng-hide="!activeSprint._id" href="#/project/{{project._id}}/activeSprint">{{activeSprint.name}}</a>
+                <a ng-hide="!activeSprint._id" href="#/project/{{project._id}}/activeSprint">{{activeSprint.name}}</a>
                 <span ng-hide="activeSprint._id"> {{activeSprint.name | translate}} </span>
             </p>
             <p ng-hide="!activeSprint._id"> <a href="#/project/{{project._id}}/backlog">{{"View Backlog"|translate}}</a></p>
             <button type="button" ng-show="!editable" class="btn btn-default" ng-click="editable=true"><span class="glyphicon glyphicon-pencil"></span> {{"button.Edit"|translate}}</button>
             <!-- <button type="button" ng-show="!editable" class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span> Delete project</button> -->
             <button type="submit" ng-show="editable" ng-disabled="projectForm.$invalid" class="btn btn-success">
-            </span> {{"button.Save"|translate}}</button>
+                </span> {{"button.Save"|translate}}</button>
             <button type="button" ng-show="editable" class="btn btn-default" ng-click="cancel()">
-            </span> {{"button.Cancel" | translate}}</button>
+                </span> {{"button.Cancel" | translate}}</button>
         </div>
     </div>
 </form>
 <h3>{{"Issues of project"|translate}}:</h3>
 <div class="row">
-    <div class="col-xs-7">
-        <input type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
-    </div>
-    <div class="col-xs-2"></div>
-    <div class="col-xs-4">
-        <div class="btn-group" role="group">
-            <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Issue"|translate}}</button>
-            <button ng-if="!$parent.isUserHasRole('regular')" ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Sprint" | translate}}</button>
+    <div class="control-group">
+        <div class="col-sm-3">
+            <input ng-show="field == 0" type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
+            <input ng-show="field == 1" type="text" class="form-control" ng-model="query.name" placeholder="{{'Search for a issue'|translate}}">
+            <input ng-show="field == 2" type="text" class="form-control" ng-model="query.assigneeUser.username" placeholder="{{'Search for a issue'|translate}}">
+            <input ng-show="field == 3" type="text" class="form-control" ng-model="query.reporter.username" placeholder="{{'Search for a issue'|translate}}">
+            <input ng-show="field == 4" type="text" class="form-control" ng-model="query.status.name" placeholder="{{'Search for a issue'|translate}}">
+            <input ng-show="field == 5" type="text" class="form-control" ng-model="query.issueType.name" placeholder="{{'Search for a issue'|translate}}">
+            <input ng-show="field == 6" type="text" class="form-control" ng-model="query.severity.name" placeholder="{{'Search for a issue'|translate}}">
+        </div>
+        <div class="col-sm-1">
+            <label class="control-label" for="selector">{{"Filter"|translate}}:</label>
+        </div>
+        <div class="col-sm-3">
+            <div class="controls">
+                <select id="selector" class="form-control" ng-options="f.value as f.name | translate for f in fields" ng-model="field">
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="btn-group" role="group">
+                <button ng-controller="addIssueModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Issue"|translate}}</button>
+                <button ng-if="!$parent.isUserHasRole('regular')" ng-controller="addSprintModalController" type="button" ng-click="showForm()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> {{"Create Sprint" | translate}}</button>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-xs-12">
         <hr>

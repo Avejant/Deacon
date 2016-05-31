@@ -3,7 +3,30 @@
 </div>
 <div class="row">
     <div class="col-xs-7">
-        <input type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
+        <div class="row">
+            <div class="control-group">
+                <div class="col-xs-6">
+                    <input ng-show="field == 0" type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 1" type="text" class="form-control" ng-model="query.name" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 2" type="text" class="form-control" ng-model="query.project.name" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 3" type="text" class="form-control" ng-model="query.assigneeUser.username" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 4" type="text" class="form-control" ng-model="query.reporter.username" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 5" type="text" class="form-control" ng-model="query.status.name" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 6" type="text" class="form-control" ng-model="query.issueType.name" placeholder="{{'Search for a issue'|translate}}">
+                    <input ng-show="field == 7" type="text" class="form-control" ng-model="query.severity.name" placeholder="{{'Search for a issue'|translate}}">
+                </div>
+
+                <div class="col-xs-2">
+                    <label class="control-label" for="selector">{{"Filter"|translate}}:</label>
+                </div>
+                <div class="col-xs-4">
+                    <div class="controls">
+                        <select id="selector" class="form-control" ng-options="f.value as f.name | translate for f in fields" ng-model="field">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-xs-3"></div>
     <div class="col-xs-2">
@@ -28,13 +51,12 @@
         <thead>
             <tr>
                 <th>{{"issueName"|translate}}</th>
-                    <th>{{"Project"|translate}}</th>
-                    <th>{{"assigneeUser" | translate}}</th>
-                    <th>{{"reporter" | translate}}</th>
-                    <th>{{"status" | translate}}</th>
-                    <th>{{"issueType"|translate}}</th>
-                    <th>{{"severity"| translate}}</th>
-
+                <th>{{"Project"|translate}}</th>
+                <th>{{"assigneeUser" | translate}}</th>
+                <th>{{"reporter" | translate}}</th>
+                <th>{{"status" | translate}}</th>
+                <th>{{"issueType"|translate}}</th>
+                <th>{{"severity"| translate}}</th>
             </tr>
         </thead>
         <tbody>

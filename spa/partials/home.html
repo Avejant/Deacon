@@ -6,6 +6,29 @@
 <div ng-if="isAuthenticated">
 	<h1>{{"greeting" | translate}}, {{user.username}}!</h1>
 	<h3>{{"assignedIssues" | translate}} </h3>
+	<div class="row">
+		<div class="control-group">
+			<div class="col-sm-6">
+				<input ng-show="field == 0" type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
+				<input ng-show="field == 1" type="text" class="form-control" ng-model="query.name" placeholder="{{'Search for a issue'|translate}}">
+				<input ng-show="field == 2" type="text" class="form-control" ng-model="query.project.name" placeholder="{{'Search for a issue'|translate}}">
+				<input ng-show="field == 3" type="text" class="form-control" ng-model="query.reporter.username" placeholder="{{'Search for a issue'|translate}}">
+				<input ng-show="field == 4" type="text" class="form-control" ng-model="query.status.name" placeholder="{{'Search for a issue'|translate}}">
+				<input ng-show="field == 5" type="text" class="form-control" ng-model="query.issueType.name" placeholder="{{'Search for a issue'|translate}}">
+				<input ng-show="field == 6" type="text" class="form-control" ng-model="query.severity.name" placeholder="{{'Search for a issue'|translate}}">
+			</div>
+			<div class="col-sm-1">
+				<label class="control-label" for="selector">{{"Filter"|translate}}:</label>
+			</div>
+			<div class="col-sm-5">
+				<div class="controls">
+					<select id="selector" class="form-control" ng-options="f.value as f.name | translate for f in fields" ng-model="field">
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
 	<div class="row" ng-switch on="issues.length">
 		<ul ng-switch-when="0">
 			<div class="well">{{"noIssueInDatabase" | translate}}</div>
@@ -14,6 +37,7 @@
 			<thead>
 				<tr>
 					<th>{{"issueName"| translate}}</th>
+					<th>{{"Project"|translate}}</th>
 					<th>{{"reporter"|translate}}</th>
 					<th>{{"status"|translate}}</th>
 					<th>{{"issueType"|translate}}</th>
@@ -23,6 +47,7 @@
 			<tbody>
 				<tr ng-repeat="issue in issues | filter:query">
 					<td><a href="#/issues/{{issue._id}}">{{issue.name}}</a></td>
+					<td><a href="#/projects/{{issue.project._id}}">{{issue.project.name}}</a></td>
 					<td><a href="#/profile/{{issue.reporter._id}}">{{issue.reporter.username}}</a></td>
 					<td>{{issue.status.name | translate}}</td>
 					<td>{{issue.issueType.name| translate}}</td>

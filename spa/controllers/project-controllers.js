@@ -5,7 +5,21 @@ app.controller('ProjectListCtrl', ['$scope', '$http', '$location', function($sco
         $location.path('/');
         return;
     }
-
+    $scope.query = "";
+    $scope.fields = [{
+        value: 0,
+        name: ''
+    }, {
+        value: 1,
+        name: 'Name'
+    }, {
+        value: 2,
+        name: 'Short name'
+    }, {
+        value: 3,
+        name: 'Project manager'
+    }];
+    $scope.field = 0;
     $http.get('/api/projects').success(function(data) {
         $scope.projects = angular.fromJson(data);
     });
@@ -16,7 +30,30 @@ app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$route
         $location.path('/');
         return;
     }
-
+    $scope.query = "";
+    $scope.fields = [{
+        value: 0,
+        name: ''
+    }, {
+        value: 1,
+        name: 'Issue name'
+    }, {
+        value: 2,
+        name: 'Assignee user'
+    }, {
+        value: 3,
+        name: 'Reporter'
+    }, {
+        value: 4,
+        name: 'Status'
+    }, {
+        value: 5,
+        name: 'Issue Type'
+    }, {
+        value: 6,
+        name: 'Severity'
+    }];
+    $scope.field = 0;
     $scope.activeSprint = "SPA-1";
     $http.get('/api/projects/' + $routeParams.id).success(function(data) {
         $scope.update = function() {
@@ -52,13 +89,15 @@ app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$route
         }
         $scope.project = angular.fromJson(data);
         if ($scope.project.sprints.length == 0) {
-            $scope.activeSprint ={name: "No sprints"} ;
+            $scope.activeSprint = {
+                name: "No sprints"
+            };
         } else {
             $scope.activeSprint = $scope.project.sprints[$scope.project.sprints.length - 1];
         }
 
 
-        $http.get('/api/projects/' + $scope.project._id +'/issues').success(function(data) {
+        $http.get('/api/projects/' + $scope.project._id + '/issues').success(function(data) {
             $scope.issues = angular.fromJson(data);
             $scope.projectForm.name = $scope.project.name;
             $scope.projectForm.shortName = $scope.project.shortName;

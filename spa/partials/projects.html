@@ -2,11 +2,25 @@
 	<h1>{{"Projects List"|translate}}</h1>
 </div>
 <div class="row">
-	<div class="col-xs-7">
-		<input type="text" class="form-control" ng-model="query" placeholder="{{'Search for a project'|translate}}">
+	<div class="control-group">
+		<div class="col-sm-3">
+			<input ng-show="field == 0" type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
+			<input ng-show="field == 1" type="text" class="form-control" ng-model="query.name" placeholder="{{'Search for a issue'|translate}}">
+			<input ng-show="field == 2" type="text" class="form-control" ng-model="query.shortName" placeholder="{{'Search for a issue'|translate}}">
+			<input ng-show="field == 3" type="text" class="form-control" ng-model="query.projectManager.username" placeholder="{{'Search for a issue'|translate}}">
+		</div>
+		<div class="col-sm-1">
+			<label class="control-label" for="selector">{{"Filter"|translate}}:</label>
+		</div>
+		<div class="col-sm-3">
+			<div class="controls">
+				<select id="selector" class="form-control" ng-options="f.value as f.name | translate for f in fields" ng-model="field">
+				</select>
+			</div>
+		</div>
 	</div>
-	<div class="col-xs-3"></div>
-	<div class="col-xs-2" ng-if="!$parent.isUserHasRole('regular')">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-2" ng-if="!$parent.isUserHasRole('regular')">
 		<div ng-controller="addProjectModalController">
 			<div class="page-body">
 				<a class="btn btn-default" ng-click="showForm()"><span class="glyphicon glyphicon-plus"></span> {{"Add Project"|translate}}</a>

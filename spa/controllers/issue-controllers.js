@@ -6,9 +6,35 @@ app.controller('IssueListCtrl', ['$scope', '$http', '$location', function($scope
         return;
     }
 
-
+    $scope.query = "";
     $http.get('/api/issues').success(function(data) {
         $scope.issues = angular.fromJson(data);
+        $scope.fields = [{
+            value: 0,
+            name: ''
+        }, {
+            value: 1,
+            name: 'Issue name'
+        }, {
+            value: 2,
+            name: 'Project name'
+        }, {
+            value: 3,
+            name: 'Assignee user'
+        }, {
+            value: 4,
+            name: 'Reporter'
+        }, {
+            value: 5,
+            name: 'Status'
+        }, {
+            value: 6,
+            name: 'Issue Type'
+        }, {
+            value: 7,
+            name: 'Severity'
+        }];
+        $scope.field = 0;
     });
 }]);
 
