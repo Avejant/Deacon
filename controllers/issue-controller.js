@@ -48,10 +48,10 @@ issueController.getIssueBySprint = function(req, res) {
     issueController.getByQuery({
         sprint: req.params.id
     }).exec(function(err, issue) {
-      if (err) {
-        res.error(err);
-      }
-      res.json(issue);
+        if (err) {
+            res.error(err);
+        }
+        res.json(issue);
     });
 }
 
@@ -159,6 +159,7 @@ issueController.toogleSprint = function(req, res) {
 
         if (issue.sprint !== null) {
             issue.sprint = null;
+            issue.updatedAt = new Date();
             issue.save(function(err) {
                 if (err) {
                     res.send({
@@ -172,6 +173,7 @@ issueController.toogleSprint = function(req, res) {
                 _id: issue.project
             }).exec(function(err, project) {
                 issue.sprint = project.sprints[project.sprints.length - 1];
+                issue.updatedAt = new Date();
                 issue.save(function(err) {
                     if (err) {
                         res.send({

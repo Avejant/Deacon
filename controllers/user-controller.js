@@ -102,7 +102,9 @@ userController.changePassword = function(req, res) {
         if (err) {
             throw err;
         }
-
+        if (!user.validPassword(req.body.oldPass)) {
+          return res.send({errorMessage:"Old password is wrong!"});
+        }
         user.password = passwordHasher.generate(req.body.newPass);
         user.save(function(err) {
             if (!err) {

@@ -6,13 +6,46 @@ app.controller('IssueListCtrl', ['$scope', '$http', '$location', function($scope
         return;
     }
 
-    $scope.query = "";
+    $scope.query = {
+        issueType: {
+            name: ""
+        },
+        status: {
+            name: ""
+        },
+        severity: {
+            name: ""
+        }
+    };
+
+    $scope.changeFilter = function() {
+        var filt = this.field;
+        switch (filt) {
+            case 5:
+                $scope.query.status.name = $scope.statuses[0].name;
+                $scope.query.issueType.name = "";
+                $scope.query.severity.name = "";
+                break;
+            case 6:
+                $scope.query.issueType.name = $scope.issueTypes[0].name;
+                $scope.query.status.name = "";
+                $scope.query.severity.name = "";
+                break;
+            case 7:
+                $scope.query.severity.name = $scope.severities[0].name;
+                $scope.query.status.name = "";
+                $scope.query.issueType.name = "";
+                break;
+            default:
+                $scope.query.status.name = "";
+                $scope.query.issueType.name = "";
+                $scope.query.severity.name = "";
+        }
+    }
+
     $http.get('/api/issues').success(function(data) {
         $scope.issues = angular.fromJson(data);
         $scope.fields = [{
-            value: 0,
-            name: ''
-        }, {
             value: 1,
             name: 'Issue name'
         }, {
@@ -34,7 +67,17 @@ app.controller('IssueListCtrl', ['$scope', '$http', '$location', function($scope
             value: 7,
             name: 'Severity'
         }];
-        $scope.field = 0;
+        $scope.field = 1;
+        $http.get('/api/issueTypes').success(function(data) {
+            $scope.issueTypes = data;
+            $http.get('/api/statuses').success(function(data) {
+                $scope.statuses = data;
+                $http.get('/api/severities').success(function(data) {
+                    $scope.severities = data;
+                });
+            });
+        });
+
     });
 }]);
 

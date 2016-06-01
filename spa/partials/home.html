@@ -9,20 +9,22 @@
 	<div class="row">
 		<div class="control-group">
 			<div class="col-sm-6">
-				<input ng-show="field == 0" type="text" class="form-control" ng-model="query" placeholder="{{'Search for a issue'|translate}}">
 				<input ng-show="field == 1" type="text" class="form-control" ng-model="query.name" placeholder="{{'Search for a issue'|translate}}">
 				<input ng-show="field == 2" type="text" class="form-control" ng-model="query.project.name" placeholder="{{'Search for a issue'|translate}}">
 				<input ng-show="field == 3" type="text" class="form-control" ng-model="query.reporter.username" placeholder="{{'Search for a issue'|translate}}">
-				<input ng-show="field == 4" type="text" class="form-control" ng-model="query.status.name" placeholder="{{'Search for a issue'|translate}}">
-				<input ng-show="field == 5" type="text" class="form-control" ng-model="query.issueType.name" placeholder="{{'Search for a issue'|translate}}">
-				<input ng-show="field == 6" type="text" class="form-control" ng-model="query.severity.name" placeholder="{{'Search for a issue'|translate}}">
+				<select ng-show="field == 4" ng-options="status.name as status.name | translate for status in statuses" ng-model="query.status.name" class="form-control">
+				</select>
+				<select ng-show="field == 5" ng-options="issueType.name as issueType.name | translate for issueType in issueTypes" ng-model="query.issueType.name" class="form-control">
+				</select>
+				<select ng-show="field == 6" ng-options="severity.name as severity.name | translate for severity in severities" ng-model="query.severity.name" class="form-control">
+				</select>
 			</div>
 			<div class="col-sm-1">
 				<label class="control-label" for="selector">{{"Filter"|translate}}:</label>
 			</div>
 			<div class="col-sm-5">
 				<div class="controls">
-					<select id="selector" class="form-control" ng-options="f.value as f.name | translate for f in fields" ng-model="field">
+					<select id="selector" ng-change="changeFilter()" class="form-control" ng-options="f.value as f.name | translate for f in fields" ng-model="field">
 					</select>
 				</div>
 			</div>

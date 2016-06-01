@@ -7,9 +7,6 @@ app.controller('ProjectListCtrl', ['$scope', '$http', '$location', function($sco
     }
     $scope.query = "";
     $scope.fields = [{
-        value: 0,
-        name: ''
-    }, {
         value: 1,
         name: 'Name'
     }, {
@@ -19,7 +16,7 @@ app.controller('ProjectListCtrl', ['$scope', '$http', '$location', function($sco
         value: 3,
         name: 'Project manager'
     }];
-    $scope.field = 0;
+    $scope.field = 1;
     $http.get('/api/projects').success(function(data) {
         $scope.projects = angular.fromJson(data);
     });
@@ -30,31 +27,7 @@ app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$route
         $location.path('/');
         return;
     }
-    $scope.query = "";
-    $scope.fields = [{
-        value: 0,
-        name: ''
-    }, {
-        value: 1,
-        name: 'Issue name'
-    }, {
-        value: 2,
-        name: 'Assignee user'
-    }, {
-        value: 3,
-        name: 'Reporter'
-    }, {
-        value: 4,
-        name: 'Status'
-    }, {
-        value: 5,
-        name: 'Issue Type'
-    }, {
-        value: 6,
-        name: 'Severity'
-    }];
-    $scope.field = 0;
-    $scope.activeSprint = "SPA-1";
+
     $http.get('/api/projects/' + $routeParams.id).success(function(data) {
         $scope.update = function() {
             console.log($scope.projectForm);
@@ -87,6 +60,32 @@ app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$route
                 $location.path('/projects');
             });
         }
+
+        $scope.changeFilter = function() {
+            var filt = this.field;
+            switch (filt) {
+                case 4:
+                    $scope.query.status.name = $scope.statuses[0].name;
+                    $scope.query.issueType.name = "";
+                    $scope.query.severity.name = "";
+                    break;
+                case 5:
+                    $scope.query.issueType.name = $scope.issueTypes[0].name;
+                    $scope.query.status.name = "";
+                    $scope.query.severity.name = "";
+                    break;
+                case 6:
+                    $scope.query.severity.name = $scope.severities[0].name;
+                    $scope.query.status.name = "";
+                    $scope.query.issueType.name = "";
+                    break;
+                default:
+                    $scope.query.status.name = "";
+                    $scope.query.issueType.name = "";
+                    $scope.query.severity.name = "";
+            }
+        }
+
         $scope.project = angular.fromJson(data);
         if ($scope.project.sprints.length == 0) {
             $scope.activeSprint = {
@@ -101,6 +100,48 @@ app.controller('ProjectCtrl', ['$scope', '$http', '$location', '$route', '$route
             $scope.issues = angular.fromJson(data);
             $scope.projectForm.name = $scope.project.name;
             $scope.projectForm.shortName = $scope.project.shortName;
+
+            $scope.query = {
+                issueType: {
+                    name: ""
+                },
+                status: {
+                    name: ""
+                },
+                severity: {
+                    name: ""
+                }
+            };
+
+            $scope.fields = [{
+                value: 1,
+                name: 'Issue name'
+            }, {
+                value: 2,
+                name: 'Assignee user'
+            }, {
+                value: 3,
+                name: 'Reporter'
+            }, {
+                value: 4,
+                name: 'Status'
+            }, {
+                value: 5,
+                name: 'Issue Type'
+            }, {
+                value: 6,
+                name: 'Severity'
+            }];
+            $scope.field = 1;
+            $http.get('/api/issueTypes').success(function(data) {
+                $scope.issueTypes = data;
+                $http.get('/api/statuses').success(function(data) {
+                    $scope.statuses = data;
+                    $http.get('/api/severities').success(function(data) {
+                        $scope.severities = data;
+                    });
+                });
+            });
         });
     });
 

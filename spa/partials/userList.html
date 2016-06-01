@@ -2,11 +2,15 @@
 	<h1>{{"List of users"|translate}}</h1>
 </div>
 <a href="#/signup">{{"Add new user" | translate}}</a>
+<br>
+<br>
+<input type="text" class="form-control" ng-model="query.username" placeholder="{{'Search for a user'|translate}}">
+<br>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<ul class="list-group" ng-repeat="user in users">
+		<ul class="list-group" ng-repeat="user in users |filter: query">
 			<li class="list-group-item">
-				<img width="50px" height="50px" src="storage/avatars/{{user.avatar}}"> <a href="#/profile/{{user._id}}">{{user.username}}</a>
+				<img width="50px" height="50px" src="storage/avatars/{{user.avatar}}"> <a href="#/profile/{{user._id}}"> {{user.username}}</a> ({{user.firstName}} {{user.lastName}})
 			</li>
 		</ul>
 	</div>

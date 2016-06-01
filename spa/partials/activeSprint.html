@@ -13,8 +13,8 @@
             <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.todo" class="list-group-item">
-                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <br>
                         <br>
                         <span title="Type"><i>{{issue.issueType.name | translate}}</i></span>
@@ -33,8 +33,8 @@
             <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.inprog" class="list-group-item">
-                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <br>
                         <br>
                         <span title="Type"><i>{{issue.issueType.name|translate}}</i></span>
@@ -54,8 +54,8 @@
             <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.resolved" class="list-group-item">
-                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <br>
                         <br>
                         <span title="Type"><i>{{issue.issueType.name|translate}}</i></span>
@@ -75,8 +75,8 @@
             <td class="col-md-2">
                 <ul class="list-group">
                     <li ng-repeat="issue in sprint.closed" class="list-group-item">
-                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <span title="Story points" class="badge">{{issue.storyPoints}}</span>
+                        <a href="#/issues/{{issue._id}}"><span><b>{{issue.name}}</b></span></a>
                         <br>
                         <br>
                         <span title="Type"><i>{{issue.issueType.name|translate}}</i></span>

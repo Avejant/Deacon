@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="controls">
-                        <select ng-options="severity.name for severity in severities" ng-model="issueForm.severity" class="form-control">
+                        <select ng-options="severity.name | translate for severity in severities" ng-model="issueForm.severity" class="form-control">
                         </select>
                         <p class="help-block">{{"Choose severity of issue"|translate}}</p>
                     </div>

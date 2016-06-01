@@ -164,7 +164,11 @@
     "Issue Type":"Тип",
     "Severity":"Серьезность",
     "Filter":"Фильтр",
-    "Name":"Имя"
+    "Name":"Имя",
+    "Search for a user":"Искать пользователя",
+    "Project with the same name already exists.":"Проект с таким именем уже существует.",
+    "Project with the same short name already exists.":"Проект с таким сокращением уже существует.",
+    "Old password is wrong!":"Вы неправильно ввели старый пароль!"
 
 
 
