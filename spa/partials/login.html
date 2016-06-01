@@ -1,3 +1,4 @@
+<div class="row"><br></div>
 <form class="form-signin" ng-submit="submit()">
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
@@ -5,6 +6,7 @@
             <div class="alert alert-danger">{{message | translate}}</div>
         </div>
         <h2 class="form-signin-heading">{{"Please sign in" | translate}}</h2>
+        <br>
         <label for="inputEmail" class="sr-only">{{"Login"|translate}}</label>
         <input type="text" id="inputEmail" name="username" ng-model="formData.username" class="form-control" placeholder="{{'Login'|translate}}" required autofocus>
         <br>
@@ -12,6 +14,6 @@
         <input type="password" id="inputPassword" name="password" ng-model="formData.password" class="form-control" placeholder="{{'Password'|translate}}" required>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">{{"Sign in"|translate}}</button>
-</form>
 </div>
+</form>
 <div class="col-sm-4"></div>
